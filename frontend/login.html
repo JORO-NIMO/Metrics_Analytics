@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MaternalHealthUganda Login</title>
+    <link rel="stylesheet" href="./login.css">
+    <link rel="stylesheet" href="./signup.css">
+    <script src="https://kit.fontawesome.com/8eed1c1f47.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <header>
+        <!-----------LEFT HEADER------------------>
+        <div id="left-header">
+            <a href="./index.html" id="logo" style="text-decoration: none;">MaternalHealthUganda</a>
+        </div>
+
+        <!-----------RIGHT HEADER------------------>
+        <nav id="right-header">
+            Don't have an account? <a href="./SignUp.html">Sign-up</a>
+        </nav>
+    </header>
+
+    <div id="login-signup">
+        <div class="login-container active">            
+            <form action="../BackEnd/login.php" method="post">
+                <div class="form-title">Login</div>
+
+                <div class="email-input-wrapper">
+                    <img id="email-icon" src="../IMAGES/envelope-solid-full.svg" class="fa-icons"></img>
+                    <div class="separator"></div>
+                    <input type="email" name="email" placeholder="Email" class="email-entry" required>
+                </div>
+
+                <div class="password-input-wrapper">
+                    <img id="lock-icon" src="../IMAGES/lock-solid-full.svg" class="fa-icons"></img>
+                    <div class="separator"></div>
+                    <input type="password" name="Password" placeholder="Password" class="password-entry" required>
+                </div>
+
+                <button type="submit" class="login-register">LOG IN</button>
+
+                <div style="text-align: center; margin: 10px 0;">or</div>
+
+                <button type="button" class="guest" onclick="window.location.href='./index.html'">Proceed as a Guest</button>
+            </form>
+        </div>           
+    </div>
+
+    <script src="./profilePic.js"></script>
+</body>
+</html>

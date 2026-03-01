@@ -1,269 +1,27 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    background: #f4f4f4;
-}
+/*
+---------------------------HEADER----------------------------*/
 
 header {
-    background: #483194;
-    color: white;
-    padding: 15px;
-    text-align: center;
-}
-
-nav {
-    background: #333;
-    padding: 10px;
-    text-align: center;
-}
-
-nav a {
-    color: white;
-    margin: 10px;
-    text-decoration: none;
-}
-
-nav a.active {
-    border-bottom: 2px solid #fff;
-    padding-bottom: 5px;
-}
-
-section {
-    padding: 20px;
-    background: white;
-    margin: 30px auto;
-    border-radius: 5px;
-    max-width: 1000px;
-    line-height: 1.7;
-}
-
-button {
-    background: #442c8b;
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-}
-
-button:hover {
-    background: #28226f;
-}
-
-input, textarea {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-}
-
-.tagline {
-    font-size: 18px;
-    opacity: 0.9;
-    margin-top: 5px;
-}
-
-/* ================= SERVICES PAGE ================= */
-
-.services-intro {
-    text-align: center;
-    background: #fff;
-}
-
-.services-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
-}
-
-.service-card {
     display: flex;
-    gap: 15px;
-    background: #fafafa;
-    padding: 20px;
-    border-radius: 6px;
-    border-left: 5px solid #8b2c2c;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.service-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-}
-
-.service-icon {
-    font-size: 32px;
-    line-height: 1;
-}
-
-.service-content h3 {
-    margin-top: 0;
-    margin-bottom: 8px;
-}
-
-.services-cta {
-    text-align: center;
-    background: #fff5f5;
-}
-
-
-/* ================= EMERGENCY PAGE ================= */
-.emergency-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
-    margin-top: 20px;
-}
-
-.emergency-card {
-    background: #fff0f0;
-    border-left: 6px solid #b30000;
-    border-radius: 6px;
-    padding: 15px;
-    margin-bottom: 15px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.emergency-header {
-    display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 10px;
-}
-
-.emergency-title h3 {
-    margin: 0;
-}
-
-.emergency-title p {
-    margin: 5px 0;
-    font-size: 14px;
-    color: #555;
-}
-
-.severity {
-    display: inline-block;
-    padding: 2px 8px;
-    border-radius: 4px;
-    font-size: 12px;
-    font-weight: bold;
-    margin-top: 5px;
-}
-
-.severity.low { background: #ffeb99; color: #665500; }
-.severity.medium { background: #ffd699; color: #994c00; }
-.severity.high { background: #ff9999; color: #660000; }
-
-.emergency-details {
-    display: none;
-    margin-top: 10px;
-    font-size: 14px;
-    color: #333;
-}
-
-.emergency-card.expanded .emergency-details {
-    display: block;
-}
-
-.emergency-card.expanded {
-    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-    transform: translateY(-3px);
-}
-
-.emergency-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-}
-
-.emergency-icon {
-    font-size: 32px;
-    line-height: 1;
-}
-
-.emergency-content h3 {
-    margin-top: 0;
-    margin-bottom: 8px;
-}
-
-.emergency-content p {
-    margin: 0;
-    line-height: 1.5;
-}
-
-.emergency-cta {
-    text-align: center;
-    margin-top: 20px;
-}
-
-/* MOBILE */
-@media (max-width: 768px) {
-    .emergency-card {
-        flex-direction: row;
-        align-items: center;
-    }
-}
-
-/* =================CONTACT PAGE ================= */
-.contact-section {
-    background: #fff5f5;
-    padding: 30px 15px;
-}
-
-.contact-container {
-    max-width: 600px;
-    margin: auto;
-    background: #fff;
-    padding: 25px;
-    border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-}
-
-.contact-container h2 {
-    text-align: center;
-    color: #8b2c2c;
-    margin-bottom: 15px;
-}
-
-.contact-container label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-
-.contact-container input,
-.contact-container textarea {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 14px;
-}
-
-.contact-container input:focus,
-.contact-container textarea:focus {
-    border-color: #8b2c2c;
-    outline: none;
-}
-
-.contact-container button {
-    background: #8b2c2c;
+    padding: 20px 50px;
+    background-color: #480b31;
     color: #fff;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 4px;
-    font-weight: bold;
-    cursor: pointer;
-    width: 100%;
 }
-
-.contact-container button:hover {
-    background: #6f2222;
-}
-
-.form-response {
-    margin-top: 10px;
-    text-align: center;
+header .logo {
+    font-size: 24px;
     font-weight: bold;
-    color: green;
+}
+header nav ul {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+}
+header nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
 }
 
 /*-
@@ -290,209 +48,1170 @@ input, textarea {
 .slide-btn:hover { background: rgba(0,0,0,0.8); }
 .prev { left: 20px; }
 .next { right: 20px; }
+/* TRACKER SECTION STYLES */
+.featured {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    background: linear-gradient(135deg, #fff9f9 0%, #f8f0f7 100%);
+}
 
-.cta {
+/* Main Tracker Card */
+.tracker {
+    background: white;
+    border-radius: 30px;
+    padding: 40px;
+    margin-bottom: 30px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05), 0 5px 15px rgba(226, 152, 203, 0.1);
     text-align: center;
-    background: #fff5f5;
+    border: 1px solid rgba(255, 209, 220, 0.3);
+    position: relative;
+    overflow: hidden;
 }
 
-.cta-buttons {
-    margin-top: 15px;
+.tracker::before {
+    content: '🌸';
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    font-size: 100px;
+    opacity: 0.1;
+    transform: rotate(15deg);
 }
 
-.btn {
-    display: inline-block;
-    margin: 10px;
-    padding: 12px 25px;
-    background: #452c8b;
+.tracker h2 {
+    color: #b45f8b;
+    font-size: 2.2em;
+    margin-bottom: 30px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8);
+}
+
+.tracker label {
+    color: #8b6b7a;
+    font-size: 1.1em;
+    font-weight: 500;
+    margin-right: 15px;
+}
+
+.tracker input[type="date"] {
+    padding: 12px 20px;
+    border: 2px solid #ffe2ec;
+    border-radius: 50px;
+    font-size: 1em;
+    color: #5d4b55;
+    background: white;
+    transition: all 0.3s ease;
+    margin-right: 15px;
+    outline: none;
+}
+
+.tracker input[type="date"]:focus {
+    border-color: #d9a5b3;
+    box-shadow: 0 0 0 3px rgba(217, 165, 179, 0.2);
+}
+
+.tracker button {
+    background: linear-gradient(135deg, #e8b1c5 0%, #d9a5b3 100%);
     color: white;
-    text-decoration: none;
-    border-radius: 4px;
-    font-weight: bold;
+    border: none;
+    padding: 12px 35px;
+    border-radius: 50px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(217, 165, 179, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-.btn:hover {
-    background: #2d226f;
+.tracker button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(217, 165, 179, 0.6);
+    background: linear-gradient(135deg, #d9a5b3 0%, #c492a2 100%);
 }
 
-.btn.danger {
-    background: #b30000;
+/* Progress Bar */
+.progress-container {
+    width: 100%;
+    height: 12px;
+    background-color: #ffecf0;
+    border-radius: 50px;
+    margin: 30px 0 15px;
+    overflow: hidden;
 }
 
-.highlights {
-    display: flex;
-    gap: 20px;
+#progressBar {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #fbb1c2 0%, #e598b0 50%, #d47e9e 100%);
+    border-radius: 50px;
+    transition: width 0.5s ease;
+    position: relative;
+}
+
+#progressBar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+#weekInfo {
+    color: #8b6b7a;
+    font-size: 1.2em;
+    font-weight: 500;
+    margin-top: 10px;
+}
+
+/* Baby Growth Snapshot */
+.snapshot {
+    background: linear-gradient(135deg, #fff5f7 0%, #ffeef2 100%);
+    border-radius: 25px;
+    padding: 30px;
+    margin-bottom: 30px;
     text-align: center;
+    border: 1px dashed #e8b1c5;
 }
 
-.highlight {
-    flex: 1;
-    background: #fafafa;
-    padding: 20px;
-    border-radius: 5px;
-}
-
-.trust {
-    text-align: center;
-    font-size: 15px;
-    color: #555;
-}
-
-/* ================= FOOTER ================= */
-footer {
-    background: #333;
-    color: #eee;
-    padding: 30px 15px;
-    margin-top: 40px;
-}
-
-.footer-content {
-    max-width: 1000px;
-    margin: auto;
-    text-align: center;
-    line-height: 1.6;
-}
-
-footer h3 {
-    color: #fff;
+#pregnancyWeek {
+    color: #b45f8b;
+    font-size: 2.5em;
     margin-bottom: 10px;
+    font-weight: 400;
+    position: relative;
+    display: inline-block;
 }
 
-footer p {
-    font-size: 14px;
-    margin: 5px 0;
-}
-
-footer .copyright {
-    margin-top: 15px;
-    font-size: 13px;
+#pregnancyWeek::before {
+    content: '👶';
+    font-size: 0.8em;
+    margin-right: 10px;
     opacity: 0.7;
 }
 
-/* ================= MOBILE RESPONSIVENESS ================= */
-@media (max-width: 768px) {
-
-    header h1 {
-        font-size: 22px;
-    }
-
-    .tagline {
-        font-size: 15px;
-    }
-
-    nav a {
-        display: inline-block;
-        margin: 6px;
-        font-size: 14px;
-    }
-
-    #fold {
-        height: auto;
-    }
-
-    .slide-show {
-        height: auto;
-    }
-
-    .slide-show-container {
-        height: auto;
-    }
-
-    .slide img {
-        width: 90%;
-        height: auto;
-    }
-
-    .slide-show-words {
-        font-size: 16px;
-        padding: 10px;
-        text-align: center;
-    }
-
-    section {
-        margin: 20px 10px;
-        padding: 15px;
-    }
-
-    .highlights {
-        flex-direction: column;
-    }
-
-    .btn {
-        width: 90%;
-        max-width: 300px;
-    }
-}
-/* ============================================================
-   Measurement Theory additions — severity dual-scale display
-   Applied from SENG 421 Ch.2 Software Metrics concepts
-   ============================================================ */
-
-/* Severity label (ordinal scale: Low / Medium / High) */
-.severity {
-    display: inline-block;
-    padding: 2px 10px;
-    border-radius: 12px;
-    font-size: 12px;
-    font-weight: bold;
-    text-transform: uppercase;
+#babySizeText {
+    color: #7a5d6b;
+    font-size: 1.3em;
+    font-weight: 300;
     letter-spacing: 0.5px;
 }
-.severity.low    { background: #d4edda; color: #155724; }
-.severity.medium { background: #fff3cd; color: #856404; }
-.severity.high   { background: #f8d7da; color: #721c24; }
 
-/* Severity score (ratio scale: 1-10 numeric) */
-.severity-display {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-top: 6px;
-    flex-wrap: wrap;
-}
-.severity-score {
-    font-size: 12px;
-    color: #555;
-    background: #f0f0f0;
-    padding: 2px 8px;
-    border-radius: 10px;
+/* Info Cards */
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin: 40px 0;
 }
 
-/* Severity bar (visual mapping of ratio scale to proportion) */
-.severity-bar-track {
-    width: 100%;
-    max-width: 200px;
-    height: 6px;
-    background: #e9ecef;
-    border-radius: 3px;
-    margin-top: 6px;
+.card {
+    background: white;
+    border-radius: 25px;
+    padding: 30px 25px;
+    box-shadow: 0 10px 30px rgba(180, 95, 139, 0.08);
+    transition: all 0.3s ease;
+    border: 1px solid #fff0f5;
+    position: relative;
     overflow: hidden;
 }
-.severity-bar-fill {
-    height: 100%;
-    border-radius: 3px;
-    transition: width 0.4s ease;
-}
-.severity-bar-fill.low    { background: #28a745; }
-.severity-bar-fill.medium { background: #ffc107; }
-.severity-bar-fill.high   { background: #dc3545; }
 
-/* Service category label (nominal scale) */
-.service-category {
-    display: inline-block;
-    margin-top: 6px;
-    font-size: 11px;
-    background: #e7f0ff;
-    color: #1a4fa8;
-    padding: 2px 8px;
-    border-radius: 10px;
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(180, 95, 139, 0.15);
+    border-color: #e8b1c5;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #fbb1c2, #e598b0, #d47e9e);
+}
+
+.card h4 {
+    color: #b45f8b;
+    font-size: 1.4em;
+    margin-bottom: 15px;
     font-weight: 600;
 }
 
-/* Error message */
-.error {
-    color: #dc3545;
+.card p {
+    color: #6d5a64;
+    line-height: 1.6;
+    font-size: 1em;
+}
+
+/* Community Section */
+.community {
+    background: linear-gradient(135deg, #f3e6f0 0%, #ecd9e8 100%);
+    border-radius: 30px;
+    padding: 40px;
+    margin: 30px 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.community::before {
+    content: '💕';
+    position: absolute;
+    left: 20px;
+    bottom: 20px;
+    font-size: 80px;
+    opacity: 0.2;
+    transform: rotate(-10deg);
+}
+
+.community::after {
+    content: '👥';
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 70px;
+    opacity: 0.2;
+    transform: rotate(10deg);
+}
+
+.community h2 {
+    color: #a14f7a;
+    font-size: 2.2em;
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+.community p {
+    color: #6d4f61;
+    font-size: 1.2em;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* Postpartum Section */
+.postpartum {
+    background: linear-gradient(135deg, #e8f0f5 0%, #d9e6f0 100%);
+    border-radius: 30px;
+    padding: 40px;
+    margin: 30px 0;
+    text-align: center;
+    border: 1px solid #c4d4e0;
+    position: relative;
+    overflow: hidden;
+}
+
+.postpartum::before {
+    content: '🤱';
+    position: absolute;
+    right: 30px;
+    bottom: 30px;
+    font-size: 70px;
+    opacity: 0.15;
+    transform: rotate(5deg);
+}
+
+.postpartum h2 {
+    color: #4f7a8c;
+    font-size: 2.2em;
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+.postpartum p {
+    color: #3d6070;
+    font-size: 1.2em;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .featured {
+        padding: 20px 15px;
+    }
+    
+    .tracker {
+        padding: 30px 20px;
+    }
+    
+    .tracker input[type="date"] {
+        display: block;
+        width: 100%;
+        margin: 15px 0;
+    }
+    
+    .tracker button {
+        width: 100%;
+    }
+    
+    .cards {
+        grid-template-columns: 1fr;
+    }
+    
+    .community h2,
+    .postpartum h2 {
+        font-size: 1.8em;
+    }
+}
+
+@media (max-width: 480px) {
+    #pregnancyWeek {
+        font-size: 2em;
+    }
+    
+    #babySizeText {
+        font-size: 1.1em;
+    }
+    
+    .tracker h2 {
+        font-size: 1.8em;
+    }
+}
+
+/* Add some decorative elements */
+.card:nth-child(1)::after { content: '📋'; position: absolute; bottom: 10px; right: 10px; opacity: 0.1; font-size: 40px; }
+.card:nth-child(2)::after { content: '💝'; position: absolute; bottom: 10px; right: 10px; opacity: 0.1; font-size: 40px; }
+.card:nth-child(3)::after { content: '🏥'; position: absolute; bottom: 10px; right: 10px; opacity: 0.1; font-size: 40px; }
+
+/* Animation for cards on scroll */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card {
+    animation: fadeInUp 0.6s ease forwards;
+    animation-play-state: paused;
+}
+
+.card.visible {
+    animation-play-state: running;
+}
+/* FEATURED PROGRAMS */
+.featured { flex-direction: row; align-items: left; padding: 60px; }
+.featured-header { font-size: 40px; margin-bottom: 30px; text-align: left; }
+.featured-rooms-container { display: flex; justify-content: left; gap: 50px; }
+.featured-rooms { width: 500px; height: 300px; background-color: rgb(203, 209, 225); border-radius: 100px; display: flex; flex-direction: column; align-items: left; justify-content: left; cursor: pointer; transition: transform 0.3s ease; }
+.featured-rooms:hover { transform: scale(1.1); }
+.featured-images { width: 500px; height: 200px; border-radius: 10px; margin-bottom: 10px; }
+.inner-words { font-size: 14px; text-align: left; }
+
+/* IMPACT SECTION */
+.impact { background-color: #f0f4f8; padding: 50px 0; text-align: center; }
+.impact-header { font-size: 36px; margin-bottom: 40px; }
+.impact-counters { display: flex; justify-content: center; gap: 50px; }
+.impact-card { background-color: #fff; padding: 20px 40px; border-radius: 15px; box-shadow: 3px 3px 10px rgba(0,0,0,0.1); }
+.impact-card h3 { font-size: 28px; color: #0B1C48; margin-bottom: 10px; }
+
+/* AREAS SECTION */
+.location-section { padding: 50px; text-align: center; }
+.location-section-header { font-size: 32px; margin-bottom: 30px; }
+.location-images-container { display: flex; justify-content: center; gap: 20px; overflow-x: auto; }
+.location-images { width: 180px; border-radius: 20px; cursor: pointer; transition: transform 0.3s ease; }
+.location-images img { width: 150%; border-radius: 164px; }
+.location-images p { text-align: center; margin-top: 5px; font-weight: 500; }
+
+/* GET INVOLVED / DONATE / CONTACT */
+.get-involved, .donate-section, .contact-section { padding: 50px; text-align: center; }
+.browse-hostel-btn { background-color: #00BFFF; border: none; border-radius: 10px; padding: 10px 25px; color: #fff; cursor: pointer; font-size: 16px; }
+.browse-hostel-btn:hover { transform: scale(1.05); transition: 0.3s; }
+
+
+/* SIGNUP SECTION */
+.signup-section {
+    background: linear-gradient(135deg, #f8f0f7 0%, #fff5f5 100%);
+    padding: 80px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.signup-section::before {
+    content: '🤰';
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 120px;
+    opacity: 0.05;
+    transform: rotate(-10deg);
+}
+
+.signup-section::after {
+    content: '👶';
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    font-size: 120px;
+    opacity: 0.05;
+    transform: rotate(10deg);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.signup-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: center;
+}
+
+.signup-text h2 {
+    color: #b45f8b;
+    font-size: 2.2em;
+    line-height: 1.3;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.signup-text p:first-of-type {
+    color: #e08fa3;
+    font-size: 1.1em;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}
+
+.signup-text p:last-of-type {
+    color: #6d5a64;
+    line-height: 1.8;
+    font-size: 1.1em;
+    margin-bottom: 40px;
+}
+
+/* Progress Circles */
+.progress-circles {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.circle-progress {
+    text-align: center;
+    flex: 1;
+    min-width: 120px;
+}
+
+.circle {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: conic-gradient(#e8b1c5 0deg, #ffe2ec 0deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 15px;
+    position: relative;
+    box-shadow: 0 10px 20px rgba(232, 177, 197, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.circle:hover {
+    transform: scale(1.05);
+}
+
+.circle::before {
+    content: '';
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: white;
+}
+
+.circle span {
+    position: relative;
+    z-index: 1;
+    font-size: 1.4em;
+    font-weight: 700;
+    color: #b45f8b;
+}
+
+.circle-progress p {
+    color: #8b6b7a;
+    font-weight: 500;
+    font-size: 0.95em;
+}
+
+/* Signup Form */
+.signup-container {
+    background: white;
+    padding: 50px;
+    border-radius: 30px;
+    box-shadow: 0 30px 60px rgba(180, 95, 139, 0.15);
+    position: relative;
+    overflow: hidden;
+}
+
+.signup-container::before {
+    content: '📝';
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    font-size: 80px;
+    opacity: 0.1;
+    transform: rotate(15deg);
+}
+
+.signup-container h3 {
+    color: #b45f8b;
+    font-size: 2em;
+    margin-bottom: 30px;
+    text-align: center;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group label {
+    display: block;
+    color: #6d5a64;
+    font-weight: 500;
+    margin-bottom: 8px;
+    font-size: 0.95em;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 15px 20px;
+    border: 2px solid #ffe2ec;
+    border-radius: 15px;
+    font-size: 1em;
+    transition: all 0.3s ease;
+    background: #fff9fb;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #e8b1c5;
+    box-shadow: 0 0 0 4px rgba(232, 177, 197, 0.1);
+    background: white;
+}
+
+/* TEAM SECTION */
+.team-section {
+    padding: 80px 0;
+    background: linear-gradient(135deg, #fff5f7 0%, #ffffff 100%);
+    position: relative;
+}
+
+.section-title {
+    text-align: center;
+    color: #b45f8b;
+    font-size: 2.5em;
+    margin-bottom: 50px;
+    font-weight: 500;
+    position: relative;
+    display: inline-block;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, #e8b1c5, #d9a5b3);
+    border-radius: 2px;
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.team-member {
+    background: white;
+    border-radius: 20px;
+    padding: 30px 20px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(180, 95, 139, 0.1);
+    transition: all 0.3s ease;
+    border: 1px solid #fff0f5;
+    position: relative;
+    overflow: hidden;
+}
+
+.team-member:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(180, 95, 139, 0.2);
+}
+
+.team-member::before {
+    content: '👤';
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 60px;
+    opacity: 0.1;
+}
+
+.member-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    background: linear-gradient(135deg, #ffe2ec, #f8d0db);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4em;
+    color: #b45f8b;
+    border: 3px solid white;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.team-member h3 {
+    color: #b45f8b;
+    font-size: 1.3em;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.team-member p {
+    color: #8b6b7a;
+    font-size: 1.1em;
+    font-weight: 500;
+}
+
+/* CONTACT SECTION */
+.contact-section {
+    background: linear-gradient(135deg, #b45f8b 0%, #d9a5b3 100%);
+    padding: 60px 0;
+    text-align: center;
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.contact-section::before {
+    content: '📞';
+    position: absolute;
+    left: 20px;
+    bottom: 20px;
+    font-size: 100px;
+    opacity: 0.1;
+    transform: rotate(-15deg);
+}
+
+.contact-section::after {
+    content: '✉️';
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 100px;
+    opacity: 0.1;
+    transform: rotate(15deg);
+}
+
+.contact-section h2 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    font-weight: 500;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.contact-section p {
+    font-size: 1.3em;
+    letter-spacing: 1px;
+    background: rgba(255, 255, 255, 0.2);
+    display: inline-block;
+    padding: 15px 40px;
+    border-radius: 50px;
+    backdrop-filter: blur(5px);
+}
+
+/* ABOUT US SECTION */
+#About-us-section {
+    padding: 80px 0;
+    background: white;
+}
+
+.About-us {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px;
+    text-align: center;
+}
+
+.About-us-header {
+    color: #b45f8b;
+    font-size: 2.5em;
+    margin-bottom: 30px;
+    font-weight: 500;
+    position: relative;
+    display: inline-block;
+}
+
+.About-us-header::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: #e8b1c5;
+}
+
+.About-us-paragraph {
+    color: #6d5a64;
+    line-height: 1.8;
+    font-size: 1.15em;
+    margin-bottom: 30px;
+}
+
+.About-us p:last-of-type {
+    color: #8b6b7a;
+    line-height: 1.8;
+    font-size: 1.1em;
+    padding: 30px;
+    background: #fff9fb;
+    border-radius: 20px;
+    border: 1px solid #ffe2ec;
+}
+
+/* WHY CHOOSE US SECTION */
+#why-chooseMaternal\ Health\ Uganda-section {
+    padding: 80px 0;
+    background: linear-gradient(135deg, #fff5f5 0%, #fff0f5 100%);
+}
+
+.why-choose\ Unisen-Charity-org {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px;
+    text-align: center;
+}
+
+.why-choose-Unisen-Charity-org-header {
+    color: #b45f8b;
+    font-size: 2.5em;
+    margin-bottom: 30px;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+.-Why-choose-Unisen-Charity-org-paragraph {
+    color: #6d5a64;
+    line-height: 1.8;
+    font-size: 1.15em;
+    padding: 40px;
+    background: white;
+    border-radius: 30px;
+    box-shadow: 0 20px 40px rgba(180, 95, 139, 0.1);
+    border: 1px solid #fff0f5;
+}
+
+/* REVIEW SECTION */
+#review-section {
+    padding: 80px 0;
+    background: white;
+    position: relative;
+}
+
+#review {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 60px 40px;
+    background: linear-gradient(135deg, #fff5f7 0%, #fef9fb 100%);
+    border-radius: 40px;
+    box-shadow: 0 30px 60px rgba(180, 95, 139, 0.15);
+    position: relative;
+    border: 1px solid #ffe2ec;
+}
+
+.review-slide {
+    display: none;
+    text-align: center;
+    animation: fadeIn 0.5s ease;
+}
+
+.review-slide.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.review-slide p {
+    color: #6d5a64;
+    font-size: 1.4em;
+    line-height: 1.6;
     font-style: italic;
+    margin-bottom: 25px;
+    quotes: "“" "”" "‘" "’";
+}
+
+.review-slide p::before {
+    content: '"';
+    font-size: 2em;
+    color: #e8b1c5;
+    margin-right: 5px;
+}
+
+.review-slide p::after {
+    content: '"';
+    font-size: 2em;
+    color: #e8b1c5;
+    margin-left: 5px;
+    vertical-align: top;
+}
+
+.review-slide h4 {
+    color: #b45f8b;
+    font-size: 1.2em;
+    font-weight: 600;
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 40px;
+}
+
+.controls span {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(180, 95, 139, 0.2);
+    color: #b45f8b;
+}
+
+.controls span:hover {
+    background: #b45f8b;
+    color: white;
+    transform: scale(1.1);
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 992px) {
+    .signup-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    
+    .signup-text {
+        text-align: center;
+    }
+    
+    .team-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .progress-circles {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .circle-progress {
+        width: 100%;
+        max-width: 200px;
+    }
+    
+    .team-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .contact-section p {
+        font-size: 1.1em;
+        padding: 15px 20px;
+    }
+    
+    .signup-container {
+        padding: 30px 20px;
+    }
+    
+    .About-us-header,
+    .why-choose-Unisen-Charity-org-header {
+        font-size: 2em;
+    }
+}
+
+@media (max-width: 480px) {
+    .section-title {
+        font-size: 2em;
+    }
+    
+    .review-slide p {
+        font-size: 1.2em;
+    }
+    
+    .contact-section h2 {
+        font-size: 2em;
+    }
+    
+    .contact-section p {
+        font-size: 1em;
+        padding: 12px 15px;
+    }
+    
+    .-Why-choose-Unisen-Charity-org-paragraph {
+        padding: 25px;
+    }
+}
+
+/* Animation for circles */
+@keyframes circleProgress {
+    from {
+        background: conic-gradient(#e8b1c5 0deg, #ffe2ec 0deg);
+    }
+}
+
+/* Add JavaScript for circle progress */
+.circle[data-percent="85"] {
+    background: conic-gradient(#e8b1c5 306deg, #ffe2ec 306deg);
+}
+
+.circle[data-percent="75"] {
+    background: conic-gradient(#e8b1c5 270deg, #ffe2ec 270deg);
+}
+
+.circle[data-percent="90"] {
+    background: conic-gradient(#e8b1c5 324deg, #ffe2ec 324deg);
+}
+/*MEDIA QUERIES*/ 
+@media screen and (max-width: 768px) {
+    .slide img { width: 80vw; height: auto; }
+    .featured-programs-container { flex-direction: column; align-items: center; }
+    .impact-counters { flex-direction: column; gap: 30px; }
+    .location-images-container { flex-direction: column; }
+}
+
+/*
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+body{
+    font-family: "Nunito", sans-serif;
+    /* font-family: 'Arial', 'Helvetica Neue', sans-serif; */
+    /* font-family: 'Circular'; *
+    font-optical-sizing: auto;
+    font-style: normal;
+    background-color: #FFFFFF;
+    width: 100vw;
+}
+
+/*----------------------------------------HEADER-------------------------------------*
+header{
+    top: 0;
+    left: 0;
+    width: 100%;
+    position: fixed;
+    padding: 0 40px;
+    transition: all 0.4s ease;
+    width: 100%;
+    height: 80px;
+    display: flex;
+    flex-direction: row;
+    /* justify-content: center; *
+    align-items: center;
+    background-color: #FFFFFF;
+    background-color: #ebebeb;
+    border-bottom: 1px solid rgb(181, 179, 179);
+    box-shadow: 0px 10px 60px 2px rgba(11,28,72,0.4);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+}
+
+/*-------------LEFT HEADER-----------*
+#left-header{
+    position: absolute;
+    width: 136px;
+    left: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 25px;
+    color: #0B1C48;
+    cursor: default;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s ease;
+}
+#logo {
+    color: #0B1C48;
+    font-size: 32px;
+    margin-bottom: 10px;
+    transition: all 0.4s ease;
+}
+/*--------------MIDDLE CONTAINER---------------*
+#middle-header{
+    margin: 0 0 0 140px;
+
+}
+.search-container{
+    width: 45px;
+    height: 40px;
+    border: 1px solid #0B1C48;
+    border-radius: 30%;
+    cursor: pointer;
+}
+.search-container.open{
+    align-self: flex-end;
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    /* color:white ; *
+    background-color: #FFFFFF;
+    width: 250px;
+    height: 35px;
+    align-content: center;
+    border-radius: 30px;
+    border: 1px solid #0B1C48;
+}
+.search-container.open:focus-within { /* Smooth single highlight on focus *
+    border-color: #1a2d6d; /* darker border *
+    box-shadow: 0 0 8px rgba(11, 28, 72, 0.25); /* soft glow *
+}
+.search-icon{
+    padding: 8px 0 0 10px;
+    color: #0B1C48;
+    font-size: 20px;
+}
+.search-icon.open{
+    padding: 8px 0 0 15px;
+}
+.search-input{
+    display: none;
+}
+.search-input.open{
+    background: transparent;
+    color: #0B1C48;
+    width: 200px;
+    border-radius: 30px;
+    border: none;
+    outline: none;
+    font-size: 21px;
+    padding: 0 0 0 15px;
+}
+.search-input:focus{
+    outline: none;
+}
+.search-input::placeholder{
+    color: gray;
+    opacity: 1;
+    font-size: 21px;
+}
+
+/*-------------RIGHT HEADER-----------*/
+#right-header{
+    position: absolute;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center ;
+}
+#right-header a {
+    text-decoration: none;
+    color: #1a2d6d;
+}
+#right-header a:hover {
+    text-decoration: underline;
+}
+
+
+/*------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
+/*--------------HEADER AFTER SCROLL-----------
+*/
+header.scrolled {
+    position: fixed;         /* make it sticky when scrolling up */
+    top: 0;
+    height: 70px;
+    /* justify-content: flex-start; push content left */
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px); /* add glassy blur */
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
+}
+
+header.scrolled .left-header {
+    flex-direction: row; /* logo beside search */
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 20px;
+    /* transform: translateX(50px); slide to left */
+}
+header.scrolled #logo {
+    transform: translate(-565px, 15px);
+    font-size: 24px;
+    margin-bottom: 0;
+}
+header.scrolled #search-container {
+    transform: translateY(-15px);
+    width: 450px;
+    height: 40px;
+}
+header.scrolled #search-input{
+    width: 420px;
+}
+header.scrolled #search-icon{
+    padding: 11px 0 0 15px;
+    font-size: 17px;
+}
+
+/*----------------------------------------MAIN BODY-------------------------------------*/
+.main-body{
+    margin: 90px 0 0 0;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+
 }
 
 
@@ -500,3 +1219,298 @@ footer .copyright {
 
 
 
+
+
+
+
+    
+/*-------------------WHY CHOOSE UNISEN CHARITY ORG UGANDA-------------------------*/
+#why-choose-unisen-charity-org-uganda-section{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    scroll-margin-top: 90px;
+}
+.why-choose-unisen-charity-org-uganda{
+    width: 80%;
+    text-align: left;
+    padding: 30px 0;
+}
+
+/*-------------------ABOUT US-------------------------*/
+#About-us-section{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    scroll-margin-top: 90px;
+}
+.About-us{
+    background: #480b31;
+    color: #0f0101;
+    width: 500px;
+    height: 430px;
+    border-radius: 50%;
+    padding: 60px 40px;
+    text-align: center;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+}
+.About-us:hover {
+    transform: scale(1.03);
+}
+
+.About-us-header {
+    margin-bottom: 15px;
+    color: #480b31;
+}
+
+.About-us-paragraph {
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+/*---------------------review----------------------------*/
+#review-section{
+    scroll-margin-top: 90px;
+}
+#review {
+    position: relative;
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.review-slide {
+    display: none;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.review-slide.active {
+    display: block;
+}
+
+.review-slide p {
+    font-style: italic;
+    margin-bottom: 10px;
+}
+
+.review-slide h4 {
+    color: #555;
+}
+
+.controls {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    transform: translate(-4%, -50%);
+}
+
+.controls span {
+    cursor: pointer;
+    font-size: 2rem;
+    color: #999;
+    padding: 5px 15px;
+    transition: color 0.3s;
+}
+
+.controls span:hover {
+    color: #333;
+}
+
+
+
+/*-----------------contact-us-section--------------------*/
+#contact-section{
+    scroll-margin-top: 90px;
+}
+#Contact-us{
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+#contact-us-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 475px;
+}
+#contact-us-form-title{
+    font-size: 30px;
+}
+#contact-us-form input{
+    font-size: 15px;
+    width: 450px;
+    min-width: 300px;
+    min-height: 50px;
+    margin: 5%;
+    border-radius: 10px;
+    border: none;
+    background: rgb(242, 240, 240);
+    padding: 0 0 0 10px;
+    transition: all 0.3s ease;
+}
+#contact-us-form input:hover{
+    transform: scale(1.1);
+}
+#contact-us-form input:focus{
+    outline: none;
+    border: 1px solid #0B1C48;
+}
+
+
+/*----------------------------------------FOOTER-------------------------------------*/
+footer{
+    /* height: 200px; */
+    bottom: 0;
+    background-color: #480b31;
+}
+/*-------------CONTACT INFO-----------*/
+.contact-info{
+    width: 100%;
+    height: 180px;
+    display: flex;
+    flex-direction: row ;
+    justify-content: space-between;
+}
+.contact-info-left{
+    left: 0;
+    align-content: center;
+    justify-content: center;
+    margin: 0 0 0 20px;
+}
+.contact-info-left a{
+    color: #480b31;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+.contact-info-right{
+    right: 0;
+    align-content: center;
+    justify-content: center;
+    justify-items: end;
+    margin: 0 20px 0 0;
+}
+.contact-info-right h3{
+    font-size: 30px;
+}
+/*-------------SEPARATOR-----------*/
+.separator{
+    border: 1px solid rgb(183, 181, 181);
+}
+/*-------------SOCIAL INFO-----------*/
+.social-info{
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 30px;
+}
+.social-info-left{
+    left: 0;
+}
+.social-info-right{
+    right: 0;
+    margin: 0 40px 0 0;
+    display: flex;
+    gap: 25px;
+}
+.social-icons{
+    width: 30px;
+    height: 30px;
+    color: #480b31;
+}
+
+
+
+
+/*---------------------MEDIA QUERIES-------------------*/
+@media screen and (max-width: 767px) {
+    .About-us{
+        height: 450px;
+    }
+    .contact-info{
+        flex-direction: column;
+    }
+    .contact-info-left{
+        margin: 20px 0 0 0;
+        text-align: center;
+    }
+    .contact-info-right{
+        justify-items: center;
+        justify-content: center;
+        margin: 0 0 20px 0;
+    }
+    .separator{
+        margin: 5px 0;
+    }
+    .social-info{
+        flex-direction: column;
+        height: 90px;
+    }
+    .social-info-left{
+        margin: 5px 0 0 0;
+    }
+    .social-info-right{
+        margin: 0 0 10px 0;
+    }
+}
+
+
+
+/*-----------------------Font Awesome Icons------------------*/
+.fa-icons{
+    width: 30px;
+    height: 30px;
+    color: #0B1C48;
+}
+/* ── HEADER FIX ── */
+header { display:flex; justify-content:space-between; align-items:center; padding:15px 40px; background:#480b31; color:#fff; position:sticky; top:0; z-index:1000; }
+#left-header #logo { color:#fff; font-size:22px; font-weight:bold; text-decoration:none; }
+#right-header { display:flex; gap:15px; align-items:center; flex-wrap:wrap; }
+#right-header a { color:#fff; text-decoration:none; font-size:14px; }
+#right-header a:hover { text-decoration:underline; }
+.nav-btn { background:rgba(255,255,255,0.15); padding:6px 14px; border-radius:20px; }
+.nav-btn.signup { background:#b45f8b; }
+
+/* ── TRACKER FIX ── */
+.tracker-input { display:flex; gap:10px; align-items:center; flex-wrap:wrap; justify-content:center; margin-bottom:20px; }
+#healthTipBox { background:#fff9fb; border:1px solid #e8b1c5; border-radius:12px; padding:20px; margin-top:20px; text-align:center; }
+#healthTipBox h4 { color:#b45f8b; margin-bottom:8px; }
+
+/* ── ERROR / SUCCESS MESSAGES ── */
+.error-msg   { background:#ffe0e0; color:#8b0000; padding:10px 15px; border-radius:8px; margin-bottom:15px; font-size:14px; }
+.success-msg { background:#e0ffe0; color:#005000; padding:10px 15px; border-radius:8px; margin-bottom:15px; font-size:14px; }
+
+/* ── ABOUT / WHY SECTIONS ── */
+#about-section, #why-section { padding:60px 20px; background:#fff; text-align:center; }
+.about-us, .why-us { max-width:800px; margin:0 auto; }
+.about-us h3, .why-us h3 { color:#b45f8b; font-size:2em; margin-bottom:20px; }
+.about-us p, .why-us p { color:#6d5a64; line-height:1.8; margin-bottom:15px; }
+
+/* ── TEAM SECTION ── */
+.team-section { padding:60px 20px; background:#fff5f7; text-align:center; }
+.team-section h2 { color:#b45f8b; font-size:2em; margin-bottom:30px; }
+.team-grid { display:flex; gap:30px; justify-content:center; flex-wrap:wrap; }
+.team-member { background:#fff; border-radius:15px; padding:25px 35px; box-shadow:0 5px 20px rgba(180,95,139,0.1); }
+.member-avatar { font-size:50px; margin-bottom:10px; }
+.team-member h3 { color:#b45f8b; margin-bottom:5px; }
+
+/* ── SIGNUP SECTION BOX ── */
+.signup-box { background:#fff; padding:40px; border-radius:20px; box-shadow:0 15px 40px rgba(180,95,139,0.15); }
+.signup-box h3 { color:#b45f8b; text-align:center; margin-bottom:20px; font-size:1.5em; }
+.btn-full { display:block; background:linear-gradient(135deg,#b45f8b,#d47e9e); color:#fff; text-align:center; padding:14px; border-radius:12px; text-decoration:none; font-weight:bold; margin-top:15px; }
+.btn-full:hover { opacity:0.9; }

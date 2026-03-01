@@ -1,151 +1,184 @@
-# Maternal Health Awareness Platform
-
-## Project Overview
-
-**Maternal Health Awareness** is a web-based platform developed by **UNISEN Charity Uganda** to provide comprehensive maternal health information, emergency guidance, and support services. The platform aims to improve maternal health awareness and provide accessible healthcare resources to communities in need.
-
-## Features
-
-- **Home Page**: Welcome and overview of maternal health services with an interactive slideshow
-- **Services Page**: Detailed information about available maternal health services including antenatal care, skilled delivery, and postnatal care
-- **Emergency Page**: Critical emergency information with severity levels and immediate action guidance
-- **Contact Page**: Easy-to-use contact form for users to reach out for support and assistance
-- **Responsive Design**: Mobile-friendly interface for accessibility across devices
-
-## Technology Stack
-
-- **Frontend**: HTML5, CSS, JavaScript
-- **Backend**: PHP
-- **Database**: MySQL
-- **Server**: PHP-compatible web server
+# Maternal Health Uganda — Setup Guide
 
 ## Project Structure
-
 ```
-MH/
-├── api/                      # Backend API endpoints
-│   ├── db.php               # Database connection configuration
-│   ├── get_services.php     # Retrieve maternal health services
-│   ├── get_emergency.php    # Retrieve emergency information
-│   └── submit_contact.php   # Handle contact form submissions
-│
-├── frontend/                 # Frontend files
-│   ├── index.html           # Home page
-│   ├── services.html        # Services page
-│   ├── emergency.html       # Emergency information page
-│   ├── contact.html         # Contact form page
-│   ├── main.js              # Main JavaScript logic
-│   └── style.css            # Styling
-│
-├── database/                 # Database files
-│   └── maternal_health.sql  # Database schema and initial data
-│
-├── Assets/
-│   └── Images/              # Project images and media
-│
-└── README.md                # This file
+MaternalHealthUganda/
+├── backend/
+│   ├── config.php          ← DB connection class (edit credentials here)
+│   ├── connection.php      ← Test your DB connection
+│   ├── login.php           ← Handles user login
+│   ├── signup.php          ← Handles user registration
+│   ├── logout.php          ← Destroys session
+│   ├── savetracker.php     ← Saves pregnancy tracking data
+│   ├── getreviews.php      ← Returns approved reviews as JSON
+│   ├── getuserdata.php     ← Returns logged-in user data as JSON
+│   └── submitreview.php    ← Saves a new review
+├── frontend/
+│   ├── index.html          ← Main homepage
+│   ├── login.html          ← Login page
+│   ├── signup.html         ← Registration page
+│   ├── style.css           ← Main stylesheet
+│   ├── login.css           ← Login/signup styles
+│   ├── signup.css          ← Signup extra styles
+│   ├── slideshow.js        ← Hero image slideshow
+│   ├── tracker.js          ← Pregnancy tracker logic
+│   └── review.js           ← Review slideshow
+├── database/
+│   └── maternal_health_uganda.sql  ← Full DB schema + sample data
+└── Images/
+    └── (all SVG icons and JPEG images)
 ```
-
-## Installation & Setup
-
-### Prerequisites
-- Web server with PHP 7.0+ support
-- MySQL database server
-- Modern web browser
-
-### Steps
-
-1. **Clone/Download the Project**
-   ```bash
-   git clone <repository-url>
-   cd MH
-   ```
-
-2. **Create Database**
-   - Open MySQL command line or phpMyAdmin
-   - Import the database schema:
-   ```sql
-   mysql -u [username] -p < database/maternal_health.sql
-   ```
-
-3. **Configure Database Connection**
-   - Edit `api/db.php` to add your database credentials:
-   ```php
-   $servername = "localhost";
-   $username = "your_username";
-   $password = "your_password";
-   $dbname = "maternal_health";
-   ```
-
-4. **Deploy Files**
-   - Upload all files to your web server's document root (e.g., `htdocs/` for Apache)
-
-5. **Access the Application**
-   - Open your browser and navigate to: `http://localhost/MH/frontend/`
-
-## Usage
-
-### For Users
-1. Navigate to the **Home** page to learn about maternal health
-2. Visit **Services** to explore available maternal health programs
-3. Check **Emergency** section for critical health information and guidance
-4. Use **Contact** page to reach out with questions or requests
-
-### For Administrators
-- View contact form submissions in the `contact_messages` table
-- Manage services in the `services` table
-- Update emergency information in the `emergency_info` table
-
-## Database Tables
-
-### services
-- `id`: Service ID (Primary Key)
-- `service_name`: Name of the service
-- `description`: Service description
-
-### emergency_info
-- `id`: Emergency ID (Primary Key)
-- `title`: Emergency title
-- `short_description`: Brief description
-- `detailed_description`: Detailed information
-- `severity`: Emergency level (Low, Medium, High)
-- `advice`: Recommended action
-
-### contact_messages
-- `id`: Message ID (Primary Key)
-- `name`: Sender's name
-- `phone`: Sender's phone number
-- `message`: Message content
-- `created_at`: Timestamp of submission
-
-## API Endpoints
-
-- `GET /api/get_services.php` - Retrieve all services
-- `GET /api/get_emergency.php` - Retrieve emergency information
-- `POST /api/submit_contact.php` - Submit contact form
-
-## Contributing
-
-To contribute to this project:
-1. Identify improvements or bug fixes
-2. Make changes to the appropriate files
-3. Test thoroughly on your local environment
-4. Submit your contributions
-
-## License
-
-This project is maintained by UNISEN Charity Uganda.
-
-## Support
-
-For questions or support regarding this platform, please:
-- Use the Contact page to submit inquiries
-- Reach out to 0704753591. 
-
-## Acknowledgments
-
-This platform is developed by UNISEN Charity Uganda to support maternal health awareness and emergency preparedness in communities.
 
 ---
 
-**Last Updated**: March 1, 2026
+## STEP 1 — Install Required Software
+
+You need these installed on your computer:
+
+| Software | Download | Purpose |
+|---|---|---|
+| XAMPP | https://www.apachefriends.org | Apache + MySQL + PHP |
+| VS Code (optional) | https://code.visualstudio.com | Code editor |
+
+---
+
+## STEP 2 — Start XAMPP
+
+1. Open **XAMPP Control Panel**
+2. Click **Start** next to **Apache**
+3. Click **Start** next to **MySQL**
+4. Both should turn green ✅
+
+---
+
+## STEP 3 — Create the Database
+
+**Option A: Using phpMyAdmin (easiest)**
+1. Open your browser → go to `http://localhost/phpmyadmin`
+2. Click **"New"** on the left sidebar
+3. Type database name: `maternal_health_uganda`
+4. Click **Create**
+5. Click on the new database in the left sidebar
+6. Click the **"Import"** tab at the top
+7. Click **"Choose File"** → select `database/maternal_health_uganda.sql`
+8. Scroll down → click **"Import"** button
+9. You should see "Import has been successfully finished" ✅
+
+**Option B: Using MySQL command line**
+```bash
+mysql -u root -p
+source /path/to/database/maternal_health_uganda.sql
+```
+
+---
+
+## STEP 4 — Place Project in XAMPP
+
+1. Copy the entire **`MaternalHealthUganda`** folder
+2. Paste it into XAMPP's web root folder:
+   - **Windows:** `C:\xampp\htdocs\MaternalHealthUganda`
+   - **Mac/Linux:** `/opt/lampp/htdocs/MaternalHealthUganda`
+
+Your folder structure inside htdocs should look like:
+```
+htdocs/
+└── MaternalHealthUganda/
+    ├── backend/
+    ├── frontend/
+    ├── database/
+    └── Images/
+```
+
+---
+
+## STEP 5 — Configure Database Password (if needed)
+
+Open `backend/config.php` and update if your MySQL has a password:
+
+```php
+private $username = "root";
+private $password = "";   // ← Put your MySQL password here if you have one
+```
+
+Most XAMPP installations have **no password** by default, so leave it empty `""`.
+
+---
+
+## STEP 6 — Test the Connection
+
+Open your browser and go to:
+```
+http://localhost/MaternalHealthUganda/backend/connection.php
+```
+
+You should see:
+```
+✅ Connected to maternal_health_uganda successfully!
+📊 Tables found: users, pregnancy_tracking, reviews, health_tips, appointments
+👤 Users in database: 1
+```
+
+If you see ❌ an error, check:
+- Is XAMPP MySQL running? (green in Control Panel)
+- Is the database name exactly `maternal_health_uganda`?
+- Is your password correct in `config.php`?
+
+---
+
+## STEP 7 — Open the Website
+
+Go to:
+```
+http://localhost/MaternalHealthUganda/frontend/index.html
+```
+
+The full website should load! 🎉
+
+---
+
+## STEP 8 — Test Login
+
+A sample admin account has been created:
+- **Email:** `admin@maternalhealthuganda.org`
+- **Password:** `password`
+
+Or register a new account at:
+```
+http://localhost/MaternalHealthUganda/frontend/signup.html
+```
+
+---
+
+## Page URLs
+
+| Page | URL |
+|---|---|
+| Homepage | `http://localhost/MaternalHealthUganda/frontend/index.html` |
+| Login | `http://localhost/MaternalHealthUganda/frontend/login.html` |
+| Sign Up | `http://localhost/MaternalHealthUganda/frontend/signup.html` |
+| Test DB | `http://localhost/MaternalHealthUganda/backend/connection.php` |
+
+---
+
+## Features
+
+- ✅ **Pregnancy Tracker** — Enter last period date, get week, trimester, due date
+- ✅ **Baby Growth Info** — Week-by-week baby size and development facts
+- ✅ **Health Tips** — Weekly personalized health advice (42 weeks of tips in DB)
+- ✅ **User Registration** — Secure signup with hashed passwords
+- ✅ **User Login** — Session-based authentication
+- ✅ **Reviews** — Submit and view community reviews
+- ✅ **Hero Slideshow** — Auto-rotating image carousel
+- ✅ **Responsive** — Works on mobile and desktop
+
+---
+
+## Common Errors & Fixes
+
+| Error | Cause | Fix |
+|---|---|---|
+| "Connection failed" | MySQL not running | Start MySQL in XAMPP |
+| "Unknown database" | DB not created | Run the SQL file in phpMyAdmin |
+| "404 Not Found" | Wrong folder path | Make sure folder is inside `htdocs` |
+| Images not showing | Wrong path | Confirm `Images/` folder is at root of project |
+| Login not working | Wrong path | Ensure `backend/` folder is one level up from `frontend/` |
