@@ -1,4 +1,14 @@
 # Maternal Health Uganda — Setup Guide
+Maternal Health Uganda is a comprehensive maternal health platform specifically designed for Ugandan pregnant mothers, helping them track their pregnancy progress, get personalized health advice, monitor baby growth, and connect with community reviews.
+
+##  Core Features✨
+1. Pregnancy Tracker🏥: Track your pregnancy by entering LMP(Last Menstrual Period) to get weeks, timester and due date instantly
+2. Baby Growth👶: View week-by-week size charts + 42 weeks development data
+3. Health Tips💊: Receive personalized weekly advice( nutrition, warnings, exercises, etc.)
+4. User System🔐: Secure your registration/login + private pregnancy tracking
+5. Reviews💬: Submit/browse moderated community testimonials
+6. Hero Slideshow🎨: Auto-rotating image carousel
+7. Responsive📱: Works on mobile and desktop
 
 ## Project Structure
 ```
@@ -160,18 +170,6 @@ http://localhost/MaternalHealthUganda/frontend/signup.html
 
 ---
 
-## Features
-
-- ✅ **Pregnancy Tracker** — Enter last period date, get week, trimester, due date
-- ✅ **Baby Growth Info** — Week-by-week baby size and development facts
-- ✅ **Health Tips** — Weekly personalized health advice (42 weeks of tips in DB)
-- ✅ **User Registration** — Secure signup with hashed passwords
-- ✅ **User Login** — Session-based authentication
-- ✅ **Reviews** — Submit and view community reviews
-- ✅ **Hero Slideshow** — Auto-rotating image carousel
-- ✅ **Responsive** — Works on mobile and desktop
-
----
 
 ## Common Errors & Fixes
 
