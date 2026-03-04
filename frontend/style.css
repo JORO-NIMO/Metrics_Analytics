@@ -9,6 +9,35 @@ header {
     background-color: #480b31;
     color: #fff;
 }
+
+/* Back button styles */
+.back-to-home {
+    margin-bottom: 20px;
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    color: #666;
+    font-size: 16px;
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: all 0.3s;
+    background-color: #f9f9f9;
+    border: 1px solid #eee;
+}
+
+.back-link:hover {
+    background-color: #f0f0f0;
+    color: #333;
+    border-color: #ddd;
+}
+
+.back-arrow {
+    font-size: 20px;
+    margin-right: 8px;
+}
 header .logo {
     font-size: 24px;
     font-weight: bold;
