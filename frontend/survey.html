@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>User Survey — Maternal Health Uganda</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.survey-wrap{max-width:620px;margin:60px auto;padding:0 20px 60px}
+.survey-header{background:linear-gradient(135deg,#480b31,#7a1855);color:#fff;border-radius:20px;padding:32px 36px;margin-bottom:28px}
+.survey-header h1{font-size:1.8rem;margin-bottom:8px}
+.survey-header p{opacity:.85;line-height:1.6;font-size:.95rem}
+.survey-card{background:#fff;border-radius:20px;padding:36px;box-shadow:0 8px 32px rgba(72,11,49,.1);border:1px solid #f0e0ec}
+.survey-card h2{color:#480b31;font-size:1.2rem;margin-bottom:24px}
+.q-block{margin-bottom:28px}
+.q-block label{display:block;font-weight:600;color:#2d1a2e;margin-bottom:12px;font-size:.95rem}
+.q-meta{font-size:.78rem;color:#a06080;margin-bottom:10px;font-style:italic}
+.likert{display:flex;gap:10px;flex-wrap:wrap}
+.likert input[type=radio]{display:none}
+.likert-opt{display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer}
+.likert-opt span.num{width:42px;height:42px;border-radius:50%;border:2px solid #e8d0e0;display:flex;align-items:center;justify-content:center;font-weight:700;color:#480b31;font-size:1rem;transition:.2s}
+.likert-opt span.lbl{font-size:.68rem;color:#a06080;text-align:center;max-width:42px}
+.likert input[type=radio]:checked + span.num{background:#480b31;border-color:#480b31;color:#fff}
+.likert-opt:hover span.num{border-color:#480b31;background:#f0e0ec}
+textarea{width:100%;padding:14px;border:2px solid #f0e0ec;border-radius:12px;font-size:.92rem;font-family:inherit;resize:vertical;transition:.2s}
+textarea:focus{outline:none;border-color:#b45f8b;box-shadow:0 0 0 3px rgba(180,95,139,.12)}
+.submit-btn{width:100%;padding:16px;background:linear-gradient(135deg,#480b31,#7a1855);color:#fff;border:none;border-radius:14px;font-size:1rem;font-weight:700;cursor:pointer;transition:.2s;margin-top:10px}
+.submit-btn:hover{opacity:.9;transform:translateY(-1px)}
+#survey-msg{padding:14px;border-radius:12px;margin-top:16px;font-size:.9rem;display:none}
+.msg-ok{background:#d4f5e2;color:#1a6640}
+.msg-err{background:#fde8e8;color:#8b1a1a}
+.gqm-note{font-size:.75rem;color:#c0a0b0;margin-top:4px}
+</style>
+</head>
+<body>
+
+<header>
+  <div id="left-header"><a href="index.html" id="logo">Maternal Health Uganda</a></div>
+  <nav id="right-header">
+    <a href="index.html">Home</a>
+    <a href="login.html" class="nav-btn">Login</a>
+  </nav>
+</header>
+
+<div class="survey-wrap">
+  <div class="survey-header">
+    <h1>📋 User Satisfaction Survey</h1>
+    <p>Your feedback helps us improve the app for all mothers in Uganda. This survey takes about 2 minutes and directly helps us improve the app for you.</p>
+  </div>
+
+  <div class="survey-card">
+    <h2>Rate your experience (1 = Very Poor, 5 = Excellent)</h2>
+
+    <!--
+      CHAPTER 4: Survey Investigation Technique
+      Survey = retrospective study / "investigate in the large"
+    -->
+
+    <!-- Q1 — maps to MG1 (Tracker accuracy) -->
+    <div class="q-block">
+      <label>Q1. How useful is the Pregnancy Tracker?</label>
+      <div class="likert">
+        <label class="likert-opt"><input type="radio" name="q1" value="1"><span class="num">1</span><span class="lbl">Very poor</span></label>
+        <label class="likert-opt"><input type="radio" name="q1" value="2"><span class="num">2</span><span class="lbl">Poor</span></label>
+        <label class="likert-opt"><input type="radio" name="q1" value="3"><span class="num">3</span><span class="lbl">Okay</span></label>
+        <label class="likert-opt"><input type="radio" name="q1" value="4"><span class="num">4</span><span class="lbl">Good</span></label>
+        <label class="likert-opt"><input type="radio" name="q1" value="5"><span class="num">5</span><span class="lbl">Excellent</span></label>
+      </div>
+    </div>
+
+    <!-- Q2 — maps to MG2 (Tip coverage / accuracy) -->
+    <div class="q-block">
+      <label>Q2. How accurate are the weekly health tips?</label>
+      <div class="likert">
+        <label class="likert-opt"><input type="radio" name="q2" value="1"><span class="num">1</span><span class="lbl">Very poor</span></label>
+        <label class="likert-opt"><input type="radio" name="q2" value="2"><span class="num">2</span><span class="lbl">Poor</span></label>
+        <label class="likert-opt"><input type="radio" name="q2" value="3"><span class="num">3</span><span class="lbl">Okay</span></label>
+        <label class="likert-opt"><input type="radio" name="q2" value="4"><span class="num">4</span><span class="lbl">Good</span></label>
+        <label class="likert-opt"><input type="radio" name="q2" value="5"><span class="num">5</span><span class="lbl">Excellent</span></label>
+      </div>
+    </div>
+
+    <!-- Q3 — maps to MG3 (Ease of use / engagement) -->
+    <div class="q-block">
+      <label>Q3. How easy is the website to use?</label>
+      <div class="likert">
+        <label class="likert-opt"><input type="radio" name="q3" value="1"><span class="num">1</span><span class="lbl">Very hard</span></label>
+        <label class="likert-opt"><input type="radio" name="q3" value="2"><span class="num">2</span><span class="lbl">Hard</span></label>
+        <label class="likert-opt"><input type="radio" name="q3" value="3"><span class="num">3</span><span class="lbl">Okay</span></label>
+        <label class="likert-opt"><input type="radio" name="q3" value="4"><span class="num">4</span><span class="lbl">Easy</span></label>
+        <label class="likert-opt"><input type="radio" name="q3" value="5"><span class="num">5</span><span class="lbl">Very easy</span></label>
+      </div>
+    </div>
+
+    <!-- Q4 — recommendation -->
+    <div class="q-block">
+      <label>Q4. Would you recommend this app to other mothers?</label>
+      <div class="likert">
+        <label class="likert-opt"><input type="radio" name="q4" value="1"><span class="num">1</span><span class="lbl">Definitely not</span></label>
+        <label class="likert-opt"><input type="radio" name="q4" value="2"><span class="num">2</span><span class="lbl">No</span></label>
+        <label class="likert-opt"><input type="radio" name="q4" value="3"><span class="num">3</span><span class="lbl">Maybe</span></label>
+        <label class="likert-opt"><input type="radio" name="q4" value="4"><span class="num">4</span><span class="lbl">Yes</span></label>
+        <label class="likert-opt"><input type="radio" name="q4" value="5"><span class="num">5</span><span class="lbl">Definitely yes</span></label>
+      </div>
+    </div>
+
+    <!-- Q5 — overall -->
+    <div class="q-block">
+      <label>Q5. Overall, how satisfied are you with Maternal Health Uganda?</label>
+      <div class="likert">
+        <label class="likert-opt"><input type="radio" name="q5" value="1"><span class="num">1</span><span class="lbl">Very poor</span></label>
+        <label class="likert-opt"><input type="radio" name="q5" value="2"><span class="num">2</span><span class="lbl">Poor</span></label>
+        <label class="likert-opt"><input type="radio" name="q5" value="3"><span class="num">3</span><span class="lbl">Okay</span></label>
+        <label class="likert-opt"><input type="radio" name="q5" value="4"><span class="num">4</span><span class="lbl">Good</span></label>
+        <label class="likert-opt"><input type="radio" name="q5" value="5"><span class="num">5</span><span class="lbl">Excellent</span></label>
+      </div>
+    </div>
+
+    <!-- Open comment -->
+    <div class="q-block">
+      <label>Any other comments? (optional)</label>
+      <textarea id="comment" rows="4" placeholder="Tell us anything you think would improve the app for Ugandan mothers..."></textarea>
+    </div>
+
+    <button class="submit-btn" onclick="submitSurvey()">Submit Survey →</button>
+    <div id="survey-msg"></div>
+  </div>
+</div>
+
+<script>
+async function submitSurvey() {
+    const msg = document.getElementById('survey-msg');
+    const form = new FormData();
+    form.append('survey_name', 'User Satisfaction Survey');
+    ['q1','q2','q3','q4','q5'].forEach(q => {
+        const el = document.querySelector(`input[name="${q}"]:checked`);
+        if (el) form.append(q, el.value);
+    });
+    form.append('comment', document.getElementById('comment').value);
+
+    msg.style.display = 'none';
+    try {
+        const r    = await fetch('../backend/submitsurvey.php', {method:'POST', body:form});
+        const json = await r.json();
+        msg.className = json.success ? 'msg-ok' : 'msg-err';
+        msg.textContent = json.message || json.error || 'Done';
+        msg.style.display = 'block';
+        if (json.success) {
+            document.querySelectorAll('input[type=radio]').forEach(el => el.checked = false);
+            document.getElementById('comment').value = '';
+        }
+    } catch(e) {
+        msg.className = 'msg-err';
+        msg.textContent = 'Network error. Please try again.';
+        msg.style.display = 'block';
+    }
+}
+</script>
+</body>
+</html>
