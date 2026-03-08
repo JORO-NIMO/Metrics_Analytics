@@ -65,7 +65,7 @@ Each metric is implemented directly in the Maternal Health Uganda PHP + MySQL co
 
 
 
-### M1 — Feature Views (adapted from Book Views)
+### M1 — Feature Views 
 
 | Field | Detail |
 |---|---|
@@ -79,7 +79,7 @@ Each metric is implemented directly in the Maternal Health Uganda PHP + MySQL co
 
 
 
-### M2 — Content Ratings (adapted from Book Ratings)
+### M2 — Content Ratings 
 
 | Field | Detail |
 |---|---|
