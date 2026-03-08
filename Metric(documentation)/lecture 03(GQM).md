@@ -1,7 +1,7 @@
 # Goal-Based Metrics — GQM Implementation
 ## Maternal Health Uganda | SENG 421 Software Quality Assurance
 
----
+
 
 ## Concept: Goal-Based Metrics
 
@@ -15,7 +15,6 @@ The Goal-Based Metrics concept centres on defining measurable objectives before 
 | Purpose | Align software measurement with project goals so that every data point collected answers a real quality question |
 | Applied To | Maternal Health Uganda — Web-based maternal care platform (PHP + MySQL) |
 
----
 
 ## Goal
 
@@ -23,7 +22,7 @@ The Goal-Based Metrics concept centres on defining measurable objectives before 
 
 This goal drives all measurement activity. A positive user experience on a maternal health platform directly translates to better health outcomes — mothers who find the app easy, fast, and relevant are more likely to use it consistently throughout their pregnancy.
 
----
+
 
 ## Goal Questions
 
@@ -44,7 +43,7 @@ Assesses technical performance quality, which directly impacts whether mothers a
 **Q5 — How often do users return to the platform and complete their pregnancy tracking journey?**
 Measures sustained engagement — a proxy for whether the platform delivers ongoing value throughout pregnancy.
 
----
+
 
 ## Metrics for Achieving the Goal
 
@@ -58,13 +57,13 @@ Five metrics are defined to answer the goal questions. Each metric is directly t
 | M4 | Page Load Times | Evaluates the speed at which pages and content load |
 | M5 | Completion Rate | Measures how often users complete their pregnancy tracking journey |
 
----
+
 
 ## How We Have Implemented the Metrics
 
 Each metric is implemented directly in the Maternal Health Uganda PHP + MySQL codebase.
 
----
+
 
 ### M1 — Feature Views (adapted from Book Views)
 
@@ -78,7 +77,7 @@ Each metric is implemented directly in the Maternal Health Uganda PHP + MySQL co
 | Unit | Count (number of views) |
 | Target | Identify top 5 most-viewed features per week; flag tips with 0 views in 30 days |
 
----
+
 
 ### M2 — Content Ratings (adapted from Book Ratings)
 
@@ -106,7 +105,7 @@ Each metric is implemented directly in the Maternal Health Uganda PHP + MySQL co
 | Unit | Minutes |
 | Target | Average session duration ≥ 5 minutes; sessions under 30 seconds flagged as bounces |
 
----
+
 
 ### M4 — Page Load Times
 
@@ -120,7 +119,7 @@ Each metric is implemented directly in the Maternal Health Uganda PHP + MySQL co
 | Unit | Seconds (milliseconds stored internally) |
 | Target | 95% of pages load in under 2 seconds; any page exceeding 5 seconds triggers a `system_errors` entry with severity = high |
 
----
+
 
 ### M5 — Completion Rate
 
@@ -134,7 +133,7 @@ Each metric is implemented directly in the Maternal Health Uganda PHP + MySQL co
 | Unit | Percentage (%) |
 | Target | Completion rate ≥ 60% of registered users; drop-off points identified per trimester transition |
 
----
+
 
 ## Question-to-Metric Mapping
 
@@ -146,11 +145,11 @@ Each metric is implemented directly in the Maternal Health Uganda PHP + MySQL co
 | M4 | Page Load Times | Q4 | GA — Enhance User Experience |
 | M5 | Completion Rate | Q5 | GA — Enhance User Experience |
 
----
+
 
 ## GQM Hierarchy Summary
 
-```
+
 Goal A (GA)
 Enhance User Experience for Expectant Mothers
 │
@@ -170,7 +169,7 @@ Enhance User Experience for Expectant Mothers
         └── M3 (Session Duration)   M5 (Completion Rate)
 ```
 
----
+
 
 ## Database Tables Supporting the Metrics
 
