@@ -130,4 +130,4 @@ Pull requests are welcome. For major changes please open an issue first to discu
 
 ## License
 
-This project was developed for academic purposes at the University — SENG 421 Software Quality Assurance.
+This project was developed for academic purposes at the Mbarara  University  Of Science and Technology 
