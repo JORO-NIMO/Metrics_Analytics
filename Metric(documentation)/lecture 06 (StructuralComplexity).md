@@ -1,7 +1,7 @@
-# Structural Complexity — Lecture 06 Implementation
-## Maternal Health Uganda | SENG 421
 
----
+## Maternal Health Uganda 
+
+
 
 ## What This Lecture Is About
 
@@ -56,13 +56,12 @@ Measures the number of independent paths through a program. The more decision po
 
 **Finding:** Only `metrics_logger.php` reaches moderate risk. All other files are low. This is good — it means the codebase is testable and maintainable.
 
-**Table:** `cyclomatic_complexity` | **Dashboard:** 🔀 Complexity → Cyclomatic
+**Table:** `cyclomatic_complexity` | **Dashboard:**  Complexity → Cyclomatic
 
 ---
 
 ## 2 — Cohesion
 
-### What it is
 Cohesion measures how focused a module is — does it do one thing, or many unrelated things?
 
 **Goal: High cohesion.** A highly cohesive module works mostly within itself.
@@ -98,7 +97,7 @@ Cohesion measures how focused a module is — does it do one thing, or many unre
 
 **System Cohesion = 72.88%** — Good. All modules do more work internally than externally.
 
-**Table:** `cohesion_metrics` | **Dashboard:** 🔀 Complexity → Cohesion
+**Table:** `cohesion_metrics` | **Dashboard:**  Complexity → Cohesion
 
 ---
 
@@ -173,7 +172,6 @@ High IFC means a module is both widely used and widely dependent — a potential
 
 ## 5 — Architecture Metrics
 
-### What it is
 The overall shape of the system described as a graph S = {N, R}.
 
 | Metric | Description |
@@ -201,7 +199,7 @@ The overall shape of the system described as a graph S = {N, R}.
 2. Core logic: `metrics_logger.php`, `savetracker.php`, `login.php`, `signup.php` …
 3. Endpoints: `getmetrics.php`, `getexperiments.php`, `submitsurvey.php` …
 
-**Table:** `architecture_metrics` | **Dashboard:** 🔀 Complexity → Architecture
+**Table:** `architecture_metrics` | **Dashboard:** Complexity → Architecture
 
 ---
 
