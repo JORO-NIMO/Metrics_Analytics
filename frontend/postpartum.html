@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Postpartum Care - Maternal Health Uganda</title>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- EMERGENCY BANNER -->
+    <div style="background: #dc3545; color: white; padding: 15px; margin-bottom: 20px;">
+        <h3>
+            <i class="fas fa-exclamation-triangle"></i>
+            🚨 EMERGENCY? Every second counts
+        </h3>
+        <div>
+            <span><i class="fas fa-ambulance"></i> Ambulance: 911</span><br>
+            <span><i class="fas fa-hospital"></i> Mulago: 0414 123 456</span>
+        </div>
+        <button onclick="alert('Save these numbers:\nAmbulance: 911\nMulago: 0414 123 456')">
+            <i class="fas fa-save"></i> Save to Phone
+        </button>
+    </div>
+
+    <!-- PAGE HEADER -->
+           <!-- back -->
+<div class="back-to-home">
+    <a href="index.html" class="back-link">
+        <span class="back-arrow">←</span> Back to Home
+    </a>
+    <div style="text-align: center; margin-bottom: 30px;">
+        <h1>
+            <i class="fas fa-heart"></i>
+            Postpartum Care
+        </h1>
+        <p>Recovery, breastfeeding, newborn care, and mental health after delivery</p>
+    </div>
+
+    <!-- CATEGORY CARDS - Click to show sections -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 30px;">
+        
+        <div style="background: white; border: 1px solid #ddd; border-radius: 10px; padding: 20px; text-align: center; cursor: pointer;" onclick="showSection('recovery')">
+            <div style="font-size: 2rem; color: #dc3545;">🤰</div>
+            <h3>Mother's Recovery</h3>
+            <p>Healing, bleeding, stitches, C-section, nutrition</p>
+            <button style="background: none; border: 2px solid #e83e8c; color: #e83e8c; padding: 8px 20px; border-radius: 20px;">View Guide</button>
+        </div>
+        
+        <div style="background: white; border: 1px solid #ddd; border-radius: 10px; padding: 20px; text-align: center; cursor: pointer;" onclick="showSection('breastfeeding')">
+            <div style="font-size: 2rem; color: #fd7e14;">🤱</div>
+            <h3>Breastfeeding</h3>
+            <p>How to breastfeed, latching, problems, pumping</p>
+            <button style="background: none; border: 2px solid #e83e8c; color: #e83e8c; padding: 8px 20px; border-radius: 20px;">View Guide</button>
+        </div>
+        
+        <div style="background: white; border: 1px solid #ddd; border-radius: 10px; padding: 20px; text-align: center; cursor: pointer;" onclick="showSection('newborn')">
+            <div style="font-size: 2rem; color: #0d6efd;">👶</div>
+            <h3>Newborn Care</h3>
+            <p>Bathing, cord care, sleeping, crying, danger signs</p>
+            <button style="background: none; border: 2px solid #e83e8c; color: #e83e8c; padding: 8px 20px; border-radius: 20px;">View Guide</button>
+        </div>
+        
+        <div style="background: white; border: 1px solid #ddd; border-radius: 10px; padding: 20px; text-align: center; cursor: pointer;" onclick="showSection('mental')">
+            <div style="font-size: 2rem; color: #198754;">🧠</div>
+            <h3>Mental Health</h3>
+            <p>Postpartum depression, anxiety, where to get help</p>
+            <button style="background: none; border: 2px solid #e83e8c; color: #e83e8c; padding: 8px 20px; border-radius: 20px;">View Guide</button>
+        </div>
+    </div>
+
+    <!-- ========== SECTION 1: MOTHER'S RECOVERY ========== -->
+    <div id="recovery-section" style="display: none; background: white; border: 1px solid #ddd; border-radius: 10px; padding: 20px; margin-top: 20px;">
+        
+        <div style="display: flex; align-items: center; gap: 15px; border-bottom: 2px solid #f0f0f0; padding-bottom: 15px; margin-bottom: 20px;">
+            <div style="font-size: 2rem;">🤰</div>
+            <h2>Mother's Recovery</h2>
+        </div>
+
+        <!-- Quick Menu -->
+        <div style="background: #f8f9fa; padding: 10px; border-radius: 5px; margin-bottom: 20px;">
+            <a href="#bleeding" style="margin-right: 10px;">🩸 Bleeding</a>
+            <a href="#pain" style="margin-right: 10px;">💊 Pain</a>
+            <a href="#stitches" style="margin-right: 10px;">🧵 Stitches</a>
+            <a href="#csection" style="margin-right: 10px;">🔪 C-section</a>
+            <a href="#recovery-danger">🚨 Danger Signs</a>
+        </div>
+
+        <!-- Bleeding -->
+        <div id="bleeding" style="background: #f8f9fa; border-left: 5px solid #e83e8c; padding: 15px; margin-bottom: 20px;">
+            <h3><i class="fas fa-tint"></i> 🩸 Bleeding After Birth (Lochia)</h3>
+            
+            <h4>Days 1-3:</h4>
+            <ul>
+                <li>Bright red blood</li>
+                <li>Like heavy period</li>
+                <li>Small clots (grape-sized)</li>
+                <li>Change pad every 2-3 hours</li>
+            </ul>
+            
+            <h4>Days 4-10:</h4>
+            <ul>
+                <li>Pinkish-brown</li>
+                <li>Lighter flow</li>
+                <li>Change pad 3-4 times/day</li>
+            </ul>
+            
+            <h4>Days 11-14+:</h4>
+            <ul>
+                <li>Whitish-yellow</li>
+                <li>Spotting only</li>
+                <li>May last up to 6 weeks</li>
+            </ul>
+            
+            <div style="background: #fff3cd; border: 1px solid #ffc107; padding: 10px; margin-top: 10px;">
+                <h4>🚨 SEE DOCTOR IF:</h4>
+                <ul>
+                    <li>Soaking 1 pad per hour</li>
+                    <li>Clots bigger than your fist</li>
+                    <li>Bleeding turns bright red again</li>
+                    <li>Foul smell (infection)</li>
+                    <li>Severe pain</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Pain -->
+        <div id="pain" style="background: #f8f9fa; border-left: 5px solid #e83e8c; padding: 15px; margin-bottom: 20px;">
+            <h3><i class="fas fa-pills"></i> 💊 Pain Management</h3>
+            
+            <h4>Normal Pains:</h4>
+            <ul>
+                <li>Afterpains (cramping)</li>
+                <li>Worse when breastfeeding</li>
+                <li>Lasts 2-3 days</li>
+            </ul>
+            
+            <h4>What Helps:</h4>
+            <ul>
+                <li>Paracetamol (if prescribed)</li>
+                <li>Warm compress on belly</li>
+                <li>Empty bladder often</li>
+                <li>Gentle massage</li>
+            </ul>
+        </div>
+
+        <!-- Stitches -->
+        <div id="stitches" style="background: #f8f9fa; border-left: 5px solid #e83e8c; padding: 15px; margin-bottom: 20px;">
+            <h3><i class="fas fa-cut"></i> 🧵 Perineal Care (If you had stitches)</h3>
+            
+            <h4>✅ DO:</h4>
+            <ul>
+                <li>Keep area clean</li>
+                <li>Wash with clean water after toilet</li>
+                <li>Pat dry (don't rub)</li>
+                <li>Change pads often</li>
+            </ul>
+            
+            <h4>❌ DON'T:</h4>
+            <ul>
+                <li>Use soap inside</li>
+                <li>Sit for long periods</li>
+                <li>Strain during bowel movements</li>
+            </ul>
+        </div>
+
+        <!-- C-section -->
+        <div id="csection" style="background: #f8f9fa; border-left: 5px solid #e83e8c; padding: 15px; margin-bottom: 20px;">
+            <h3><i class="fas fa-cut"></i> 🔪 C-Section Recovery</h3>
+            <ul>
+                <li>Keep incision clean and dry</li>
+                <li>No heavy lifting (nothing heavier than baby)</li>
+                <li>No driving for 2 weeks</li>
+                <li>No sex for 6 weeks</li>
+                <li>Gentle walking is good</li>
+            </ul>
+            
+            <div style="background: #fff3cd; border: 1px solid #ffc107; padding: 10px; margin-top: 10px;">
+                <h4>🚨 SEE DOCTOR IF:</h4>
+                <ul>
+                    <li>Incision opens</li>
+                    <li>Pus or foul smell</li>
+                    <li>Fever</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Danger Signs -->
+        <div id="recovery-danger" style="background: #fff3cd; border: 1px solid #ffc107; padding: 15px;">
+            <h4>🚑 CALL DOCTOR IMMEDIATELY IF:</h4>
+            <ul>
+                <li>Heavy bleeding (soaking 1 pad per hour)</li>
+                <li>Fever >38°C</li>
+                <li>Severe headache</li>
+                <li>Vision changes</li>
+                <li>Difficulty breathing</li>
+                <li>Chest pain</li>
+                <li>Swollen, painful leg</li>
+                <li>Thoughts of hurting yourself or baby</li>
+            </ul>
+        </div>
+
+        <div style="text-align: center; margin: 20px 0;">
+            <button onclick="alert('Save these numbers:\nAmbulance: 911\nMulago: 0414 123 456')">
+                <i class="fas fa-save"></i> Save Emergency Numbers
+            </button>
+        </div>
+    </div>
+
+    <!-- ========== SECTION 2: BREASTFEEDING ========== -->
+    <div id="breastfeeding-section" style="display: none; background: white; border: 1px solid #ddd; border-radius: 10px; padding: 20px; margin-top: 20px;">
+        
+        <div style="display: flex; align-items: center; gap: 15px; border-bottom: 2px solid #f0f0f0; padding-bottom: 15px; margin-bottom: 20px;">
+            <div style="font-size: 2rem;">🤱</div>
+            <h2>Breastfeeding Guide</h2>
+        </div>
+
+        <div style="background: #f8f9fa; border-left: 5px solid #e83e8c; padding: 15px; margin-bottom: 20px;">
+            <h3><i class="fas fa-book-open"></i> How to Breastfeed</h3>
+            <ol>
+                <li><strong>Get comfortable</strong> - Sit with back support, use pillows</li>
+                <li><strong>Position baby</strong> - Tummy to tummy, nose to nipple</li>
+                <li><strong>Help baby latch</strong> - Wait for wide mouth, bring to breast</li>
+            </ol>
+            
+            <h4>✅ Good latch signs:</h4>
+            <ul>
+                <li>Mouth wide open</li>
+                <li>Lips curled out (like fish)</li>
+                <li>Chin touching breast</li>
+                <li>No pain (just tugging)</li>
+                <li>You hear swallowing</li>
+            </ul>
+            
+            <h4>✗ Poor latch signs:</h4>
+            <ul>
+                <li>Painful</li>
+                <li>Clicking sounds</li>
+                <li>Baby's cheeks dimple</li>
+                <li>Nipple flattened after</li>
+            </ul>
+        </div>
+
+        <div style="background: #f8f9fa; border-left: 5px solid #e83e8c; padding: 15px; margin-bottom: 20px;">
+            <h3><i class="fas fa-chart-line"></i> Is Baby Getting Enough Milk?</h3>
+            
+            <table border="1" style="width:100%; border-collapse:collapse;">
+                <tr>
+                    <th style="padding:10px;">Age</th>
+                    <th style="padding:10px;">Wet Diapers</th>
+                </tr>
+                <tr>
+                    <td style="padding:10px;">Day 1-2</td>
+                    <td style="padding:10px;">1-2 wet diapers</td>
+                </tr>
+                <tr>
+                    <td style="padding:10px;">Day 3-4</td>
+                    <td style="padding:10px;">3-4 wet diapers</td>
+                </tr>
+                <tr>
+                    <td style="padding:10px;">Day 5+</td>
+                    <td style="padding:10px;">6-8 wet diapers</td>
+                </tr>
+            </table>
+            
+            <div style="background: #fff3cd; border: 1px solid #ffc107; padding: 10px; margin-top: 10px;">
+                <h4>⚠️ Signs baby is NOT getting enough:</h4>
+                <ul>
+                    <li>Fewer than 6 wet diapers after day 5</li>
+                    <li>Dark urine</li>
+                    <li>Always fussy/crying</li>
+                    <li>Not gaining weight</li>
+                    <li>Very sleepy, hard to wake</li>
+                </ul>
+            </div>
+        </div>
+
+        <div style="background: #f8f9fa; border-left: 5px solid #e83e8c; padding: 15px;">
+            <h3><i class="fas fa-tools"></i> Common Problems</h3>
+            
+            <h4>😖 SORE NIPPLES</h4>
+            <p><strong>Fix:</strong> Improve latch, express milk on nipples, try different positions</p>
+            
+            <h4>🍼 ENGORGEMENT (Very full breasts)</h4>
+            <p><strong>Fix:</strong> Feed more often, warm compress before feeding, cold pack between feeds</p>
+            
+            <h4>🔴 MASTITIS (Infected breast)</h4>
+            <p><strong>Signs:</strong> Red, painful, hot area; fever</p>
+            <p><strong>Fix:</strong> KEEP FEEDING! See doctor - may need antibiotics</p>
+        </div>
+    </div>
+
+    <!-- ========== SECTION 3: NEWBORN CARE ========== -->
+    <div id="newborn-section" style="display: none; background: white; border: 1px solid #ddd; border-radius: 10px; padding: 20px; margin-top: 20px;">
+        
+        <div style="display: flex; align-items: center; gap: 15px; border-bottom: 2px solid #f0f0f0; padding-bottom: 15px; margin-bottom: 20px;">
+            <div style="font-size: 2rem;">👶</div>
+            <h2>Newborn Care (0-6 weeks)</h2>
+        </div>
+
+        <div style="background: #f8f9fa; border-left: 5px solid #e83e8c; padding: 15px; margin-bottom: 20px;">
+            <h3><i class="fas fa-bath"></i> 🛁 Bathing Your Baby</h3>
+            <p><strong>How often:</strong> 2-3 times/week. Sponge bath until cord falls off.</p>
+            
+            <h4>Step by step:</h4>
+            <ol>
+                <li>Keep baby warm - only undress part you're washing</li>
+                <li>Wash face first (no soap)</li>
+                <li>Wash body, gentle in folds</li>
+                <li>Pat dry (don't rub)</li>
+                <li>Put on clean diaper, clothes</li>
+            </ol>
+            
+            <p><strong>⚠️ SAFETY:</strong> NEVER leave baby alone in water!</p>
+        </div>
+
+        <div style="background: #f8f9fa; border-left: 5px solid #e83e8c; padding: 15px; margin-bottom: 20px;">
+            <h3><i class="fas fa-cut"></i> 🧼 Umbilical Cord Care</h3>
+            
+            <h4>✅ DO:</h4>
+            <ul>
+                <li>Keep clean and dry</li>
+                <li>Fold diaper below cord</li>
+                <li>Let air get to it</li>
+                <li>Let it fall off naturally (5-15 days)</li>
+            </ul>
+            
+            <h4>❌ DON'T:</h4>
+            <ul>
+                <li>Put anything on it (no herbs, no oil)</li>
+                <li>Cover tightly</li>
+                <li>Pull it off</li>
+            </ul>
+            
+            <div style="background: #fff3cd; border: 1px solid #ffc107; padding: 10px; margin-top: 10px;">
+                <h4>🚨 Signs of infection (SEE DOCTOR):</h4>
+                <ul>
+                    <li>Redness around base</li>
+                    <li>Pus or foul smell</li>
+                    <li>Swelling</li>
+                    <li>Bleeding</li>
+                    <li>Baby has fever</li>
+                </ul>
+            </div>
+        </div>
+
+        <div style="background: #f8f9fa; border-left: 5px solid #e83e8c; padding: 15px; margin-bottom: 20px;">
+            <h3><i class="fas fa-bed"></i> 😴 Safe Sleep</h3>
+            <ul>
+                <li>Always place baby on BACK</li>
+                <li>Firm mattress, no pillows</li>
+                <li>No soft toys or loose blankets</li>
+                <li>Baby in same room (not same bed)</li>
+                <li>No smoking around baby</li>
+            </ul>
+        </div>
+
+        <div style="background: #fff3cd; border: 1px solid #ffc107; padding: 15px;">
+            <h4>🚑 DANGER SIGNS IN NEWBORN:</h4>
+            <ul>
+                <li>Fever >38°C</li>
+                <li>Too cold (below 36°C)</li>
+                <li>Difficulty breathing</li>
+                <li>Refuses to feed</li>
+                <li>Vomiting (not just spit-up)</li>
+                <li>Hard to wake</li>
+                <li>Fewer than 4 wet diapers</li>
+                <li>Yellow skin/eyes (jaundice)</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ========== SECTION 4: MENTAL HEALTH ========== -->
+    <div id="mental-section" style="display: none; background: white; border: 1px solid #ddd; border-radius: 10px; padding: 20px; margin-top: 20px;">
+        
+        <div style="display: flex; align-items: center; gap: 15px; border-bottom: 2px solid #f0f0f0; padding-bottom: 15px; margin-bottom: 20px;">
+            <div style="font-size: 2rem;">🧠</div>
+            <h2>Mental Health After Birth</h2>
+        </div>
+
+        <div style="background: #d4edda; border: 1px solid #28a745; padding: 15px; margin-bottom: 20px;">
+            <h4><i class="fas fa-heart"></i> You are not alone</h4>
+            <p>1 in 7 mothers experience postpartum depression. It's an illness, NOT a weakness. It's treatable.</p>
+        </div>
+
+        <div style="background: #f8f9fa; border-left: 5px solid #e83e8c; padding: 15px; margin-bottom: 20px;">
+            <h3><i class="fas fa-list"></i> Signs (for 2+ weeks):</h3>
+            <ul>
+                <li>Feeling sad, hopeless, overwhelmed</li>
+                <li>Can't sleep (even when baby sleeps)</li>
+                <li>Sleeping too much</li>
+                <li>Not eating or eating too much</li>
+                <li>Irritable, angry</li>
+                <li>Extreme anxiety, panic attacks</li>
+                <li>No bond with baby</li>
+                <li>Thoughts of hurting yourself or baby</li>
+            </ul>
+        </div>
+
+        <div style="background: #cce5ff; border: 1px solid #004085; padding: 15px;">
+            <h4><i class="fas fa-phone-alt"></i> 📞 GET HELP NOW</h4>
+            <p><strong>Butabika National Mental Health Helpline:</strong> 0800 123 456 (free, 24/7)</p>
+            <p>Your local health center</p>
+            <p>Ask your midwife</p>
+            <button onclick="window.location.href='tel:0800123456'">
+                <i class="fas fa-phone"></i> Call Helpline Now
+            </button>
+        </div>
+    </div>
+
+    <!-- BACK TO TOP BUTTON -->
+    <div style="text-align: center; margin: 30px 0;">
+        <button onclick="window.scrollTo({top:0,behavior:'smooth'})">
+            <i class="fas fa-arrow-up"></i> Back to Top
+        </button>
+    </div>
+
+    <!-- SIMPLE JAVASCRIPT -->
+    <script>
+        function showSection(section) {
+            // Hide all sections
+            document.getElementById('recovery-section').style.display = 'none';
+            document.getElementById('breastfeeding-section').style.display = 'none';
+            document.getElementById('newborn-section').style.display = 'none';
+            document.getElementById('mental-section').style.display = 'none';
+            
+            // Show selected section
+            document.getElementById(section + '-section').style.display = 'block';
+        }
+    </script>
+
+</body>
+</html>
