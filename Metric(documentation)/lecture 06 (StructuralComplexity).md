@@ -139,7 +139,7 @@ Where coupling_rank comes from the type (R0–R4) and n is the number of interco
 
 **Global System Coupling = 1.6667** — Good. Predominantly R1 (data coupling = loose).
 
-**Table:** `coupling_metrics` | **Dashboard:** 🔀 Complexity → Coupling
+**Table:** `coupling_metrics` | **Dashboard:**  Complexity → Coupling
 
 ---
 
@@ -166,7 +166,7 @@ High IFC means a module is both widely used and widely dependent — a potential
 
 **Finding:** `metrics_logger.php` has the highest IFC (1764) because it is called by many modules and writes to many tables. This is expected — it is the central logging hub.
 
-**Table:** `information_flow` | **Dashboard:** 🔀 Complexity → Information Flow
+**Table:** `information_flow` | **Dashboard:**  Complexity → Information Flow
 
 ---
 
