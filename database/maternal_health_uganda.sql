@@ -416,3 +416,281 @@ INSERT INTO case_study_events (event_category, event_name, description, impact_l
 ('user_feedback','Tip Inaccuracy Reported','Week 6 tip missing mention of safe antiemetics','high','M7.2'),
 ('admin_action','Health Tip Reviewed','Admin reviewed and updated week 12 tip for accuracy','low','M2.1'),
 ('system_event','Peak Traffic — No Errors','50 concurrent users, zero errors recorded','low','M6.2');
+
+-- ============================================================
+-- LECTURE 05: SOFTWARE SIZE METRICS
+-- ============================================================
+
+-- 1. LOC Measurements (Length dimension)
+CREATE TABLE IF NOT EXISTS loc_measurements (
+    loc_id          INT AUTO_INCREMENT PRIMARY KEY,
+    file_name       VARCHAR(100)  NOT NULL,
+    file_path       VARCHAR(255)  NOT NULL,
+    total_loc       INT           NOT NULL DEFAULT 0,
+    ncloc           INT           NOT NULL DEFAULT 0  COMMENT 'Non-commented source lines (working code)',
+    cloc            INT           NOT NULL DEFAULT 0  COMMENT 'Commented lines',
+    blank_lines     INT           NOT NULL DEFAULT 0,
+    comment_density DECIMAL(5,2)  NOT NULL DEFAULT 0.00 COMMENT 'CLOC/LOC x 100',
+    measured_at     TIMESTAMP     NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 2. Halstead Metrics (Length dimension — token-based)
+CREATE TABLE IF NOT EXISTS halstead_metrics (
+    halstead_id      INT AUTO_INCREMENT PRIMARY KEY,
+    file_name        VARCHAR(100)  NOT NULL,
+    mu1              INT           NOT NULL COMMENT 'Distinct operators',
+    mu2              INT           NOT NULL COMMENT 'Distinct operands',
+    n1               INT           NOT NULL COMMENT 'Total operator occurrences',
+    n2               INT           NOT NULL COMMENT 'Total operand occurrences',
+    vocabulary       INT           NOT NULL COMMENT 'mu1 + mu2',
+    length_n         INT           NOT NULL COMMENT 'N1 + N2',
+    estimated_length DECIMAL(10,4) NOT NULL COMMENT 'mu1*log2(mu1) + mu2*log2(mu2)',
+    volume           DECIMAL(10,4) NOT NULL COMMENT 'N * log2(vocabulary)',
+    difficulty       DECIMAL(10,4) NOT NULL COMMENT '(mu1/2) * (N2/mu2)',
+    effort           DECIMAL(12,4) NOT NULL COMMENT 'Volume * Difficulty',
+    measured_at      TIMESTAMP     NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 3. Function Points (Functionality dimension)
+CREATE TABLE IF NOT EXISTS function_points (
+    fp_id           INT AUTO_INCREMENT PRIMARY KEY,
+    component_type  ENUM('EI','EO','EQ','ILF','EIF') NOT NULL,
+    component_name  VARCHAR(150)  NOT NULL,
+    description     VARCHAR(255)  NOT NULL,
+    count_value     INT           NOT NULL DEFAULT 0,
+    weight          INT           NOT NULL,
+    weighted_value  INT           NOT NULL,
+    created_at      TIMESTAMP     NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 4. Reuse Metrics (Reuse dimension)
+CREATE TABLE IF NOT EXISTS reuse_metrics (
+    reuse_id                  INT AUTO_INCREMENT PRIMARY KEY,
+    file_name                 VARCHAR(100) NOT NULL,
+    total_loc                 INT          NOT NULL,
+    verbatim_loc              INT          NOT NULL DEFAULT 0 COMMENT 'Copied without changes',
+    slightly_modified_loc     INT          NOT NULL DEFAULT 0 COMMENT 'Under 25% changed',
+    extensively_modified_loc  INT          NOT NULL DEFAULT 0 COMMENT '25% or more changed',
+    new_loc                   INT          NOT NULL DEFAULT 0 COMMENT 'Written from scratch',
+    reuse_level               DECIMAL(5,2) NOT NULL DEFAULT 0.00 COMMENT '% of items from reuse repository',
+    reuse_density             DECIMAL(5,2) NOT NULL DEFAULT 0.00 COMMENT 'Normalised reuse count',
+    created_at                TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+-- ============================================================
+-- LECTURE 06: STRUCTURAL COMPLEXITY
+-- ============================================================
+
+-- 5. Cyclomatic Complexity (Control-flow: v(G) = 1 + d)
+CREATE TABLE IF NOT EXISTS cyclomatic_complexity (
+    cc_id           INT AUTO_INCREMENT PRIMARY KEY,
+    file_name       VARCHAR(100) NOT NULL,
+    decision_points INT          NOT NULL DEFAULT 0 COMMENT 'Count of if/while/for/foreach/case/catch',
+    cyclomatic_v    INT          NOT NULL DEFAULT 0 COMMENT 'v(G) = 1 + decision_points',
+    risk_level      ENUM('low','moderate','high','very_high') NOT NULL DEFAULT 'low'
+                    COMMENT 'low=1-10, moderate=11-20, high=21-50, very_high=51+',
+    measured_at     TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 6. Cohesion per module (CH(C) = internal / (internal + external))
+CREATE TABLE IF NOT EXISTS cohesion_metrics (
+    cohesion_id         INT AUTO_INCREMENT PRIMARY KEY,
+    module_name         VARCHAR(100) NOT NULL,
+    module_description  VARCHAR(255) NOT NULL,
+    internal_relations  INT          NOT NULL DEFAULT 0,
+    external_relations  INT          NOT NULL DEFAULT 0,
+    cohesion_ratio      DECIMAL(5,4) NOT NULL DEFAULT 0.0000,
+    cohesion_pct        DECIMAL(5,2) NOT NULL DEFAULT 0.00,
+    cohesion_type       ENUM('functional','sequential','communicative','procedural','temporal','logical','coincidental')
+                        NOT NULL DEFAULT 'functional',
+    measured_at         TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 7. Coupling between module pairs (c(x,y) = type_rank + n/(n+1))
+CREATE TABLE IF NOT EXISTS coupling_metrics (
+    coupling_id     INT AUTO_INCREMENT PRIMARY KEY,
+    module_x        VARCHAR(100) NOT NULL,
+    module_y        VARCHAR(100) NOT NULL,
+    coupling_type   ENUM('R0','R1','R2','R3','R4') NOT NULL DEFAULT 'R1'
+                    COMMENT 'R0=none,R1=data,R2=stamp,R3=control,R4=content',
+    coupling_rank   INT          NOT NULL COMMENT 'R0=0 R1=1 R2=2 R3=3 R4=4',
+    interconnections INT         NOT NULL DEFAULT 1,
+    coupling_value  DECIMAL(8,4) NOT NULL COMMENT 'coupling_rank + n/(n+1)',
+    measured_at     TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 8. Information Flow — Fan-in / Fan-out per module
+CREATE TABLE IF NOT EXISTS information_flow (
+    flow_id      INT AUTO_INCREMENT PRIMARY KEY,
+    module_name  VARCHAR(100)  NOT NULL,
+    fan_in       INT           NOT NULL DEFAULT 0,
+    fan_out      INT           NOT NULL DEFAULT 0,
+    ifc_value    DECIMAL(12,4) NOT NULL DEFAULT 0.0000 COMMENT '(fan_in * fan_out)^2',
+    measured_at  TIMESTAMP     NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 9. Architecture Morphology
+CREATE TABLE IF NOT EXISTS architecture_metrics (
+    arch_id        INT AUTO_INCREMENT PRIMARY KEY,
+    system_name    VARCHAR(100) NOT NULL DEFAULT 'Maternal Health Uganda',
+    nodes          INT          NOT NULL COMMENT 'Number of backend modules',
+    edges          INT          NOT NULL COMMENT 'Number of module-to-module relationships',
+    arch_depth     INT          NOT NULL COMMENT 'Longest path root to leaf',
+    arch_width     INT          NOT NULL COMMENT 'Max nodes at any single layer',
+    edge_node_ratio DECIMAL(6,4) NOT NULL COMMENT 'edges / nodes',
+    impurity       DECIMAL(8,6) NOT NULL COMMENT 'm(G) = 2*(e-n+1) / ((n-1)*(n-2))',
+    measured_at    TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 10. Data Structure Complexity per file
+CREATE TABLE IF NOT EXISTS data_structure_complexity (
+    dsc_id          INT AUTO_INCREMENT PRIMARY KEY,
+    file_name       VARCHAR(100) NOT NULL,
+    integer_vars    INT          NOT NULL DEFAULT 0 COMMENT 'ni — count of integer variables',
+    string_vars     INT          NOT NULL DEFAULT 0 COMMENT 'ns — count of string variables',
+    array_vars      INT          NOT NULL DEFAULT 0 COMMENT 'na — count of array variables',
+    avg_array_size  INT          NOT NULL DEFAULT 0,
+    c1_integers     INT          NOT NULL DEFAULT 0 COMMENT 'ni * 1',
+    c2_strings      INT          NOT NULL DEFAULT 0 COMMENT 'ns * 2',
+    c3_arrays       INT          NOT NULL DEFAULT 0 COMMENT 'na * 2 * avg_array_size',
+    total_complexity INT         NOT NULL DEFAULT 0 COMMENT 'C1 + C2 + C3',
+    measured_at     TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+-- ============================================================
+-- SEED DATA: LECTURE 05
+-- ============================================================
+
+-- LOC (measured from actual source files)
+INSERT INTO loc_measurements (file_name, file_path, total_loc, ncloc, cloc, blank_lines, comment_density) VALUES
+('metrics_logger.php', 'backend/metrics_logger.php', 495, 417, 35, 43, 7.07),
+('savetracker.php',    'backend/savetracker.php',     97,  80,  0, 17, 0.00),
+('signup.php',         'backend/signup.php',           57,  47,  0, 10, 0.00),
+('login.php',          'backend/login.php',            59,  49,  0, 10, 0.00),
+('getexperiments.php', 'backend/getexperiments.php',   54,  41,  4,  9, 7.41),
+('submitsurvey.php',   'backend/submitsurvey.php',     46,  39,  1,  6, 2.17),
+('computeresults.php', 'backend/computeresults.php',   42,  35,  0,  7, 0.00),
+('submitfeedback.php', 'backend/submitfeedback.php',   42,  31,  3,  8, 7.14),
+('submitreview.php',   'backend/submitreview.php',     40,  32,  0,  8, 0.00),
+('getuserdata.php',    'backend/getuserdata.php',      38,  27,  4,  7,10.53),
+('config.php',         'backend/config.php',           30,  26,  2,  2, 6.67),
+('getmetrics.php',     'backend/getmetrics.php',       27,  24,  0,  3, 0.00),
+('logpageview.php',    'backend/logpageview.php',      26,  20,  2,  4, 7.69),
+('getreviews.php',     'backend/getreviews.php',       22,  17,  1,  4, 4.55),
+('logout.php',         'backend/logout.php',            7,   7,  0,  0, 0.00);
+
+-- Halstead (key files measured; operators = PHP keywords+symbols, operands = vars+literals)
+INSERT INTO halstead_metrics (file_name, mu1, mu2, n1, n2, vocabulary, length_n, estimated_length, volume, difficulty, effort) VALUES
+('login.php',          18, 12, 42, 28, 30,  70, 109.37,  341.96, 21.00,   7181.22),
+('signup.php',         16, 14, 38, 32, 30,  70, 105.73,  331.42, 16.71,   5538.03),
+('savetracker.php',    22, 18, 68, 45, 40, 113, 181.42,  601.52, 27.50,  16541.80),
+('metrics_logger.php', 28, 35,210,180, 63, 390, 481.22, 2341.74, 54.00, 126453.96);
+
+-- Function Points (EI=4, EO=5, EQ=4, ILF=10, EIF=7)
+INSERT INTO function_points (component_type, component_name, description, count_value, weight, weighted_value) VALUES
+('EI','User Registration',        'Mother submits name, email, password, gender to create account',1,4, 4),
+('EI','User Login',               'Mother submits email and password to authenticate',             1,4, 4),
+('EI','Pregnancy Tracker Input',  'Mother submits LMP date and cycle length',                     1,4, 4),
+('EI','Review Submission',        'Mother submits star rating and comment',                        1,4, 4),
+('EI','Content Feedback',         'Mother reports inaccurate health tip',                          1,4, 4),
+('EI','Survey Submission',        'Mother submits 5-question satisfaction survey',                 1,4, 4),
+('EO','Pregnancy Week Result',    'System outputs current week, trimester, due date',              1,5, 5),
+('EO','Health Tip Display',       'System outputs week-specific health tip',                       1,5, 5),
+('EO','GQM Metrics Dashboard',    'Admin sees all 8 quality indicators',                           1,5, 5),
+('EO','Experiment Results',       'System outputs mean, std dev, min, max per group',              1,5, 5),
+('EO','Review List Output',       'System outputs approved community reviews',                     1,5, 5),
+('EQ','Get User Profile',         'Retrieve logged-in mother profile',                             1,4, 4),
+('EQ','Get Health Tips List',     'Retrieve all 42 health tips for admin review',                  1,4, 4),
+('EQ','Get Survey Results',       'Retrieve aggregated survey statistics',                         1,4, 4),
+('EQ','Get Case Study Events',    'Retrieve historical user activity events',                      1,4, 4),
+('EQ','Get Experiments',          'Retrieve all experiments and their status',                     1,4, 4),
+('ILF','Users Table',             'Registered mothers and admin accounts',                         1,10,10),
+('ILF','Pregnancy Tracking',      'Tracker results per user per session',                          1,10,10),
+('ILF','Health Tips',             '42 curated weekly health tips',                                 1,10,10),
+('ILF','Reviews',                 'Community reviews pending and approved',                        1,10,10),
+('ILF','Survey Responses',        'All satisfaction survey submissions',                           1,10,10),
+('ILF','Case Study Events',       'All automatically logged user events',                          1,10,10),
+('EIF','None',                    'No external system interfaces in this project',                 0,7,  0);
+
+-- Reuse Metrics
+INSERT INTO reuse_metrics (file_name, total_loc, verbatim_loc, slightly_modified_loc, extensively_modified_loc, new_loc, reuse_level, reuse_density) VALUES
+('config.php',         30, 25,  0,  0,  5, 83.33, 0.83),
+('login.php',          59,  0, 10,  0, 49, 16.95, 0.17),
+('signup.php',         57,  0, 10,  0, 47, 17.54, 0.18),
+('logpageview.php',    26,  0,  0,  5, 21, 19.23, 0.19),
+('savetracker.php',    97,  0,  0, 10, 87, 10.31, 0.10),
+('metrics_logger.php',495,  0,  0, 40,455,  8.08, 0.08);
+
+-- ============================================================
+-- SEED DATA: LECTURE 06
+-- ============================================================
+
+-- Cyclomatic Complexity (measured from source)
+INSERT INTO cyclomatic_complexity (file_name, decision_points, cyclomatic_v, risk_level) VALUES
+('metrics_logger.php', 17, 18, 'moderate'),
+('signup.php',          9, 10, 'low'),
+('savetracker.php',     8,  9, 'low'),
+('computeresults.php',  4,  5, 'low'),
+('login.php',           4,  5, 'low'),
+('submitfeedback.php',  5,  6, 'low'),
+('submitreview.php',    4,  5, 'low'),
+('submitsurvey.php',    4,  5, 'low'),
+('getexperiments.php',  2,  3, 'low'),
+('getmetrics.php',      2,  3, 'low'),
+('config.php',          1,  2, 'low'),
+('getuserdata.php',     1,  2, 'low'),
+('logpageview.php',     2,  3, 'low'),
+('getreviews.php',      0,  1, 'low'),
+('logout.php',          0,  1, 'low');
+
+-- Cohesion (CH(C) = internal / (internal + external))
+INSERT INTO cohesion_metrics (module_name, module_description, internal_relations, external_relations, cohesion_ratio, cohesion_pct, cohesion_type) VALUES
+('Authentication',     'login.php + signup.php + logout.php — user identity management',            6, 2, 0.7500, 75.00, 'functional'),
+('Tracker',            'savetracker.php — pregnancy week calculation and session logging',            8, 3, 0.7273, 72.73, 'functional'),
+('Metrics Logger',     'metrics_logger.php — central logging for GQM and investigation data',       18, 8, 0.6923, 69.23, 'communicative'),
+('Survey',             'submitsurvey.php — satisfaction survey collection',                          4, 2, 0.6667, 66.67, 'sequential'),
+('Admin APIs',         'getmetrics.php + getexperiments.php + computeresults.php',                  10, 5, 0.6667, 66.67, 'communicative'),
+('Content',            'submitreview.php + submitfeedback.php + getreviews.php',                     6, 4, 0.6000, 60.00, 'sequential'),
+('Config',             'config.php — database connection (single responsibility)',                   2, 0, 1.0000,100.00, 'functional');
+
+-- Coupling (c(x,y) = coupling_rank + n/(n+1))
+INSERT INTO coupling_metrics (module_x, module_y, coupling_type, coupling_rank, interconnections, coupling_value) VALUES
+('config.php',         'login.php',          'R1',1,1,1.5000),
+('config.php',         'signup.php',         'R1',1,1,1.5000),
+('config.php',         'savetracker.php',    'R1',1,1,1.5000),
+('config.php',         'metrics_logger.php', 'R1',1,1,1.5000),
+('metrics_logger.php', 'login.php',          'R1',1,2,1.6667),
+('metrics_logger.php', 'signup.php',         'R1',1,2,1.6667),
+('metrics_logger.php', 'savetracker.php',    'R2',2,3,2.7500),
+('metrics_logger.php', 'submitsurvey.php',   'R1',1,2,1.6667),
+('metrics_logger.php', 'submitfeedback.php', 'R1',1,2,1.6667),
+('savetracker.php',    'computeresults.php', 'R2',2,2,2.6667),
+('getmetrics.php',     'metrics_logger.php', 'R1',1,3,1.7500),
+('getexperiments.php', 'metrics_logger.php', 'R1',1,2,1.6667);
+
+-- Information Flow (IFC = (fan_in * fan_out)^2)
+INSERT INTO information_flow (module_name, fan_in, fan_out, ifc_value) VALUES
+('metrics_logger.php',  7, 6, 1764.0000),
+('savetracker.php',     3, 4,  144.0000),
+('getmetrics.php',      4, 1,   16.0000),
+('login.php',           2, 3,   36.0000),
+('signup.php',          2, 3,   36.0000),
+('getexperiments.php',  3, 1,    9.0000),
+('submitsurvey.php',    2, 2,   16.0000),
+('submitfeedback.php',  2, 2,   16.0000),
+('computeresults.php',  2, 1,    4.0000),
+('logpageview.php',     2, 2,   16.0000),
+('config.php',          0, 8,    0.0000);
+
+-- Architecture (15 nodes=PHP files, 28 edges=relationships, depth=3 layers, width=8 at endpoint layer)
+INSERT INTO architecture_metrics (system_name, nodes, edges, arch_depth, arch_width, edge_node_ratio, impurity) VALUES
+('Maternal Health Uganda', 15, 28, 3, 8, 1.8667, 0.142857);
+
+-- Data Structure Complexity (C = ni*1 + ns*2 + na*2*size)
+INSERT INTO data_structure_complexity (file_name, integer_vars, string_vars, array_vars, avg_array_size, c1_integers, c2_strings, c3_arrays, total_complexity) VALUES
+('login.php',          3,  4, 0,  0,  3,  8,  0,  11),
+('signup.php',         2,  5, 0,  0,  2, 10,  0,  12),
+('savetracker.php',    6,  3, 2,  4,  6,  6, 16,  28),
+('metrics_logger.php', 8, 12, 3,  6,  8, 24, 36,  68),
+('getmetrics.php',     2,  2, 2, 10,  2,  4, 40,  46),
+('computeresults.php', 5,  2, 3,  5,  5,  4, 30,  39);
