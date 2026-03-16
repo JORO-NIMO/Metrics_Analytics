@@ -1,6 +1,6 @@
 # Maternal Health Uganda
 
-A web-based maternal healthcare platform designed to support expectant mothers across Uganda with pregnancy tracking, personalised weekly health tips, and community reviews.
+A web-based maternal healthcare platform designed to support expectant mothers across Uganda with pregnancy tracking, personalised weekly health tips, and community reviews
 
 ---
 
