@@ -119,9 +119,9 @@ Measures what the system DOES for users — independent of language and availabl
 | Dashboard tab 📐 Software Size | HTML/JS | Displays all four dimensions |
 
 
+## Project Cost Estimation
 
- Project Cost Estimation
-##  | Function Point Analysis + COCOMO |
+## Team Size: 7 Members
 
 ---
 
@@ -144,9 +144,9 @@ AFP = UFC x VAF = 129 x 1.0 = 129 Function Points
 
 ---
 
-## Step 2: Effort Estimation
+## Step 2: Total Effort Estimation
 
-| Estimate | Formula | Person-Hours | Person-Months |
+| Estimate | Formula | Total Hours | Total Person-Months |
 |---|---|---|---|
 | Low | 129 x 5 hrs/FP | 645 hrs | 3.7 months |
 | Average | 129 x 10 hrs/FP | 1,290 hrs | 7.3 months |
@@ -156,19 +156,61 @@ AFP = UFC x VAF = 129 x 1.0 = 129 Function Points
 
 ---
 
-## Step 3: Cost in USD
+## Step 3: Effort Per Person (Team of 7)
 
-| Estimate | Hours | Rate/hr | Cost (Junior $12) | Cost (Mid-Level $30) |
-|---|---|---|---|---|
-| Low | 645 | $8 – $20 | $5,160 | $12,900 |
-| Average | 1,290 | $12 – $30 | $15,480 | $38,700 |
-| High | 1,935 | $15 – $40 | $29,025 | $77,400 |
+Total effort is divided equally across 7 team members.
+
+```
+Hours per person  = Total Hours / 7  =  1,290 / 7  =  184 hours per person
+
+Months per person = Total Months / 7  =  7.3 / 7  =  1.0 month per person
+
+Project Duration  = 1.0 month  (all 7 working in parallel)
+```
+
+| Estimate | Total Hours | Hours Per Person | Duration |
+|---|---|---|---|
+| Low | 645 hrs | 92 hrs | ~0.5 months |
+| Average | 1,290 hrs | 184 hrs | ~1.0 month |
+| High | 1,935 hrs | 276 hrs | ~1.6 months |
 
 ---
 
-## Step 4: Cost in UGX (1 USD = 3,700 UGX)
+## Step 4: Cost Per Person in USD
 
-| Estimate | Cost USD (Junior) | Cost UGX (Junior) | Cost UGX (Mid-Level) |
+| Estimate | Hrs/Person | Junior ($12/hr) | Mid-Level ($30/hr) |
+|---|---|---|---|
+| Low | 92 hrs | $1,105.71 | $2,764.29 |
+| Average | 184 hrs | $2,211.43 | $5,528.57 |
+| High | 276 hrs | $3,317.14 | $8,292.86 |
+
+---
+
+## Step 5: Total Project Cost in USD
+
+The total cost stays the same regardless of team size — it is just split across 7 people.
+
+| Estimate | Total Hours | Total Cost (Junior) | Total Cost (Mid-Level) |
+|---|---|---|---|
+| Low | 645 hrs | $5,160 | $12,900 |
+| Average | 1,290 hrs | $15,480 | $38,700 |
+| High | 1,935 hrs | $29,025 | $77,400 |
+
+---
+
+## Step 6: Cost in UGX (1 USD = 3,700 UGX)
+
+### Per Person
+
+| Estimate | Per Person USD (Junior) | Per Person UGX (Junior) | Per Person UGX (Mid-Level) |
+|---|---|---|---|
+| Low | $1,105.71 | UGX 4,091,143 | UGX 10,227,857 |
+| Average | $2,211.43 | UGX 8,182,286 | UGX 20,455,714 |
+| High | $3,317.14 | UGX 12,273,429 | UGX 30,683,571 |
+
+### Total Project
+
+| Estimate | Total USD (Junior) | Total UGX (Junior) | Total UGX (Mid-Level) |
 |---|---|---|---|
 | Low | $5,160 | UGX 19,092,000 | UGX 47,730,000 |
 | Average | $15,480 | UGX 57,276,000 | UGX 143,190,000 |
@@ -176,30 +218,39 @@ AFP = UFC x VAF = 129 x 1.0 = 129 Function Points
 
 ---
 
-## Step 5: COCOMO Basic Model Cross-Check
+## Step 7: COCOMO Basic Model Cross-Check
 
-> Total LOC = 1,086 → KLOC = 1.086 | Project Type = Organic (small team, simple system)
+> Total LOC = 1,086 → KLOC = 1.086 | Project Type = Organic | Team Size = 7
 
 ```
-Effort   E = 2.4 x (1.086)^1.05 = 2.62 person-months
+Total Effort  E = 2.4 x (1.086)^1.05 = 2.62 person-months
 
-Dev Time D = 2.5 x (2.62)^0.38  = 3.60 months
+Duration with 7 people = E / 7 = 2.62 / 7 = 0.37 months ≈ 2 weeks
 
-Team Size  = E / D = 2.62 / 3.60 ≈ 1 person
+Team Size confirmed = 7 people
 ```
 
-> COCOMO confirms the Function Point low estimate — both give approximately 3.7 person-months for a solo developer.
+> COCOMO confirms that with 7 team members the project can be completed in under 1 month.
 
 ---
 
-## Final Recommended Estimate
+## Final Recommended Estimate (7-Person Team)
 
 | Item | Value |
 |---|---|
-| **Development Hours** | **1,290 hours (7.3 person-months)** |
-| **Development Duration** | **4 – 6 months (2-person team)** |
-| **Cost — USD (Junior)** | **$15,480** |
-| **Cost — USD (Mid-Level)** | **$38,700** |
-| **Cost — UGX (Junior)** | **UGX 57,276,000** |
-| **Cost — UGX (Mid-Level)** | **UGX 143,190,000** |
+| **Total Development Hours** | **1,290 hours** |
+| **Hours Per Person** | **184 hours** |
+| **Project Duration** | **1 month (all 7 working in parallel)** |
+| **Cost Per Person — USD (Junior)** | **$2,211** |
+| **Cost Per Person — UGX (Junior)** | **UGX 8,182,286** |
+| **Cost Per Person — USD (Mid-Level)** | **$5,529** |
+| **Cost Per Person — UGX (Mid-Level)** | **UGX 20,455,714** |
+| **Total Project Cost — USD (Junior)** | **$15,480** |
+| **Total Project Cost — UGX (Junior)** | **UGX 57,276,000** |
+| **Total Project Cost — USD (Mid-Level)** | **$38,700** |
+| **Total Project Cost — UGX (Mid-Level)** | **UGX 143,190,000** |
+
+
+
+
 
