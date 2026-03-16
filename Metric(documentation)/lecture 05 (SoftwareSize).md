@@ -117,3 +117,89 @@ Measures what the system DOES for users — independent of language and availabl
 | `reuse_metrics` | DB Table | Reuse classification per file |
 | `backend/getsizemetrics.php` | PHP API | Serves all size data to dashboard |
 | Dashboard tab 📐 Software Size | HTML/JS | Displays all four dimensions |
+
+
+
+ Project Cost Estimation
+##  | Function Point Analysis + COCOMO |
+
+---
+
+## Step 1: Function Point Calculation
+
+| Component | Count | Weight | Weighted Value | Our Items |
+|---|---|---|---|---|
+| External Inputs (EI) | 6 | 4 | 24 | Registration, Login, Tracker, Review, Feedback, Survey |
+| External Outputs (EO) | 5 | 5 | 25 | Week result, Health tip, Dashboard, Experiments, Reviews |
+| External Inquiries (EQ) | 5 | 4 | 20 | User profile, Tips, Survey results, Events, Experiments |
+| Internal Logical Files (ILF) | 6 | 10 | 60 | Users, Tracking, Tips, Reviews, Surveys, Events |
+| External Interface Files (EIF) | 0 | 7 | 0 | None |
+| **UFC TOTAL** | **22** | — | **129** | |
+
+```
+UFC = 24 + 25 + 20 + 60 + 0 = 129
+
+AFP = UFC x VAF = 129 x 1.0 = 129 Function Points
+```
+
+---
+
+## Step 2: Effort Estimation
+
+| Estimate | Formula | Person-Hours | Person-Months |
+|---|---|---|---|
+| Low | 129 x 5 hrs/FP | 645 hrs | 3.7 months |
+| Average | 129 x 10 hrs/FP | 1,290 hrs | 7.3 months |
+| High | 129 x 15 hrs/FP | 1,935 hrs | 11.0 months |
+
+> 1 person-month = 22 days x 8 hours = 176 hours
+
+---
+
+## Step 3: Cost in USD
+
+| Estimate | Hours | Rate/hr | Cost (Junior $12) | Cost (Mid-Level $30) |
+|---|---|---|---|---|
+| Low | 645 | $8 – $20 | $5,160 | $12,900 |
+| Average | 1,290 | $12 – $30 | $15,480 | $38,700 |
+| High | 1,935 | $15 – $40 | $29,025 | $77,400 |
+
+---
+
+## Step 4: Cost in UGX (1 USD = 3,700 UGX)
+
+| Estimate | Cost USD (Junior) | Cost UGX (Junior) | Cost UGX (Mid-Level) |
+|---|---|---|---|
+| Low | $5,160 | UGX 19,092,000 | UGX 47,730,000 |
+| Average | $15,480 | UGX 57,276,000 | UGX 143,190,000 |
+| High | $29,025 | UGX 107,392,500 | UGX 286,380,000 |
+
+---
+
+## Step 5: COCOMO Basic Model Cross-Check
+
+> Total LOC = 1,086 → KLOC = 1.086 | Project Type = Organic (small team, simple system)
+
+```
+Effort   E = 2.4 x (1.086)^1.05 = 2.62 person-months
+
+Dev Time D = 2.5 x (2.62)^0.38  = 3.60 months
+
+Team Size  = E / D = 2.62 / 3.60 ≈ 1 person
+```
+
+> COCOMO confirms the Function Point low estimate — both give approximately 3.7 person-months for a solo developer.
+
+---
+
+## Final Recommended Estimate
+
+| Item | Value |
+|---|---|
+| **Development Hours** | **1,290 hours (7.3 person-months)** |
+| **Development Duration** | **4 – 6 months (2-person team)** |
+| **Cost — USD (Junior)** | **$15,480** |
+| **Cost — USD (Mid-Level)** | **$38,700** |
+| **Cost — UGX (Junior)** | **UGX 57,276,000** |
+| **Cost — UGX (Mid-Level)** | **UGX 143,190,000** |
+
