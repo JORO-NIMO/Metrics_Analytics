@@ -1,10 +1,4 @@
 # Lecture 08 — Software Quality Metrics
-## ISO 9126 Assessment of Maternal Health Uganda
-**SENG 421 — Software Quality Assurance**  
-Department of Electrical & Computer Engineering, University of Calgary  
-Instructor: B.H. Far | Team of 7 | PHP + MySQL + XAMPP | March 2026
-
----
 
 ## 1. Overview
 
