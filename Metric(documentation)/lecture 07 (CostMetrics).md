@@ -1,14 +1,10 @@
 # Lecture 07 — Software Cost Metrics
-## Application to Maternal Health Uganda
-**SENG 421 — Software Quality Assurance**  
-Department of Electrical & Computer Engineering, University of Calgary  
-Instructor: B.H. Far | Team of 7 | PHP + MySQL + XAMPP | March 2026
+
+ 
 
 ---
 
-## 1. Project Overview
 
-Maternal Health Uganda is a PHP/MySQL web application that supports expectant mothers through pregnancy. It provides a pregnancy week tracker, weekly health tips, community reviews, satisfaction surveys, and a GQM metrics dashboard for administrators.
 
 | Item | Detail |
 |---|---|
@@ -24,7 +20,7 @@ Maternal Health Uganda is a PHP/MySQL web application that supports expectant mo
 
 ## 2. Purpose of Cost Estimation
 
-Lecture 07 defines software cost estimation as the process of predicting the effort required to build a software system and the time to develop it. We apply two estimation methods to the completed Maternal Health Uganda system:
+ We apply two estimation methods to the completed Maternal Health Uganda system:
 
 - **Function Point Analysis** — counts what the system does for users, independent of programming language
 - **COCOMO Basic Model** — uses actual lines of code to estimate effort and development time
