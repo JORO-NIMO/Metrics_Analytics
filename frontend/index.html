@@ -47,36 +47,28 @@
 </section>
 
 <!-- PREGNANCY TRACKER -->
-<section id="tracker">
-    <div class="tracker-card">
-        <h2>Pregnancy Tracker</h2>
-        <p>Enter your last menstrual period date to track your pregnancy progress week by week.</p>
-
-        <div class="tracker-input-row">
-            <label for="lastPeriod">Last period date:</label>
-            <input type="date" id="lastPeriod">
-            <button class="btn-primary" onclick="trackPregnancy()">Track My Pregnancy</button>
-        </div>
-
-        <div class="progress-wrap">
-            <div class="progress-track">
-                <div id="progressBar"></div>
-            </div>
-        </div>
-        <p id="weekInfo"></p>
-
-        <div class="snapshot" id="snapshot" style="display:none;">
-            <h3 id="pregnancyWeek"></h3>
-            <p id="babySizeText"></p>
-        </div>
-
-        <div class="health-tip" id="healthTipBox" style="display:none;">
-            <h4 id="tipTitle"></h4>
-            <p id="tipContent"></p>
-            <button class="feedback-btn" onclick="openFeedback()">⚠ Report an issue with this tip</button>
-        </div>
+<section id="tracker" class="tracker"></section>
+    <h2>Pregnancy Tracker</h2>
+    <p>Enter your last menstrual period date to track your pregnancy progress.</p>
+    <div class="tracker-input">
+        <label for="lastPeriod">Last day of period:</label>
+        <input type="date" id="lastPeriod" />
+        <!-- FIXED: Changed from trackPregnancy() to TrackMyPregnancy() to match JavaScript function name -->
+        <button onclick="TrackMyPregnancy()">Track My Pregnancy</button>
     </div>
-
+    <div class="progress-container">
+        <div id="progressBar"></div>
+    </div>
+    <p id="weekInfo"></p>
+    <section class="snapshot">
+        <h3 id="pregnancyWeek"></h3>
+        <p id="babySizeText"></p>
+    </section>
+    <div id="healthTipBox" class="health-tip" style="display:none;">
+        <h4 id="tipTitle"></h4>
+        <p id="tipContent"></p>
+    </div>
+</section>
     <!-- Feedback Modal -->
     <div id="feedbackModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9999;align-items:center;justify-content:center;">
         <div style="background:#fff;border-radius:18px;padding:36px;max-width:480px;width:90%;box-shadow:0 24px 64px rgba(0,0,0,.25);">
