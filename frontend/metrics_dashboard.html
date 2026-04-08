@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quality Dashboard — Maternal Health Uganda</title>
+<style>
+/* ── Reset & base ── */
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#f4eff3;color:#2d1a2e;min-height:100vh}
+
+/* ── Header ── */
+.dash-header{background:linear-gradient(135deg,#480b31 0%,#7a1855 100%);color:#fff;padding:22px 40px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;box-shadow:0 4px 20px rgba(72,11,49,.4)}
+.dash-header h1{font-size:1.5rem;font-weight:700}
+.dash-header p{font-size:.8rem;opacity:.7;margin-top:3px}
+.dash-nav{display:flex;gap:10px;align-items:center}
+.dash-nav a{color:#fff;text-decoration:none;font-size:.82rem;opacity:.8;padding:6px 14px;border-radius:20px;transition:.2s}
+.dash-nav a:hover,.dash-nav a.active{background:rgba(255,255,255,.2);opacity:1}
+#refreshBtn{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3);padding:7px 18px;border-radius:20px;cursor:pointer;font-size:.82rem}
+#refreshBtn:hover{background:rgba(255,255,255,.25)}
+
+/* ── Tab bar ── */
+.tab-bar{background:#fff;border-bottom:2px solid #f0e0ec;display:flex;gap:0;padding:0 40px;overflow-x:auto}
+.tab-btn{background:none;border:none;padding:16px 24px;font-size:.9rem;font-weight:600;color:#a06080;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:.2s}
+.tab-btn:hover{color:#480b31}
+.tab-btn.active{color:#480b31;border-bottom-color:#480b31}
+
+/* ── Main container ── */
+.container{max-width:1300px;margin:0 auto;padding:30px}
+.tab-content{display:none}.tab-content.active{display:block}
+
+/* ── Section titles ── */
+.section-title{font-size:.85rem;font-weight:800;color:#480b31;text-transform:uppercase;letter-spacing:.1em;margin:32px 0 16px;padding-bottom:8px;border-bottom:2px solid #e8d0e0}
+.section-subtitle{font-size:.8rem;color:#a06080;margin-top:-10px;margin-bottom:16px}
+
+/* ── Grid ── */
+.grid{display:grid;gap:18px}
+.grid-4{grid-template-columns:repeat(auto-fill,minmax(270px,1fr))}
+.grid-3{grid-template-columns:repeat(auto-fill,minmax(320px,1fr))}
+.grid-2{grid-template-columns:repeat(auto-fill,minmax(450px,1fr))}
+
+/* ── Cards ── */
+.card{background:#fff;border-radius:16px;padding:22px;box-shadow:0 4px 16px rgba(72,11,49,.07);border:1px solid #f0e0ec;transition:.2s}
+.card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(72,11,49,.12)}
+.card-label{font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:#a06080;margin-bottom:8px}
+.card-title{font-size:.95rem;font-weight:600;color:#2d1a2e;margin-bottom:16px;line-height:1.3}
+.big-number{font-size:2.6rem;font-weight:800;color:#480b31;line-height:1}
+.big-unit{font-size:.95rem;color:#a06080;margin-left:3px;font-weight:400}
+.sub-stats{margin-top:10px;display:flex;gap:14px;flex-wrap:wrap}
+.sub-stat{font-size:.8rem;color:#7a5080}.sub-stat strong{color:#2d1a2e}
+
+/* ── Badges ── */
+.badge{display:inline-block;padding:3px 10px;border-radius:12px;font-size:.72rem;font-weight:700;margin-top:8px}
+.badge-good{background:#d4f5e2;color:#1a6640}
+.badge-warn{background:#fff3cd;color:#7a5500}
+.badge-danger{background:#fde8e8;color:#8b1a1a}
+.badge-neutral{background:#f0e0ec;color:#480b31}
+.badge-blue{background:#dbeafe;color:#1e40af}
+
+/* ── Progress bar ── */
+.prog-wrap{margin-top:12px}
+.prog-label{display:flex;justify-content:space-between;font-size:.78rem;color:#7a5080;margin-bottom:5px}
+.prog-track{width:100%;height:9px;background:#f0e0ec;border-radius:5px;overflow:hidden}
+.prog-fill{height:100%;border-radius:5px;transition:width .9s ease}
+.prog-pink{background:linear-gradient(90deg,#f0a8c0,#c86090)}
+.prog-green{background:linear-gradient(90deg,#6bcf8e,#2d8f50)}
+.prog-blue{background:linear-gradient(90deg,#7ab8f5,#2563eb)}
+.prog-orange{background:linear-gradient(90deg,#fbbf24,#d97706)}
+
+/* ── Measurement goal boxes ── */
+.mg-box{background:#faf5ff;border:1px solid #e8d0e0;border-radius:12px;padding:14px;margin-bottom:10px;font-size:.8rem}
+.mg-box strong{color:#480b31}
+.mg-box .mg-field{display:inline-block;background:#fff;border:1px solid #e0c0d8;border-radius:6px;padding:2px 8px;margin:2px 0;color:#480b31;font-weight:600}
+
+/* ── Hypothesis box ── */
+.hyp-box{background:#f0f7ff;border-left:4px solid #3b82f6;border-radius:0 8px 8px 0;padding:12px 16px;margin-bottom:14px;font-size:.82rem;color:#1e3a5f}
+.hyp-box strong{color:#1e40af;display:block;margin-bottom:4px}
+
+/* ── Variable table ── */
+.var-table{width:100%;border-collapse:collapse;font-size:.82rem;margin-top:10px}
+.var-table th{background:#480b31;color:#fff;padding:8px 12px;text-align:left;font-weight:600}
+.var-table td{padding:8px 12px;border-bottom:1px solid #f0e0ec}
+.var-table tr:hover td{background:#fdf5f9}
+.var-table td:first-child{font-weight:600;color:#480b31}
+
+/* ── Loading / error states ── */
+.loading{text-align:center;padding:40px;color:#a06080;font-size:.9rem}
+.loading::after{content:'';display:inline-block;width:20px;height:20px;border:2px solid #e8d0e0;border-top-color:#480b31;border-radius:50%;animation:spin .8s linear infinite;margin-left:10px;vertical-align:middle}
+@keyframes spin{to{transform:rotate(360deg)}}
+.error-state{background:#fde8e8;color:#8b1a1a;padding:14px;border-radius:10px;font-size:.85rem;margin:10px 0}
+
+/* ── Timeline (Case Study events) ── */
+.timeline{list-style:none;padding:0;position:relative}
+.timeline::before{content:'';position:absolute;left:16px;top:0;bottom:0;width:2px;background:#f0e0ec}
+.timeline li{padding:0 0 16px 42px;position:relative}
+.timeline li::before{content:'';position:absolute;left:10px;top:4px;width:12px;height:12px;border-radius:50%;border:2px solid #480b31;background:#fff}
+.tl-cat{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#a06080}
+.tl-name{font-size:.88rem;font-weight:600;color:#2d1a2e;margin:2px 0}
+.tl-time{font-size:.75rem;color:#c0a0b0}
+.tl-metric{font-size:.72rem;background:#f0e0ec;color:#480b31;padding:2px 7px;border-radius:10px;display:inline-block}
+.impact-high::before{background:#ef4444!important}
+.impact-medium::before{background:#f59e0b!important}
+
+/* ── Survey result bars ── */
+.survey-question{margin-bottom:12px}
+.sq-label{display:flex;justify-content:space-between;font-size:.8rem;color:#2d1a2e;margin-bottom:4px}
+.sq-label span{font-weight:700;color:#480b31}
+.sq-bar{height:8px;background:#f0e0ec;border-radius:4px;overflow:hidden}
+.sq-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,#f0a8c0,#c86090);transition:width .9s ease}
+
+/* ── Experiment phase badge ── */
+.phase-badge{display:inline-block;padding:3px 10px;border-radius:12px;font-size:.72rem;font-weight:700}
+.phase-conception{background:#ede9fe;color:#5b21b6}
+.phase-design{background:#fef3c7;color:#92400e}
+.phase-preparation{background:#dbeafe;color:#1e40af}
+.phase-execution{background:#d1fae5;color:#065f46}
+.phase-analysis{background:#fde68a;color:#78350f}
+.phase-dissemination{background:#d4f5e2;color:#1a6640}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="dash-header">
+  <div>
+    <h1>📊 Quality & Performance Dashboard</h1>
+    <p>Maternal Health Uganda — Performance & Quality Dashboard</p>
+  </div>
+  <div class="dash-nav">
+    <a href="index.html">← Back to App</a>
+    <button id="refreshBtn" onclick="loadAll()">↻ Refresh</button>
+  </div>
+</div>
+
+<!-- TAB BAR -->
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="showTab('ch3')">📊 Quality Indicators</button>
+  <button class="tab-btn" onclick="showTab('ch4')">🔬 Research & Testing</button>
+  <button class="tab-btn" onclick="showTab('ch5')">📐 Software Size</button>
+  <button class="tab-btn" onclick="showTab('ch6')">🔀 Complexity</button>
+  <button class="tab-btn" onclick="showTab('gqm_tree')">🎯 Measurement Goals</button>
+  <button class="tab-btn" onclick="showTab('reference')">📋 Reference Guide</button>
+</div>
+
+<div class="container">
+
+  <!-- ================================================================ -->
+  <!-- TAB 1: CHAPTER 3 — GQM INDICATORS                            -->
+  <!-- ================================================================ -->
+  <div id="tab-ch3" class="tab-content active">
+
+    <div class="section-title">Business Goal 1 — Improve Health Outcomes for Mothers</div>
+    <p class="section-subtitle">Measurement Goals: MG1 (Tracker Accuracy) · MG2 (Health Tip Coverage)</p>
+    <div class="grid grid-4" id="bg1-cards"><div class="loading">Loading indicators</div></div>
+
+    <div class="section-title">Business Goal 2 — Increase User Engagement</div>
+    <p class="section-subtitle">Measurement Goals: MG3 (Registration Funnel) · MG4 (Return Visits)</p>
+    <div class="grid grid-4" id="bg2-cards"><div class="loading">Loading indicators</div></div>
+
+    <div class="section-title">Business Goal 3 — Ensure System Security & Reliability</div>
+    <p class="section-subtitle">Measurement Goals: MG5 (Password Security) · MG6 (System Errors)</p>
+    <div class="grid grid-4" id="bg3-cards"><div class="loading">Loading indicators</div></div>
+
+    <div class="section-title">Business Goal 4 — Maintain High Content Quality</div>
+    <p class="section-subtitle">Measurement Goals: MG7 (Inaccuracy Reports) · MG8 (Moderation Speed)</p>
+    <div class="grid grid-4" id="bg4-cards"><div class="loading">Loading indicators</div></div>
+
+    <div class="section-title">Measurement Process Overview</div>
+    <div class="grid grid-3" id="process-cards">
+      <!-- Static reference cards -->
+      <div class="card">
+        <div class="card-label">Planning Phase</div>
+        <div class="card-title">Identify &amp; Formalise Measurement Goals</div>
+        <div style="font-size:.82rem;color:#6d5a80;line-height:1.7">
+          <b style="color:#480b31">Step 1</b> Business Goals identified: Health Outcomes, Engagement, Security, Content Quality<br>
+          <b style="color:#480b31">Step 2</b> Entity-Question Checklist applied to: users, tracker, reviews, health_tips<br>
+          <b style="color:#480b31">Step 3</b> Subgoals: Plan / Monitor / Improve for each BG<br>
+          <b style="color:#480b31">Step 4</b> Entities &amp; Attributes (internal vs external) identified<br>
+          <b style="color:#480b31">Step 5</b> Formal MG template applied (see Goal Tree tab)
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Measurement Phase</div>
+        <div class="card-title">Define Indicators, Data Elements &amp; Measures</div>
+        <div style="font-size:.82rem;color:#6d5a80;line-height:1.7">
+          <b style="color:#480b31">Step 6</b> Indicators I1–I8: charts, progress bars, counters<br>
+          <b style="color:#480b31">Step 7</b> Data elements: tracker_logs, page_views, system_errors, content_feedback, auth_audit_log, reviews<br>
+          <b style="color:#480b31">Step 8</b> Measures fully defined: name + scale + range + precision + collection rule
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Action Phase</div>
+        <div class="card-title">Create Action Plan &amp; Measurement Plan</div>
+        <div style="font-size:.82rem;color:#6d5a80;line-height:1.7">
+          <b style="color:#480b31">Step 9</b> Actions: Analyse current state → Diagnose gaps → Act to fix<br>
+          <b style="color:#480b31">Step 10</b> Measurement Plan documented: Objective, Description, Implementation, Sustained Operations<br>
+          <b style="color:#480b31">Dashboard</b> This page IS the sustained operations indicator display
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================================ -->
+  
+  <!-- ================================================================ -->
+  <div id="tab-ch4" class="tab-content">
+
+    <!-- Investigation Technique Summary -->
+    <div class="section-title">Research Methods Used</div>
+    <p class="section-subtitle">Three complementary methods used to evaluate and improve the platform</p>
+    <div class="grid grid-3">
+      <div class="card">
+        <div class="card-label">Method 1 · Controlled Testing</div>
+        <div class="card-title">🧪 Formal Experiment</div>
+        <div style="font-size:.82rem;color:#6d5a80;line-height:1.8">
+          <b>Control:</b> HIGH — variables strictly controlled<br>
+          <b>Retrospective:</b> Usually yes<br>
+          <b>Generalise:</b> Possibly<br>
+          <b>Our experiment:</b> Input validation vs no validation<br>
+          <b>Hypothesis:</b> Validation reduces error rate by &gt;50%<br>
+          <b>IV:</b> Validation present/absent &nbsp;|&nbsp; <b>DV:</b> Error rate
+        </div>
+        <span class="badge badge-blue">Tables: experiments, experiment_observations, experiment_results</span>
+      </div>
+      <div class="card">
+        <div class="card-label">Method 2 · Real-World Observation</div>
+        <div class="card-title">📋 Case Study</div>
+        <div style="font-size:.82rem;color:#6d5a80;line-height:1.8">
+          <b>Control:</b> LOW — real usage observed<br>
+          <b>Retrospective:</b> No — documented as it happens<br>
+          <b>Generalise:</b> No (single project context)<br>
+          <b>Our case study:</b> Real Maternal Health Uganda usage<br>
+          <b>Events logged:</b> feature_use, errors, feedback, admin actions<br>
+          <b>Contact degrees:</b> First, Second, Third
+        </div>
+        <span class="badge badge-neutral">Table: case_study_events (auto-populated)</span>
+      </div>
+      <div class="card">
+        <div class="card-label">Method 3 · User Survey</div>
+        <div class="card-title">📊 Survey</div>
+        <div style="font-size:.82rem;color:#6d5a80;line-height:1.8">
+          <b>Control:</b> None<br>
+          <b>Retrospective:</b> Yes<br>
+          <b>Generalise:</b> Partially<br>
+          <b>Our survey:</b> User satisfaction on 5 GQM questions<br>
+          <b>Q1:</b> Tracker useful (MG1) &nbsp;|&nbsp; <b>Q2:</b> Tips accurate (MG2)<br>
+          <b>Q3:</b> Ease of use (MG3) &nbsp;|&nbsp; <b>Q4–5:</b> Recommend / Satisfaction
+        </div>
+        <span class="badge badge-good">Table: survey_responses · Endpoint: submitsurvey.php</span>
+      </div>
+    </div>
+
+    <!-- Formal Experiment: Hypothesis and Variables -->
+    <div class="section-title">Active Tests & Experiments</div>
+    <div class="grid grid-2" id="experiment-cards"><div class="loading">Loading experiments</div></div>
+
+    <!-- 3 Degrees of Contact -->
+    <div class="section-title">How We Collect Data</div>
+    <div class="grid grid-3">
+      <div class="card">
+        <div class="card-label">First Degree</div>
+        <div class="card-title">👥 Direct to Participants</div>
+        <div style="font-size:.82rem;color:#6d5a80;line-height:1.8">
+          Access to the people themselves.<br>
+          <b>Methods:</b> Interviews, questionnaires, think-aloud, work diaries<br>
+          <b>In our project:</b> The survey form (submitsurvey.php) collects first-degree data directly from mothers using the app.<br>
+          Survey questions ask about tracker usefulness, tip accuracy, and ease of use.
+        </div>
+        <span class="badge badge-blue">Endpoint: submitsurvey.php</span>
+      </div>
+      <div class="card">
+        <div class="card-label">Second Degree</div>
+        <div class="card-title">🖥️ Work Environment (Real-time)</div>
+        <div style="font-size:.82rem;color:#6d5a80;line-height:1.8">
+          Access to environment while work happens — not people directly.<br>
+          <b>Methods:</b> Instrumented systems, runtime monitoring, event logging<br>
+          <b>In our project:</b> MetricsLogger auto-instruments every PHP action — tracker uses, logins, page views, errors — all logged in real-time without user involvement.
+        </div>
+        <span class="badge badge-neutral">Class: MetricsLogger (all logXxx methods)</span>
+      </div>
+      <div class="card">
+        <div class="card-label">Third Degree</div>
+        <div class="card-title">📁 Work Artifacts Only</div>
+        <div style="font-size:.82rem;color:#6d5a80;line-height:1.8">
+          No access to people or live environment — only artefacts (logs, code, documents).<br>
+          <b>Methods:</b> Bug report analysis, offline log mining, code review<br>
+          <b>In our project:</b> Analysis of tracker_logs, system_errors, content_feedback tables after-the-fact; SQL view queries on stored data.
+        </div>
+        <span class="badge badge-warn">Tables: tracker_logs, system_errors, content_feedback</span>
+      </div>
+    </div>
+
+    <!--  Empirical Research Guidelines -->
+    <div class="section-title">Research Quality Standards — Compliance Checklist</div>
+    <p class="section-subtitle">6-area checklist ensuring our research meets international quality standards</p>
+    <div class="grid grid-2">
+      <div class="card">
+        <div class="card-label">Area 1</div>
+        <div class="card-title">📌 Experimental Context</div>
+        <div style="font-size:.82rem;line-height:2">
+          <span style="color:#1a6640">✅</span> <b>C1:</b> Context fully specified — entities (users, tracker, tips), attributes (error rate, coverage %), measures (ratio scale)<br>
+          <span style="color:#1a6640">✅</span> <b>C2:</b> Hypothesis stated BEFORE data collection: "Validation reduces errors by &gt;50%"<br>
+          <span style="color:#1a6640">✅</span> <b>C3:</b> Exploratory questions stated upfront in experiment registry (experiments table)
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Area 2</div>
+        <div class="card-title">🎯 Experimental Design</div>
+        <div style="font-size:.82rem;line-height:2">
+          <span style="color:#1a6640">✅</span> <b>D1:</b> Population: mothers using MHU app in Uganda<br>
+          <span style="color:#1a6640">✅</span> <b>D3:</b> Assignment: control (no validation) vs treatment (with validation)<br>
+          <span style="color:#1a6640">✅</span> <b>D5:</b> Experimental unit = one tracker calculation event<br>
+          <span style="color:#1a6640">✅</span> <b>D6:</b> Min sample size = 100 (pre-calculated)<br>
+          <span style="color:#7a5500">⚠️</span> <b>D7:</b> Blinding: not fully implemented (admin knows which group)<br>
+          <span style="color:#1a6640">✅</span> <b>D9:</b> All treatments defined: savetracker.php with/without validation block
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Area 3</div>
+        <div class="card-title">📥 Data Collection</div>
+        <div style="font-size:.82rem;line-height:2">
+          <span style="color:#1a6640">✅</span> <b>DC1:</b> All measures fully defined: entity + attribute + unit + counting rule<br>
+          <span style="color:#1a6640">✅</span> <b>DC2:</b> Quality control: try/catch on all logging, fallback to error_log<br>
+          <span style="color:#1a6640">✅</span> <b>DC3:</b> Dropout notes field in experiment_observations<br>
+          <span style="color:#1a6640">✅</span> <b>DC4:</b> Other performance measures: page load tracked via page_views
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Area 4</div>
+        <div class="card-title">📈 Analysis</div>
+        <div style="font-size:.82rem;line-height:2">
+          <span style="color:#1a6640">✅</span> <b>A1:</b> Multiple testing control: experiments isolated per metric<br>
+          <span style="color:#1a6640">✅</span> <b>A2:</b> Blind analysis: computeresults.php computes stats independently<br>
+          <span style="color:#7a5500">⚠️</span> <b>A3:</b> Sensitivity analysis: planned (not yet run — needs more data)<br>
+          <span style="color:#1a6640">✅</span> <b>A4:</b> Assumptions: ratio scale data verified before statistical test<br>
+          <span style="color:#1a6640">✅</span> <b>A5:</b> Quality control: experiment_results stores both raw and computed values
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Area 5</div>
+        <div class="card-title">📄 Presentation of Results</div>
+        <div style="font-size:.82rem;line-height:2">
+          <span style="color:#1a6640">✅</span> <b>P1:</b> All procedures documented in this dashboard and README<br>
+          <span style="color:#1a6640">✅</span> <b>P2:</b> Results show value + significance level + confidence field<br>
+          <span style="color:#1a6640">✅</span> <b>P3:</b> Raw data available in experiment_observations table<br>
+          <span style="color:#1a6640">✅</span> <b>P4:</b> Descriptive stats: n, mean, std dev, min, max all stored<br>
+          <span style="color:#1a6640">✅</span> <b>P5:</b> Progress bars + charts displayed on this dashboard
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Area 6</div>
+        <div class="card-title">🧠 Interpretation of Results</div>
+        <div style="font-size:.82rem;line-height:2">
+          <span style="color:#1a6640">✅</span> <b>I1:</b> Population defined: active Ugandan mothers using MHU app<br>
+          <span style="color:#1a6640">✅</span> <b>I2:</b> Practical vs statistical significance noted in practical_note field of experiment_results<br>
+          <span style="color:#1a6640">✅</span> <b>I3:</b> Limitations field in experiment_results: student project, small sample, classroom context
+        </div>
+      </div>
+    </div>
+
+    <!-- Variable Control (Principles) -->
+    <div class="section-title">Core Testing Principles</div>
+    <div class="grid grid-3">
+      <div class="card">
+        <div class="card-label">Principle 1</div>
+        <div class="card-title">🔁 Replication</div>
+        <p style="font-size:.82rem;color:#6d5a80;line-height:1.7">Same conditions should produce same results. Each tracker calculation is independently logged — multiple users performing the same action create replicated observations. This eliminates confounded results from one-off measurements.</p>
+        <span class="badge badge-neutral">Implemented via tracker_logs (all uses recorded)</span>
+      </div>
+      <div class="card">
+        <div class="card-label">Principle 2</div>
+        <div class="card-title">🎲 Randomization</div>
+        <p style="font-size:.82rem;color:#6d5a80;line-height:1.7">Random assignment minimises uncontrolled variable effects. In our experiment, users are randomly assigned to control/treatment groups based on session ID hashing — no bias in group assignment. This reduces confounding from user skill level.</p>
+        <span class="badge badge-neutral">Field: group_name in experiment_observations</span>
+      </div>
+      <div class="card">
+        <div class="card-label">Principle 3</div>
+        <div class="card-title">🧩 Local Control (Blocking)</div>
+        <p style="font-size:.82rem;color:#6d5a80;line-height:1.7">Blocking groups subjects by a known confounding factor (e.g. mobile vs desktop users). Balancing keeps equal numbers per group. Correlation analysis uses <code>experiment_results</code> mean/std data to find relationships between variables.</p>
+        <span class="badge badge-neutral">Fields: block_name in experiment_observations</span>
+      </div>
+    </div>
+
+    <!-- Survey Results -->
+    <div class="section-title">Survey Results — Baseline Satisfaction</div>
+    <div class="grid grid-2" id="survey-cards"><div class="loading">Loading survey data</div></div>
+
+    <!-- Case Study Events -->
+    <div class="section-title">Case Study Event Timeline</div>
+    <p class="section-subtitle">Real usage events auto-logged by MetricsLogger — "research in the typical"</p>
+    <div class="card">
+      <ul class="timeline" id="timeline-list"><li style="padding-left:42px;color:#a06080;font-size:.85rem">Loading events...</li></ul>
+    </div>
+  </div>
+
+  <!-- ================================================================ -->
+  <!-- TAB 3: GQM GOAL TREE                                              -->
+  <!-- ================================================================ -->
+  <div id="tab-gqm_tree" class="tab-content">
+    <div class="section-title">Measurement Goals — Full Detail</div>
+    <p class="section-subtitle">Each goal defines exactly what we measure, why we measure it, and who cares about the result</p>
+
+    <div id="mg-tree-cards" class="grid grid-2">
+      <!-- Will be rendered by JS -->
+    </div>
+  </div>
+
+  <!-- ================================================================ -->
+  <!-- TAB 4: FRAMEWORK REFERENCE                                        -->
+  <!-- ================================================================ -->
+  <div id="tab-reference" class="tab-content">
+    <div class="section-title">Measurement Framework Comparison</div>
+    <div class="card" style="overflow-x:auto">
+      <table class="var-table">
+        <thead><tr><th>Feature</th><th>Basic GQM</th><th>Enhanced GQM with Indicators</th></tr></thead>
+        <tbody>
+          <tr><td>Layers</td><td>Goal → Question → Metric</td><td>Goal → Question → Indicator → Metric</td></tr>
+          <tr><td>Indicator layer</td><td>❌ Not present</td><td>✅ Added between Q and M</td></tr>
+          <tr><td>Process model</td><td>Simple</td><td>Full 10-step model (recommended)</td></tr>
+          <tr><td>Completeness</td><td>Simple only</td><td>Simple + Clear + Complete</td></tr>
+          <tr><td>MG template</td><td>Informal</td><td>5-part formal template</td></tr>
+          <tr><td>Action plan</td><td>Not included</td><td>Step 9–10: Action + Measurement Plan</td></tr>
+          <tr><td>Our implementation</td><td>N/A</td><td>Complete model applied</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section-title">Research Technique Comparison</div>
+    <div class="card" style="overflow-x:auto">
+      <table class="var-table">
+        <thead><tr><th>Feature</th><th>Formal Experiment</th><th>Case Study</th><th>Survey</th></tr></thead>
+        <tbody>
+          <tr><td>Control over variables</td><td>HIGH</td><td>LOW</td><td>None</td></tr>
+          <tr><td>Retrospective</td><td>Usually yes</td><td>Usually no</td><td>Yes</td></tr>
+          <tr><td>Can generalise</td><td>Possibly</td><td>No</td><td>Partially</td></tr>
+          <tr><td>Scale</td><td>"In the small"</td><td>"In the typical"</td><td>"In the large"</td></tr>
+          <tr><td>When to choose</td><td>Need to isolate cause-effect</td><td>First real-world project</td><td>Comparing many projects</td></tr>
+          <tr><td>Our table</td><td>experiments + observations + results</td><td>case_study_events</td><td>survey_responses</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section-title">GQM Indicators: Full Mapping Table</div>
+    <div class="card" style="overflow-x:auto">
+      <table class="var-table">
+        <thead><tr><th>Indicator</th><th>Business Goal</th><th>Measurement Goal</th><th>Question</th><th>Metric</th><th>Target</th></tr></thead>
+        <tbody>
+          <tr><td>I1</td><td>BG1 Health Outcomes</td><td>MG1 Tracker Accuracy</td><td>What % of tracker uses produce errors?</td><td>Error rate per 100 uses</td><td>&lt;0.5%</td></tr>
+          <tr><td>I2</td><td>BG1 Health Outcomes</td><td>MG2 Tip Coverage</td><td>What % of 42 weeks have reviewed tips?</td><td>Reviewed tips / 42</td><td>100%</td></tr>
+          <tr><td>I3</td><td>BG2 Engagement</td><td>MG3 Registration Funnel</td><td>What % of signup page visitors register?</td><td>Registrations / signup visits</td><td>&gt;60%</td></tr>
+          <tr><td>I4</td><td>BG2 Engagement</td><td>MG4 Return Visits</td><td>What % of users returned in last 7 days?</td><td>Active last 7 days / total users</td><td>&gt;40%</td></tr>
+          <tr><td>I5</td><td>BG3 Security</td><td>MG5 Password Security</td><td>Are all passwords bcrypt-hashed?</td><td>$2y$ hash compliance %</td><td>100%</td></tr>
+          <tr><td>I6</td><td>BG3 Reliability</td><td>MG6 System Errors</td><td>How many errors per endpoint per day?</td><td>Errors per 1000 requests</td><td>&lt;1</td></tr>
+          <tr><td>I7</td><td>BG4 Content Quality</td><td>MG8 Moderation Speed</td><td>How quickly are reviews approved?</td><td>Avg hours to approve</td><td>&lt;24h</td></tr>
+          <tr><td>I8</td><td>BG4 Content Quality</td><td>MG7 Inaccuracy Reports</td><td>How many tip errors are reported monthly?</td><td>Reports per month</td><td>&lt;3</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section-title">Variable Types</div>
+    <div class="card" style="overflow-x:auto">
+      <table class="var-table">
+        <thead><tr><th>Variable Type</th><th>Definition</th><th>Our Example</th></tr></thead>
+        <tbody>
+          <tr><td>Independent Variable (IV)</td><td>What YOU change (the cause)</td><td>Presence of input validation in savetracker.php</td></tr>
+          <tr><td>Dependent Variable (DV)</td><td>What REACTS (the effect)</td><td>Tracker error rate per 100 uses</td></tr>
+          <tr><td>Controlled Variables</td><td>Held constant to avoid confounding</td><td>User experience level, device type, time of year</td></tr>
+          <tr><td>Confounding Variable</td><td>Hidden third variable — must be blocked</td><td>Internet connectivity affecting user input speed</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- TAB: LECTURE 05 — SOFTWARE SIZE                             -->
+  <!-- ============================================================ -->
+  <div id="tab-ch5" class="tab-content">
+
+    <div class="section-title">LOC — Lines of Code</div>
+    <p class="section-subtitle">Total LOC = NCLOC + CLOC + blank lines &nbsp;|&nbsp; Comment density = CLOC / LOC × 100</p>
+    <div id="loc-cards" style="display:flex;gap:14px;flex-wrap:wrap;margin-bottom:20px"></div>
+    <table class="var-table">
+      <thead><tr><th>File</th><th>Total LOC</th><th>NCLOC</th><th>CLOC</th><th>Blank</th><th>Comment Density</th></tr></thead>
+      <tbody id="loc-tbody"><tr><td colspan="6" style="text-align:center;color:#a06080">Loading…</td></tr></tbody>
+    </table>
+
+    <div class="section-title" style="margin-top:36px">Halstead Metrics</div>
+    <p class="section-subtitle">V = N × log₂μ &nbsp;|&nbsp; D = (μ1/2) × (N2/μ2) &nbsp;|&nbsp; E = V × D &nbsp;|&nbsp; Higher effort = harder to write and maintain</p>
+    <table class="var-table">
+      <thead><tr><th>File</th><th>μ1 (operators)</th><th>μ2 (operands)</th><th>Vocabulary μ</th><th>Length N</th><th>Volume V</th><th>Difficulty D</th><th>Effort E</th></tr></thead>
+      <tbody id="halstead-tbody"><tr><td colspan="8" style="text-align:center;color:#a06080">Loading…</td></tr></tbody>
+    </table>
+
+    <div class="section-title" style="margin-top:36px">Function Points</div>
+    <p class="section-subtitle">Counts what the system does for users — language independent. UFC = sum of all weighted values.</p>
+    <div id="fp-cards" style="display:flex;gap:14px;flex-wrap:wrap;margin-bottom:20px"></div>
+    <table class="var-table">
+      <thead><tr><th>Type</th><th>Component</th><th>Description</th><th>Count</th><th>Weight</th><th>Weighted Value</th></tr></thead>
+      <tbody id="fp-tbody"><tr><td colspan="6" style="text-align:center;color:#a06080">Loading…</td></tr></tbody>
+    </table>
+    <div id="fp-ufc" style="margin-top:10px;padding:12px 18px;background:#fdf5f9;border:1px solid #f0e0ec;border-radius:8px;font-weight:700;color:#480b31;text-align:right"></div>
+
+    <div class="section-title" style="margin-top:36px">Reuse Metrics</div>
+    <p class="section-subtitle">Verbatim = unchanged &nbsp;|&nbsp; Slightly modified = &lt;25% changed &nbsp;|&nbsp; Extensively modified = 25%+ changed &nbsp;|&nbsp; New = written from scratch</p>
+    <table class="var-table">
+      <thead><tr><th>File</th><th>Total LOC</th><th>Verbatim</th><th>Slightly Modified</th><th>Extensively Modified</th><th>New</th><th>Reuse Level %</th></tr></thead>
+      <tbody id="reuse-tbody"><tr><td colspan="7" style="text-align:center;color:#a06080">Loading…</td></tr></tbody>
+    </table>
+
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- TAB: LECTURE 06 — STRUCTURAL COMPLEXITY                     -->
+  <!-- ============================================================ -->
+  <div id="tab-ch6" class="tab-content">
+
+    <div class="section-title">Cyclomatic Complexity</div>
+    <p class="section-subtitle">v(G) = 1 + d &nbsp;(d = decision points: if / while / for / foreach / case / catch) &nbsp;|&nbsp; Low=1–10, Moderate=11–20, High=21–50, Very High=51+</p>
+    <div id="cc-cards" style="display:flex;gap:14px;flex-wrap:wrap;margin-bottom:20px"></div>
+    <table class="var-table">
+      <thead><tr><th>File</th><th>Decision Points (d)</th><th>v(G)</th><th>Risk Level</th></tr></thead>
+      <tbody id="cc-tbody"><tr><td colspan="4" style="text-align:center;color:#a06080">Loading…</td></tr></tbody>
+    </table>
+
+    <div class="section-title" style="margin-top:36px">Cohesion</div>
+    <p class="section-subtitle">CH(C) = internal / (internal + external) &nbsp;|&nbsp; Higher is better &nbsp;|&nbsp; System cohesion = mean of all modules</p>
+    <div id="cohesion-cards" style="display:flex;gap:14px;flex-wrap:wrap;margin-bottom:20px"></div>
+    <table class="var-table">
+      <thead><tr><th>Module</th><th>Description</th><th>Internal</th><th>External</th><th>Cohesion %</th><th>Type</th></tr></thead>
+      <tbody id="cohesion-tbody"><tr><td colspan="6" style="text-align:center;color:#a06080">Loading…</td></tr></tbody>
+    </table>
+
+    <div class="section-title" style="margin-top:36px">Coupling</div>
+    <p class="section-subtitle">c(x,y) = coupling_rank + n/(n+1) &nbsp;|&nbsp; R0=none R1=data R2=stamp R3=control R4=content &nbsp;|&nbsp; Lower is better &nbsp;|&nbsp; Global = median</p>
+    <div id="coupling-cards" style="display:flex;gap:14px;flex-wrap:wrap;margin-bottom:20px"></div>
+    <table class="var-table">
+      <thead><tr><th>Module X</th><th>Module Y</th><th>Type</th><th>Interconnections (n)</th><th>c(x,y)</th></tr></thead>
+      <tbody id="coupling-tbody"><tr><td colspan="5" style="text-align:center;color:#a06080">Loading…</td></tr></tbody>
+    </table>
+
+    <div class="section-title" style="margin-top:36px">Information Flow — Fan-In / Fan-Out</div>
+    <p class="section-subtitle">IFC(M) = (fan-in × fan-out)² &nbsp;|&nbsp; Fan-in = flows into M + data structures M reads &nbsp;|&nbsp; Fan-out = flows from M + data structures M updates</p>
+    <table class="var-table">
+      <thead><tr><th>Module</th><th>Fan-In</th><th>Fan-Out</th><th>IFC Value</th></tr></thead>
+      <tbody id="flow-tbody"><tr><td colspan="4" style="text-align:center;color:#a06080">Loading…</td></tr></tbody>
+    </table>
+
+    <div class="section-title" style="margin-top:36px">Architecture Metrics</div>
+    <p class="section-subtitle">m(G) = 2(e − n + 1) / ((n−1)(n−2)) &nbsp;|&nbsp; Lower impurity = better design &nbsp;|&nbsp; Edge-to-node ratio measures connectivity density</p>
+    <div id="arch-cards" style="display:flex;gap:14px;flex-wrap:wrap;margin-bottom:20px"></div>
+
+    <div class="section-title" style="margin-top:36px">Data Structure Complexity</div>
+    <p class="section-subtitle">C = (ni × 1) + (ns × 2) + (na × 2 × array_size) &nbsp;|&nbsp; Higher cyclomatic complexity usually means lower data structure complexity</p>
+    <table class="var-table">
+      <thead><tr><th>File</th><th>Integers (ni)</th><th>Strings (ns)</th><th>Arrays (na)</th><th>C1</th><th>C2</th><th>C3</th><th>Total C</th></tr></thead>
+      <tbody id="dsc-tbody"><tr><td colspan="8" style="text-align:center;color:#a06080">Loading…</td></tr></tbody>
+    </table>
+
+  </div>
+
+</div><!-- /container -->
+
+<script>
+// ── State ──────────────────────────────────────────────────────────────────
+let dashData = null;
+let researchData  = null;
+
+// ── Tab switching ──────────────────────────────────────────────────────────
+function showTab(id) {
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    event.target.classList.add('active');
+    if (id === 'gqm_tree') renderGqmTree();
+    if (id === 'ch5') loadSizeMetrics();
+    if (id === 'ch6') loadComplexity();
+}
+
+// ── Shared mini-card helper ────────────────────────────────────────────────
+function miniCard(label, value, unit='') {
+    return `<div style="background:#fff;border:1px solid #f0e0ec;border-radius:10px;padding:14px 20px;min-width:120px;text-align:center">
+        <div style="font-size:.68rem;font-weight:700;color:#a06080;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">${label}</div>
+        <div style="font-size:1.5rem;font-weight:800;color:#480b31">${value}<span style="font-size:.8rem;font-weight:500">${unit}</span></div>
+    </div>`;
+}
+
+// ── Lecture 05: Software Size ──────────────────────────────────────────────
+async function loadSizeMetrics() {
+    try {
+        const res  = await fetch('../backend/getsizemetrics.php');
+        const data = await res.json();
+        if (data.status !== 'ok') return;
+
+        // LOC summary cards
+        const l = data.loc;
+        document.getElementById('loc-cards').innerHTML = [
+            miniCard('Total LOC',   l.total_loc,           ''),
+            miniCard('NCLOC',       l.total_ncloc,         ''),
+            miniCard('CLOC',        l.total_cloc,          ''),
+            miniCard('Comment %',   l.avg_comment_density, '%'),
+            miniCard('Files',       l.file_count,          ''),
+        ].join('');
+
+        // LOC table
+        document.getElementById('loc-tbody').innerHTML = l.files.map(f =>
+            `<tr><td>${f.file_name}</td><td>${f.total_loc}</td><td>${f.ncloc}</td><td>${f.cloc}</td><td>${f.blank_lines}</td><td>${f.comment_density}%</td></tr>`
+        ).join('');
+
+        // Halstead table
+        document.getElementById('halstead-tbody').innerHTML = data.halstead.files.map(h =>
+            `<tr><td>${h.file_name}</td><td>${h.mu1}</td><td>${h.mu2}</td><td>${h.vocabulary}</td><td>${h.length_n}</td>
+             <td>${parseFloat(h.volume).toFixed(1)}</td><td>${parseFloat(h.difficulty).toFixed(2)}</td><td>${parseFloat(h.effort).toFixed(0)}</td></tr>`
+        ).join('');
+
+        // Function points summary cards
+        const typeLabel = {EI:'External Inputs',EO:'External Outputs',EQ:'External Queries',ILF:'Internal Files',EIF:'External Files'};
+        document.getElementById('fp-cards').innerHTML =
+            data.function_points.summary.map(s =>
+                miniCard(typeLabel[s.type] || s.type, s.weighted_total, ' pts')
+            ).join('');
+
+        // Function points detail table
+        document.getElementById('fp-tbody').innerHTML = data.function_points.detail.map(f =>
+            `<tr><td><strong>${f.component_type}</strong></td><td>${f.component_name}</td>
+             <td style="font-size:.78rem;color:#888">${f.description}</td>
+             <td>${f.count_value}</td><td>${f.weight}</td><td><strong>${f.weighted_value}</strong></td></tr>`
+        ).join('');
+
+        document.getElementById('fp-ufc').innerHTML =
+            `Unadjusted Function Count (UFC) = <span style="font-size:1.3rem">&nbsp;${data.function_points.ufc}</span> Function Points`;
+
+        // Reuse table
+        document.getElementById('reuse-tbody').innerHTML = data.reuse.files.map(r =>
+            `<tr><td>${r.file_name}</td><td>${r.total_loc}</td><td>${r.verbatim_loc}</td>
+             <td>${r.slightly_modified_loc}</td><td>${r.extensively_modified_loc}</td>
+             <td>${r.new_loc}</td><td><strong>${r.reuse_level}%</strong></td></tr>`
+        ).join('');
+
+    } catch(e) { console.error('Size metrics error:', e); }
+}
+
+// ── Lecture 06: Structural Complexity ─────────────────────────────────────
+async function loadComplexity() {
+    try {
+        const res  = await fetch('../backend/getcomplexity.php');
+        const data = await res.json();
+        if (data.status !== 'ok') return;
+
+        // Cyclomatic complexity
+        const riskColor = {low:'#2e7d32', moderate:'#e65100', high:'#b71c1c', very_high:'#6a1a4c'};
+        document.getElementById('cc-cards').innerHTML = [
+            miniCard('Files Measured',  data.cyclomatic.file_count,        ''),
+            miniCard('Average v(G)',    data.cyclomatic.avg_v,             ''),
+            miniCard('High Risk Files', data.cyclomatic.high_risk.length,  ''),
+        ].join('');
+
+        document.getElementById('cc-tbody').innerHTML = data.cyclomatic.files.map(f =>
+            `<tr><td>${f.file_name}</td><td>${f.decision_points}</td><td><strong>${f.cyclomatic_v}</strong></td>
+             <td style="color:${riskColor[f.risk_level]};font-weight:700;text-transform:capitalize">${f.risk_level.replace('_',' ')}</td></tr>`
+        ).join('');
+
+        // Cohesion
+        document.getElementById('cohesion-cards').innerHTML = [
+            miniCard('System Cohesion', data.cohesion.system_cohesion, '%'),
+            miniCard('Modules',         data.cohesion.modules.length,   ''),
+        ].join('');
+
+        document.getElementById('cohesion-tbody').innerHTML = data.cohesion.modules.map(m =>
+            `<tr><td><strong>${m.module_name}</strong></td>
+             <td style="font-size:.78rem;color:#888">${m.module_description}</td>
+             <td>${m.internal_relations}</td><td>${m.external_relations}</td>
+             <td><strong>${m.cohesion_pct}%</strong></td>
+             <td style="text-transform:capitalize">${m.cohesion_type}</td></tr>`
+        ).join('');
+
+        // Coupling
+        const cpColor = {R0:'#2e7d32',R1:'#388e3c',R2:'#e65100',R3:'#c62828',R4:'#6a1a4c'};
+        document.getElementById('coupling-cards').innerHTML = [
+            miniCard('Global Coupling', parseFloat(data.coupling.global_coupling).toFixed(4), ''),
+            miniCard('Module Pairs',    data.coupling.pairs.length,   ''),
+        ].join('');
+
+        document.getElementById('coupling-tbody').innerHTML = data.coupling.pairs.map(p =>
+            `<tr><td>${p.module_x}</td><td>${p.module_y}</td>
+             <td style="color:${cpColor[p.coupling_type]};font-weight:700">${p.coupling_type}</td>
+             <td>${p.interconnections}</td><td><strong>${parseFloat(p.coupling_value).toFixed(4)}</strong></td></tr>`
+        ).join('');
+
+        // Information flow
+        document.getElementById('flow-tbody').innerHTML = data.information_flow.modules.map(m =>
+            `<tr><td><strong>${m.module_name}</strong></td><td>${m.fan_in}</td><td>${m.fan_out}</td>
+             <td><strong>${parseFloat(m.ifc_value).toFixed(2)}</strong></td></tr>`
+        ).join('');
+
+        // Architecture
+        const a = data.architecture;
+        document.getElementById('arch-cards').innerHTML = [
+            miniCard('Nodes',          a.nodes,                                    ''),
+            miniCard('Edges',          a.edges,                                    ''),
+            miniCard('Depth',          a.arch_depth,                               ''),
+            miniCard('Width',          a.arch_width,                               ''),
+            miniCard('Edge/Node',      parseFloat(a.edge_node_ratio).toFixed(4),   ''),
+            miniCard('Impurity m(G)',  parseFloat(a.impurity).toFixed(6),          ''),
+        ].join('');
+
+        // Data structure complexity
+        document.getElementById('dsc-tbody').innerHTML = data.data_structure.files.map(f =>
+            `<tr><td>${f.file_name}</td><td>${f.integer_vars}</td><td>${f.string_vars}</td><td>${f.array_vars}</td>
+             <td>${f.c1_integers}</td><td>${f.c2_strings}</td><td>${f.c3_arrays}</td>
+             <td><strong>${f.total_complexity}</strong></td></tr>`
+        ).join('');
+
+    } catch(e) { console.error('Complexity error:', e); }
+}
+
+// ── Load all data on page open ─────────────────────────────────────────────
+async function loadAll() {
+    // First verify admin session
+    try {
+        const sessionRes = await fetch('http://localhost:8080/MaternalHealthUganda/backend/check_session.php');
+        const sessionData = await sessionRes.json();
+        
+        if (!sessionData.valid) {
+            showGlobalError('Access denied: ' + sessionData.error + '. Redirecting to login...');
+            setTimeout(() => {
+                window.location.href = 'http://localhost:8080/MaternalHealthUganda/frontend/login.html';
+            }, 2000);
+            return;
+        }
+        
+        // Update header with user info
+        updateUserInfo(sessionData.user);
+        
+    } catch(e) {
+        showGlobalError('Session check failed. Redirecting to login...');
+        setTimeout(() => {
+            window.location.href = 'http://localhost:8080/MaternalHealthUganda/frontend/login.html';
+        }, 2000);
+        return;
+    }
+    
+    // Load dashboard data
+    try {
+        const r    = await fetch('http://localhost:8080/MaternalHealthUganda/backend/getmetrics.php');
+        const json = await r.json();
+        if (json.success) {
+            dashData = json.data;
+            renderIndicators(dashData);
+        } else {
+            showGlobalError(json.error || 'Could not load metrics. Are you logged in as admin?');
+        }
+    } catch(e) {
+        showGlobalError('Network error. Is the PHP server running?');
+    }
+
+    try {
+        const r2   = await fetch('http://localhost:8080/MaternalHealthUganda/backend/getexperiments.php');
+        const j2   = await r2.json();
+        if (j2.success) {
+            researchData = j2;
+            renderResearch(j2);
+        }
+    } catch(e) { /* Silent — might not have data yet */ }
+}
+
+function showGlobalError(msg) {
+    ['bg1-cards','bg2-cards','bg3-cards','bg4-cards'].forEach(id => {
+        document.getElementById(id).innerHTML =
+          `<div class="error-state">⚠️ ${msg}</div>`;
+    });
+}
+
+// ---- Update user info in header ----
+function updateUserInfo(user) {
+    const navElement = document.querySelector('.dash-nav');
+    if (navElement && user) {
+        // Add user info and logout button
+        const userInfo = document.createElement('div');
+        userInfo.style.cssText = 'display: flex; align-items: center; gap: 10px; margin-left: 20px;';
+        userInfo.innerHTML = `
+            <span style="font-size: 0.8rem; opacity: 0.9;">${user.name}</span>
+            <button onclick="doLogout()" style="background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.3); padding: 5px 12px; border-radius: 15px; cursor: pointer; font-size: 0.75rem;">Logout</button>
+        `;
+        navElement.appendChild(userInfo);
+    }
+}
+
+// ---- Logout function ----
+async function doLogout() {
+    try {
+        await fetch('http://localhost:8080/MaternalHealthUganda/backend/logout.php', { method: 'POST' });
+        window.location.href = 'http://localhost:8080/MaternalHealthUganda/frontend/login.html';
+    } catch(e) {
+        // Even if logout fails, redirect to login
+        window.location.href = 'http://localhost:8080/MaternalHealthUganda/frontend/login.html';
+    }
+}
+
+// ── Render Quality Indicators ──────────────────────────────────────
+function renderIndicators(d) {
+    // ── BG1 ──
+    const ta = d.tracker_accuracy || {};
+    const tc = d.tips_coverage    || {};
+    document.getElementById('bg1-cards').innerHTML = `
+      ${kpiCard('I1','MG1 — Tracker Accuracy',
+          ta.error_rate_pct ?? '—', '%',
+          `<div class="sub-stats"><span class="sub-stat">Total uses: <strong>${ta.total_uses||0}</strong></span><span class="sub-stat">Errors: <strong>${ta.error_count||0}</strong></span></div>
+           ${progBar(100-(ta.error_rate_pct||0),'pink')} ${badge(ta.error_rate_pct,'<0.5 → Good','≥0.5 → Review',0.5,'good','danger')}`,
+          'entity: tracker_logs | scale: ratio | target: <0.5%')}
+      ${kpiCard('I2','MG2 — Health Tip Coverage',
+          tc.reviewed_pct ?? '—', '%',
+          `<div class="sub-stats"><span class="sub-stat">Reviewed: <strong>${tc.reviewed_tips||0}/42</strong></span><span class="sub-stat">Unreviewed: <strong>${42-(tc.reviewed_tips||0)}</strong></span></div>
+           ${progBar(tc.reviewed_pct||0,'green')} ${badge(tc.reviewed_pct,'100% → Complete','Needs review',100,'good','warn')}`,
+          'entity: health_tips | attribute: reviewed_by | target: 100%')}`;
+
+    // ── BG2 ──
+    const rf = d.registration_funnel || {};
+    const rv = d.return_visits       || {};
+    document.getElementById('bg2-cards').innerHTML = `
+      ${kpiCard('I3','MG3 — Registration Funnel',
+          rf.completion_rate_pct ?? '—', '%',
+          `<div class="sub-stats"><span class="sub-stat">Signup visits: <strong>${rf.signup_page_visits||0}</strong></span><span class="sub-stat">Registered: <strong>${rf.registered_users||0}</strong></span></div>
+           ${progBar(rf.completion_rate_pct||0,'blue')} ${badge(rf.completion_rate_pct,'≥60% → Good','<60% → Investigate',60,'good','warn')}`,
+          'entity: page_views + users | question: what % of visitors register?')}
+      ${kpiCard('I4','MG4 — Weekly Return Visits',
+          rv.weekly_active_pct ?? '—', '%',
+          `<div class="sub-stats"><span class="sub-stat">Active (7d): <strong>${rv.active_last_7_days||0}</strong></span><span class="sub-stat">Total users: <strong>${rv.total_users||0}</strong></span></div>
+           ${progBar(rv.weekly_active_pct||0,'pink')} ${badge(rv.weekly_active_pct,'≥40% → Good','<40% → Engage users',40,'good','warn')}`,
+          'entity: users.last_login | attribute: external (behaviour) | target: >40%')}`;
+
+    // ── BG3 ──
+    const ps  = d.password_security || {};
+    const se  = d.system_errors     || {};
+    document.getElementById('bg3-cards').innerHTML = `
+      ${kpiCard('I5','MG5 — Password Security',
+          ps.compliance_pct ?? '—', '%',
+          `<div class="sub-stats"><span class="sub-stat">bcrypt users: <strong>${ps.bcrypt_count||0}/${ps.total_users||0}</strong></span></div>
+           ${progBar(ps.compliance_pct||0,'green')} ${badge(ps.compliance_pct,'100% → Secure','<100% → CRITICAL',100,'good','danger')}`,
+          'entity: users | attribute: password hash type | target: 100% bcrypt ($2y$)')}
+      ${kpiCard('I6','MG6 — System Errors (30d)',
+          se.total_errors ?? '0', ' errors',
+          `<div class="sub-stats"><span class="sub-stat">Critical/High: <strong>${se.critical_errors||0}</strong></span><span class="sub-stat">Endpoints: <strong>${se.affected_endpoints||0}</strong></span></div>
+           ${se.total_errors > 0 ? `<span class="badge badge-warn">Errors detected — review logs</span>` : `<span class="badge badge-good">No errors</span>`}`,
+          'entity: system_errors | attribute: count per endpoint | target: 0 critical')}`;
+
+    // ── BG4 ──
+    const rm = d.review_moderation || {};
+    const cf = d.content_feedback  || {};
+    document.getElementById('bg4-cards').innerHTML = `
+      ${kpiCard('I7','MG8 — Review Moderation Speed',
+          rm.avg_hours_to_approve ?? '—', ' hrs avg',
+          `<div class="sub-stats"><span class="sub-stat">Total: <strong>${rm.total_reviews||0}</strong></span><span class="sub-stat">Approved: <strong>${rm.approved_reviews||0}</strong></span><span class="sub-stat">Approval rate: <strong>${rm.approval_rate_pct||0}%</strong></span></div>
+           ${badge(rm.avg_hours_to_approve,'<24h → Good','>24h → Slow',24,'good','warn',true)}`,
+          'entity: reviews | attribute: TIMESTAMPDIFF(created_at, approved_at) | target: <24h')}
+      ${kpiCard('I8','MG7 — Inaccuracy Reports (30d)',
+          cf.total_reports ?? '0', ' reports',
+          `<div class="sub-stats"><span class="sub-stat">Open: <strong>${cf.open_reports||0}</strong></span><span class="sub-stat">Resolved: <strong>${cf.resolved_reports||0}</strong></span><span class="sub-stat">Tip errors: <strong>${cf.tip_error_reports||0}</strong></span></div>
+           ${cf.open_reports > 0 ? `<span class="badge badge-warn">${cf.open_reports} report(s) need review</span>` : `<span class="badge badge-good">No open reports</span>`}`,
+          'entity: content_feedback | attribute: count per month | target: <3')}`;
+}
+
+// ── Render Research & Testing ──────────────────────────────────────
+function renderResearch(d) {
+    // Experiments
+    const expHtml = (d.experiments || []).map(e => `
+      <div class="card">
+        <div class="card-label">${e.investigation_type?.replace('_',' ')?.toUpperCase() || 'EXPERIMENT'}</div>
+        <div class="card-title">${e.title}</div>
+        <div class="hyp-box">
+          <strong>Hypothesis (stated BEFORE data collection — D2 guideline)</strong>
+          ${e.hypothesis}
+        </div>
+        <table class="var-table">
+          <tr><td>Independent Variable</td><td>${e.independent_var}</td></tr>
+          <tr><td>Dependent Variable</td><td>${e.dependent_var}</td></tr>
+          <tr><td>Controlled Variables</td><td>${e.controlled_vars||'Not specified'}</td></tr>
+          <tr><td>Min Sample Size (D6)</td><td>${e.sample_size||'Not set'} subjects</td></tr>
+          <tr><td>Observations collected</td><td>${e.total_observations||0}</td></tr>
+          <tr><td>Subjects</td><td>${e.total_subjects||0}</td></tr>
+        </table>
+        <div style="margin-top:12px">
+          <span class="phase-badge phase-${e.phase}">${e.phase?.toUpperCase()}</span>
+        </div>
+      </div>
+    `).join('') || '<div class="card"><p style="color:#a06080;font-size:.85rem">No experiments registered yet. Run the database SQL to seed sample data.</p></div>';
+    document.getElementById('experiment-cards').innerHTML = expHtml;
+
+    // Survey results
+    const survHtml = (d.surveys || []).map(s => `
+      <div class="card">
+        <div class="card-label">Survey · ${s.total_responses} response(s)</div>
+        <div class="card-title">${s.survey_name}</div>
+        ${surveyBar('Q1: Tracker Usefulness (MG1)',     s.avg_tracker_useful)}
+        ${surveyBar('Q2: Tip Accuracy (MG2)',            s.avg_tips_accurate)}
+        ${surveyBar('Q3: Ease of Use (MG3)',             s.avg_site_easy_to_use)}
+        ${surveyBar('Q4: Would Recommend',               s.avg_would_recommend)}
+        ${surveyBar('Q5: Overall Satisfaction',          s.avg_overall_satisfy)}
+      </div>
+    `).join('') || '<div class="card"><p style="color:#a06080;font-size:.85rem">No survey responses yet. Users can submit via the survey form on the main app.</p></div>';
+    document.getElementById('survey-cards').innerHTML = survHtml;
+
+    // Case study timeline
+    const tlHtml = (d.case_events || []).slice(0,15).map(ev => `
+      <li class="impact-${ev.impact_level}">
+        <div class="tl-cat">${ev.event_category?.replace('_',' ')}</div>
+        <div class="tl-name">${ev.event_name}</div>
+        ${ev.related_metric ? `<span class="tl-metric">${ev.related_metric}</span>` : ''}
+        <div class="tl-time">${formatDate(ev.occurred_at)}</div>
+      </li>
+    `).join('') || '<li style="padding-left:42px;color:#a06080;font-size:.85rem">No events yet — use the app to generate case study data.</li>';
+    document.getElementById('timeline-list').innerHTML = tlHtml;
+}
+
+// ── GQM Tree tab ───────────────────────────────────────────────────────────
+const mgDefs = [
+    {id:'MG1',bg:'BG1',entity:'pregnancy tracker',purpose:'evaluating calculation accuracy',quality:'error rate per 100 uses',perspective:'system administrator',env:'Maternal Health Uganda PHP/MySQL web app',question:'What percentage of tracker uses produce incorrect calculations?',metric:'Errors / Total uses × 100 (ratio, 0–100%, precision 2dp)',ind:'I1: Error rate chart (last 30 days)',target:'<0.5%'},
+    {id:'MG2',bg:'BG1',entity:'health_tips table (42 rows)',purpose:'evaluating content quality',quality:'medical review coverage percentage',perspective:'content administrator',env:'Maternal Health Uganda web app',question:'What percentage of the 42 weekly health tips have been medically reviewed?',metric:'COUNT(reviewed_by) / 42 × 100 (ratio, 0–100%, precision 1dp)',ind:'I2: Coverage bar chart',target:'100%'},
+    {id:'MG3',bg:'BG2',entity:'user registration flow (signup page)',purpose:'improving user engagement',quality:'signup completion rate',perspective:'product manager',env:'Maternal Health Uganda web app',question:'What percentage of users who visit the signup page actually complete registration?',metric:'registered_users / signup_page_visits × 100 (ratio, 0–100%)',ind:'I3: Registration funnel bar',target:'>60%'},
+    {id:'MG4',bg:'BG2',entity:'registered user accounts',purpose:'understanding engagement retention',quality:'weekly active user percentage',perspective:'product manager',env:'Maternal Health Uganda web app',question:'What percentage of registered users returned within the last 7 days?',metric:'Users with last_login ≤7d ago / total active users × 100',ind:'I4: Weekly active % gauge',target:'>40%'},
+    {id:'MG5',bg:'BG3',entity:'user password storage',purpose:'ensuring authentication security',quality:'bcrypt hash compliance rate',perspective:'security administrator',env:'Maternal Health Uganda users table',question:'Are all user passwords stored as bcrypt hashes ($2y$)?',metric:'COUNT(password LIKE $2y$%) / COUNT(*) × 100 (ratio)',ind:'I5: Security compliance %',target:'100%'},
+    {id:'MG6',bg:'BG3',entity:'PHP backend endpoints',purpose:'reducing system failures',quality:'error rate per endpoint per day',perspective:'lead developer',env:'Maternal Health Uganda backend (system_errors table)',question:'How many errors occur per endpoint per day?',metric:'COUNT(errors) / days (ratio, events per time unit)',ind:'I6: Error log table',target:'0 critical errors'},
+    {id:'MG7',bg:'BG4',entity:'health tip content (content_feedback)',purpose:'improving content accuracy',quality:'user-reported inaccuracy rate',perspective:'content administrator',env:'Maternal Health Uganda content feedback module',question:'How many health tip inaccuracies are reported per month?',metric:'COUNT(feedback_type=tip_error) / 30 days (ratio)',ind:'I8: Feedback count chart',target:'<3 per month'},
+    {id:'MG8',bg:'BG4',entity:'review moderation process',purpose:'maintaining content quality',quality:'average moderation speed',perspective:'content administrator',env:'Maternal Health Uganda reviews table',question:'How long does it take to approve or reject a submitted review?',metric:'AVG(TIMESTAMPDIFF(HOUR, created_at, approved_at)) (ratio, hours)',ind:'I7: Avg hours to approve',target:'<24 hours'},
+];
+
+function renderGqmTree() {
+    document.getElementById('mg-tree-cards').innerHTML = mgDefs.map(mg => `
+      <div class="card">
+        <div class="card-label">${mg.id} · ${mg.bg}</div>
+        <div class="card-title" style="margin-bottom:14px">${mg.ind}</div>
+        <div class="mg-box">
+          Analyze <span class="mg-field">${mg.entity}</span>
+          for the purpose of <span class="mg-field">${mg.purpose}</span>
+          with respect to <span class="mg-field">${mg.quality}</span>
+          from the viewpoint of <span class="mg-field">${mg.perspective}</span>
+          in the context of <span class="mg-field">${mg.env}</span>
+        </div>
+        <table class="var-table" style="margin-top:10px">
+          <tr><td>GQM Question</td><td>${mg.question}</td></tr>
+          <tr><td>Metric</td><td>${mg.metric}</td></tr>
+          <tr><td>Target</td><td>${mg.target}</td></tr>
+        </table>
+      </div>
+    `).join('');
+}
+
+// ── Helper functions ───────────────────────────────────────────────────────
+function kpiCard(ind, title, value, unit, bodyHtml, footerNote) {
+    return `<div class="card">
+      <div class="card-label">${ind}</div>
+      <div class="card-title">${title}</div>
+      <div class="big-number">${value}<span class="big-unit">${unit}</span></div>
+      ${bodyHtml}
+      <div style="margin-top:12px;font-size:.72rem;color:#c0a0b0;border-top:1px solid #f0e0ec;padding-top:8px">${footerNote}</div>
+    </div>`;
+}
+
+function progBar(pct, color) {
+    const p = Math.min(100, Math.max(0, pct || 0));
+    return `<div class="prog-wrap"><div class="prog-label"><span>0%</span><span>${p}%</span><span>100%</span></div><div class="prog-track"><div class="prog-fill prog-${color}" style="width:${p}%"></div></div></div>`;
+}
+
+function badge(val, goodText, badText, threshold, goodClass, badClass, lessThanGood=false) {
+    if (val === null || val === undefined || val === '—') return `<span class="badge badge-neutral">No data yet</span>`;
+    const num = parseFloat(val);
+    const isGood = lessThanGood ? num < threshold : num >= threshold;
+    return `<span class="badge badge-${isGood ? goodClass : badClass}">${isGood ? goodText : badText}</span>`;
+}
+
+function surveyBar(label, avg) {
+    const v = avg ? parseFloat(avg) : 0;
+    const pct = (v / 5) * 100;
+    return `<div class="survey-question">
+      <div class="sq-label"><span>${label}</span><span>${v.toFixed(1)}/5</span></div>
+      <div class="sq-bar"><div class="sq-fill" style="width:${pct}%"></div></div>
+    </div>`;
+}
+
+function formatDate(dateStr) {
+    if (!dateStr) return '';
+    try { return new Date(dateStr).toLocaleString(); } catch(e) { return dateStr; }
+}
+
+// ── Init ──────────────────────────────────────────────────────────────────
+loadAll();
+</script>
+</body>
+</html>

@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maternal Health Uganda — Empowering Expectant Mothers</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+    <div id="left-header">
+        <a href="index.html" id="logo">Maternal Health Uganda</a>
+    </div>
+    <nav id="right-header">
+        <a href="#tracker">Tracker</a>
+        <a href="#resources">Resources</a>
+        <a href="#impact">Impact</a>
+        <a href="#review-section">Reviews</a>
+        <a href="survey.html">Survey</a>
+        <a href="#contact-section">Contact</a>
+        <a href="login.html" class="nav-btn">Login</a>
+        <a href="signup.html" class="nav-btn signup">Sign Up</a>
+         <a href="postpartum.html" class="nav-link">🤱 Postpartum Care</a>
+    </nav>
+</header>
+
+<!-- HERO SLIDESHOW -->
+<section id="fold">
+    <div class="slide-show">
+        <div class="slide-show-container">
+            <div class="slide active-slide">
+                <img src="../Images/1.jpeg" alt="Maternal Health Uganda">
+            </div>
+            <div class="slide right-slide">
+                <img src="../Images/2.jpeg" alt="Supporting Mothers">
+            </div>
+            <div class="slide left-slide">
+                <img src="../Images/3.jpeg" alt="Community Health">
+            </div>
+            <div class="slide-show-words">Empowering Expectant Mothers, Changing Lives in Uganda</div>
+            <button class="slide-btn prev">&#10094;</button>
+            <button class="slide-btn next">&#10095;</button>
+        </div>
+    </div>
+</section>
+
+<!-- PREGNANCY TRACKER -->
+<section id="tracker" class="tracker"></section>
+    <h2>Pregnancy Tracker</h2>
+    <p>Enter your last menstrual period date to track your pregnancy progress.</p>
+    <div class="tracker-input">
+        <label for="lastPeriod">Last day of period:</label>
+        <input type="date" id="lastPeriod" />
+    
+        <button onclick="TrackMyPregnancy()">Track My Pregnancy</button>
+    </div>
+    <div class="progress-container">
+        <div id="progressBar"></div>
+    </div>
+    <p id="weekInfo"></p>
+    <section class="snapshot">
+        <h3 id="pregnancyWeek"></h3>
+        <p id="babySizeText"></p>
+    </section>
+    <div id="healthTipBox" class="health-tip" style="display:none;">
+        <h4 id="tipTitle"></h4>
+        <p id="tipContent"></p>
+    </div>
+</section>
+    <!-- Feedback Modal -->
+    <div id="feedbackModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9999;align-items:center;justify-content:center;">
+        <div style="background:#fff;border-radius:18px;padding:36px;max-width:480px;width:90%;box-shadow:0 24px 64px rgba(0,0,0,.25);">
+            <h3 style="font-family:'Playfair Display',serif;color:#480b31;margin-bottom:8px;">Report a Tip Issue</h3>
+            <p style="font-size:.85rem;color:#7a5070;margin-bottom:18px;">Help us improve by flagging any inaccurate or outdated health information.</p>
+            <textarea id="feedbackMsg" rows="4" placeholder="Describe the issue..." style="width:100%;padding:12px;border:2px solid #f0dcea;border-radius:10px;font-family:inherit;font-size:.9rem;resize:vertical;outline:none;"></textarea>
+            <div style="display:flex;gap:12px;margin-top:16px;justify-content:flex-end;">
+                <button onclick="closeFeedback()" style="padding:10px 20px;border:1px solid #e0c0d8;border-radius:20px;background:#fff;cursor:pointer;font-family:inherit;">Cancel</button>
+                <button onclick="submitFeedback()" style="padding:10px 24px;background:#480b31;color:#fff;border:none;border-radius:20px;cursor:pointer;font-family:inherit;font-weight:600;">Submit</button>
+            </div>
+            <p id="feedbackStatus" style="margin-top:12px;font-size:.82rem;"></p>
+        </div>
+    </div>
+</section>
+
+<!-- INFO CARDS -->
+<section id="resources">
+    <div class="section-label">Resources</div>
+    <div class="section-heading">Everything You Need</div>
+    <p class="section-sub">Comprehensive support for every stage of your pregnancy journey.</p>
+    <div class="cards-grid">
+        <div class="card">
+            <div class="card-icon">📋</div>
+            <h4>Overview</h4>
+            <p>General information about your current stage of pregnancy and what to expect each week.</p>
+        </div>
+        <div class="card">
+            <div class="card-icon">💊</div>
+            <h4>Signs &amp; Symptoms</h4>
+            <p>Common experiences during each trimester and how to manage them safely at home.</p>
+        </div>
+        <div class="card">
+            <div class="card-icon">🏥</div>
+            <h4>Prenatal Care</h4>
+            <p>Reminders for checkups, vitamins, important tests, and healthcare visits you should not miss.</p>
+        </div>
+    </div>
+</section>
+
+<!-- COMMUNITY -->
+<section class="info-band pink">
+    <h2>Community Support</h2>
+    <p>Connect with other mothers, share experiences, and find answers in a safe, supportive environment built just for you.</p>
+</section>
+
+<!-- POSTPARTUM -->
+<section class="info-band blue">
+    <h2>Postpartum Care</h2>
+    <p>Guidance on recovery, breastfeeding, newborn care, and mental health support after your delivery.</p>
+</section>
+
+<!-- IMPACT -->
+<section id="impact" class="impact-section"></section>
+    <div class="container">
+        <h2 class="impact-title">Our Impact Across Uganda</h2>
+        <p class="impact-subtitle">Making a difference in maternal health, one mother at a time</p>
+        
+        <div class="impact-grid">
+            <div class="impact-card">
+                <div class="counter-wrapper">
+                    <span class="counter" data-target="15000">0</span>
+                    <span class="plus">+</span>
+                </div>
+                <h3>Mothers Reached</h3>
+                <p>Across all districts of Uganda</p>
+            </div>
+            
+            <div class="impact-card">
+                <div class="counter-wrapper">
+                    <span class="counter" data-target="250">0</span>
+                    <span class="plus">+</span>
+                </div>
+                <h3>Communities Served</h3>
+                <p>From urban centers to rural villages</p>
+            </div>
+            
+            <div class="impact-card">
+                <div class="counter-wrapper">
+                    <span class="counter" data-target="85">0</span>
+                    <span class="percent">%</span>
+                </div>
+                <h3>Safe Deliveries</h3>
+                <p>Improvement in facility-based births</p>
+            </div>
+            
+            <div class="impact-card">
+                <div class="counter-wrapper">
+                    <span class="counter" data-target="500">0</span>
+                    <span class="plus">+</span>
+                </div>
+                <h3>Trained Health Workers</h3>
+                <p>Equipped with lifesaving skills</p>
+            </div>
+        </div>
+        
+        <div class="impact-map-note">
+            <p>📍 Active in: Kampala, Gulu, Mbarara, Jinja, Fort Portal, Mbale, and 45+ more districts</p>
+        </div>
+    </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about-section" style="background:#fff;">
+    <div class="text-section">
+        <div class="section-label">About Us</div>
+        <h3>Our Story</h3>
+        <p>Founded in 2020, Maternal Health Uganda emerged from a simple yet powerful observation: too many Ugandan mothers were dying from preventable complications during pregnancy and childbirth. Our founder, Dr. Sarah Namutebi, a practicing obstetrician in Kampala, witnessed firsthand the devastating impact of limited access to maternal healthcare information.</p>
+        <p>What started as a small community outreach program in five villages has grown into a comprehensive digital platform reaching over 50,000 mothers across Uganda. Today, we combine technology with traditional healthcare delivery to ensure that every mother receives the care and information she deserves.</p>
+    </div>
+</section>
+
+<!-- WHY CHOOSE US -->
+<section id="why-section">
+    <div class="text-section">
+        <div class="section-label">Why Choose Us</div>
+        <h3>Built for Ugandan Mothers</h3>
+        <p>Maternal Health Uganda integrates technology with grassroots community engagement, creating sustainable impact that reaches the most vulnerable populations. Our partnerships with the Ugandan Ministry of Health, WHO, and UNICEF validate our approach and ensure alignment with national health priorities.</p>
+    </div>
+</section>
+
+<!-- SIGN UP SECTION -->
+<section class="signup-section">
+    <div class="signup-content">
+        <div class="signup-text">
+            <div class="section-label">Join Us</div>
+            <h2>Supporting Expectant Mothers Across Uganda</h2>
+            <p>With your support, we continue to break barriers, empower lives, and cultivate a healthier Uganda for all mothers and children.</p>
+            <div class="progress-circles">
+                <div class="circle-progress">
+                    <div class="circle"><span>85%</span></div>
+                    <p>Safe Deliveries</p>
+                </div>
+                <div class="circle-progress">
+                    <div class="circle" style="background:conic-gradient(#b45f8b 270deg,#f0dcea 270deg)"><span>75%</span></div>
+                    <p>Mothers' Health</p>
+                </div>
+                <div class="circle-progress">
+                    <div class="circle" style="background:conic-gradient(#b45f8b 324deg,#f0dcea 324deg)"><span>90%</span></div>
+                    <p>Baby Healthcare</p>
+                </div>
+            </div>
+        </div>
+        <div class="signup-box">
+            <h3>Quick Sign Up</h3>
+            <div class="form-group">
+                <label for="qFullName">Full Name</label>
+                <input type="text" id="qFullName" placeholder="Your full name">
+            </div>
+            <div class="form-group">
+                <label for="qEmail">Email Address</label>
+                <input type="email" id="qEmail" placeholder="your@email.com">
+            </div>
+            <a href="signup.html" class="btn-full">Create Full Account →</a>
+        </div>
+    </div>
+</section>
+
+<!-- TEAM -->
+<section class="team-section">
+    <h2>Meet Our Team</h2>
+    <div class="team-grid">
+        <div class="team-member">
+            <div class="member-avatar">👩‍⚕️</div>
+            <h3>President</h3>
+            <p>Nanyanzi Hadijah</p>
+        </div>
+        <div class="team-member">
+            <div class="member-avatar">👩‍💻</div>
+            <h3>Secretary / IT Advisor</h3>
+            <p>Adrine N.</p>
+        </div>
+    </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="review-section">
+    <h2>What Mothers Say</h2>
+    <div id="review">
+        <div class="review-slide active">
+            <p>"Helped me throughout my pregnancy journey and I delivered my baby safely. Thank you!"</p>
+            <h4>— Joy K.</h4>
+        </div>
+        <div class="review-slide">
+            <p>"Very user-friendly and an efficient way to get support during pregnancy."</p>
+            <h4>— Lisa M.</h4>
+        </div>
+        <div class="review-slide">
+            <p>"The weekly tips were incredibly helpful. I knew exactly what to expect each week."</p>
+            <h4>— Sarah N.</h4>
+        </div>
+        <div class="controls">
+            <span class="prev">&#10094;</span>
+            <span class="next">&#10095;</span>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="contact-section">
+    <div class="footer-inner">
+        <div>
+            <div class="footer-brand">Maternal Health Uganda</div>
+            <p style="color:rgba(255,255,255,.6);font-size:.85rem;margin-top:6px;">Empowering mothers across Uganda since 2020.</p>
+        </div>
+        <div class="footer-contact">
+            <a href="mailto:maternalhealthuganda@gmail.com">
+                <img src="../Images/envelope-solid-full.svg" class="fa-icons" alt="">
+                maternalhealthuganda@gmail.com
+            </a>
+            <a href="tel:+256790807998">
+                <img src="../Images/message-solid-full.svg" class="fa-icons" alt="">
+                +256 790 807 998
+            </a>
+        </div>
+        <div>
+            <p style="color:rgba(255,255,255,.6);font-size:.82rem;margin-bottom:10px;">Kampala, Uganda</p>
+            <div class="social-links">
+                <a href="#"><img src="../Images/instagram-brands-solid-full.svg" class="social-icons" alt="Instagram"></a>
+                <a href="#"><img src="../Images/x-twitter-brands-solid-full.svg" class="social-icons" alt="Twitter"></a>
+                <a href="#"><img src="../Images/facebook-brands-solid-full.svg" class="social-icons" alt="Facebook"></a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <span>&copy; 2026 Maternal Health Uganda. All Rights Reserved.</span>
+        <span>
+            <a href="survey.html" style="color:rgba(255,255,255,.5);">Give Feedback</a>
+            &nbsp;·&nbsp;
+            <a href="metrics_dashboard.html" style="color:rgba(255,255,255,.5);">Admin</a>
+        </span>
+    </div>
+</footer>
+
+<script src="slideshow.js"></script>
+<script src="tracker.js"></script>
+<script src="review.js"></script>
+    <script src="postpartum.js"></script>
+       <script src="impact.js"></script>
+
+<script>
+// Show snapshot section after tracker is used
+const origRender = window.renderResult;
+document.getElementById('snapshot').style.display = 'none';
+</script>
+
+</body>
+</html>
