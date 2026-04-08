@@ -42,9 +42,11 @@ if ($stmt->rowCount() === 1) {
 
         $logger->logAuthEvent('login_success', $user['user_id']);
 
+        $redirectPage = ($user['role'] === 'admin') ? 'metrics_dashboard.html' : 'index.html';
+        
         echo json_encode([
             'success'  => true,
-            'redirect' => 'index.html',
+            'redirect' => $redirectPage,
             'name'     => $user['fullname'],
             'role'     => $user['role']
         ]);
