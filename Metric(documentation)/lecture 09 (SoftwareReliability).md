@@ -4,13 +4,13 @@
 ### Overview
 This document explains how Lecture 09 concepts on Software Reliability are implemented in the Maternal Health Uganda project. The system tracks reliability metrics through automated logging and provides real-time analysis through the admin dashboard.
 
----
+
 
 ## Key Concepts and Implementation
 
 ### 1. Error, Fault, Failure Chain
 
-**Definition from Lecture:**
+**Definition :**
 - **Error:** Mistake made by a human developer
 - **Fault:** Defect in the code that results from the error
 - **Failure:** Observable incorrect behavior of the system
@@ -28,8 +28,6 @@ This document explains how Lecture 09 concepts on Software Reliability are imple
 - `system_errors` table captures runtime errors automatically
 - Each failure is categorized by severity and endpoint
 
----
-
 ### 2. Failure Intensity (lambda)
 
 **Formula:** `lambda = total_failures / total_transactions`
@@ -39,14 +37,11 @@ This document explains how Lecture 09 concepts on Software Reliability are imple
 $lambda = $total_failures / $total_time; // failures per transaction
 $failure_intensity_per_million = $lambda * 1000000;
 ```
-
 **Current Values (Q1-2026):**
 - **Total Failures:** 0
 - **Total Transactions:** 1,000,000
 - **Lambda (per million):** 0.00000000
 - **Interpretation:** Perfect reliability - no production failures
-
----
 
 ### 3. Mean Time To Failure (MTTF)
 
@@ -56,13 +51,10 @@ $failure_intensity_per_million = $lambda * 1000000;
 ```php
 $mttf = ($lambda > 0) ? 1 / $lambda : null; // undefined when lambda = 0
 ```
-
 **Current Values:**
 - **MTTF:** Undefined (null)
 - **Reason:** With zero failures, MTTF is mathematically infinite
 - **Practical Meaning:** System has not failed yet, so we cannot calculate average time between failures
-
----
 
 ### 4. Mean Time To Repair (MTTR)
 
@@ -80,8 +72,6 @@ WHERE is_resolved = 1;
 - **MTTR:** 6.0 minutes (estimated)
 - **Measurement:** Time from error detection to resolution
 - **Target:** < 10 minutes for critical issues
-
----
 
 ### 5. Availability (A)
 
@@ -104,8 +94,6 @@ $availability = 1 / (1 + ($lambda * $tm_transactions));
 - **Formula:** A = 1/(1+0.00000000×250) = 0.9950
 - **Interpretation:** High availability system
 
----
-
 ### 6. Reliability R(t)
 
 **Formula:** `R(t) = e^(-lambda × t)`
@@ -121,8 +109,6 @@ $reliability = exp(-$lambda * $t);
 - **Lambda:** 0.00000000
 - **R(t):** 0.99980000 (99.98%)
 - **Interpretation:** 99.98% probability system survives 1M transactions
-
----
 
 ### 7. Serial System Reliability
 
@@ -140,8 +126,6 @@ $serial_reliability = exp(-$lambda_system * $t);
 - **Lambda_system:** 0.00000000
 - **R_system:** 0.99980000 (99.98%)
 - **Interpretation:** Excellent serial reliability
-
----
 
 ### 8. Reliability Growth Models
 
@@ -165,8 +149,6 @@ ORDER BY failure_sequence;
 - **Trend Direction:** Growth
 - **Interpretation:** Strong reliability improvement over time
 - **Evidence:** Inter-failure times are increasing (50k, 70k, 90k, 110k, 130k, 150k, 200k, 200k)
-
----
 
 ### 9. Operational Profile
 
@@ -193,7 +175,6 @@ ORDER BY usage_count DESC;
 - **Focus testing effort on high-usage endpoints**
 - **Priority: savetracker.php > login.php > signup.php > dashboard**
 
----
 
 ### 10. SRE Release Criteria
 
@@ -217,8 +198,6 @@ $release_ready = $lambda <= $lambda_objective;
 - **Release Ready:** YES
 - **Decision:** System far below failure threshold, ready for release
 
----
-
 ### 11. SRE 5-Step Process Applied
 
 **Step 1: Define Failure Intensity Objective (FIO)**
@@ -241,7 +220,6 @@ $release_ready = $lambda <= $lambda_objective;
 - **Result:** lambda/lambda_F = 0/0.001 = 0 < 0.5
 - **Decision:** APPROVED for release
 
----
 
 ## Database Schema Implementation
 
@@ -259,7 +237,6 @@ $release_ready = $lambda <= $lambda_objective;
 - **Laplace trend factors** - Growth analysis
 - **System reliability** - Serial component analysis
 
----
 
 ## Dashboard Implementation
 
@@ -279,7 +256,6 @@ $release_ready = $lambda <= $lambda_objective;
 - **Alert System:** Visual indicators for metric thresholds
 - **Historical Context:** 30-day rolling windows for analysis
 
----
 
 ## Integration with Existing System
 
