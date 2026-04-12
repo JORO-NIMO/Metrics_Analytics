@@ -694,3 +694,277 @@ INSERT INTO data_structure_complexity (file_name, integer_vars, string_vars, arr
 ('metrics_logger.php', 8, 12, 3,  6,  8, 24, 36,  68),
 ('getmetrics.php',     2,  2, 2, 10,  2,  4, 40,  46),
 ('computeresults.php', 5,  2, 3,  5,  5,  4, 30,  39);
+
+-- ============================================================
+-- LECTURE 09: SOFTWARE RELIABILITY TABLES
+-- ============================================================
+
+-- Table 1: reliability_failures
+CREATE TABLE IF NOT EXISTS reliability_failures (
+    failure_id      INT AUTO_INCREMENT PRIMARY KEY,
+    failure_type    ENUM('error', 'fault', 'failure') NOT NULL,
+    failure_time    TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    time_unit       VARCHAR(20) NOT NULL DEFAULT 'timestamp',
+    endpoint        VARCHAR(100) NOT NULL,
+    description     TEXT NOT NULL,
+    severity        ENUM('low', 'medium', 'high', 'critical') NOT NULL DEFAULT 'medium',
+    is_resolved     TINYINT(1) NOT NULL DEFAULT 0,
+    resolved_at     TIMESTAMP NULL,
+    recorded_at     TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    INDEX idx_failure_time (failure_time),
+    INDEX idx_endpoint (endpoint),
+    INDEX idx_severity (severity)
+);
+
+-- Table 2: reliability_metrics
+CREATE TABLE IF NOT EXISTS reliability_metrics (
+    metric_id                   INT AUTO_INCREMENT PRIMARY KEY,
+    model_type                  VARCHAR(50) NOT NULL,
+    observation_start           DATE NOT NULL,
+    observation_end             DATE NOT NULL,
+    total_failures              INT NOT NULL DEFAULT 0,
+    total_time                  BIGINT NOT NULL DEFAULT 0,
+    failure_intensity           DECIMAL(15,8) NOT NULL DEFAULT 0.00000000,
+    mttf                        DECIMAL(15,2) NULL,
+    mttr                        DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+    availability                DECIMAL(10,8) NOT NULL DEFAULT 0.00000000,
+    reliability_r               DECIMAL(10,8) NOT NULL DEFAULT 0.00000000,
+    t_for_r                     BIGINT NOT NULL DEFAULT 0,
+    laplace_factor              DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+    trend_direction             ENUM('growth', 'stable', 'decline') NOT NULL DEFAULT 'stable',
+    failure_intensity_objective DECIMAL(15,8) NOT NULL DEFAULT 0.00100000,
+    objective_met               TINYINT(1) NOT NULL DEFAULT 0,
+    notes                       TEXT,
+    created_at                  TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    INDEX idx_observation_period (observation_start, observation_end),
+    INDEX idx_model_type (model_type)
+);
+
+-- Table 3: interfailure_times
+CREATE TABLE IF NOT EXISTS interfailure_times (
+    ift_id               INT AUTO_INCREMENT PRIMARY KEY,
+    failure_sequence     INT NOT NULL,
+    failure_time_cum     BIGINT NOT NULL DEFAULT 0,
+    interfailure_time    BIGINT NOT NULL DEFAULT 0,
+    time_unit            VARCHAR(20) NOT NULL DEFAULT 'transactions',
+    laplace_u_i          DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+    notes                TEXT,
+    created_at           TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    INDEX idx_failure_sequence (failure_sequence),
+    INDEX idx_failure_time_cum (failure_time_cum)
+);
+
+-- ============================================================
+-- LECTURE 10: SOFTWARE TEST METRICS TABLES
+-- ============================================================
+
+-- Table 4: test_cases
+CREATE TABLE IF NOT EXISTS test_cases (
+    test_id              INT AUTO_INCREMENT PRIMARY KEY,
+    test_name            VARCHAR(100) NOT NULL,
+    test_type            ENUM('feature', 'load', 'regression', 'certification') NOT NULL,
+    target_endpoint      VARCHAR(100) NOT NULL,
+    operation            VARCHAR(20) NOT NULL,
+    input_values         JSON NULL,
+    expected_output      JSON NULL,
+    statements_covered   INT NOT NULL DEFAULT 0,
+    branches_covered     INT NOT NULL DEFAULT 0,
+    creation_method      VARCHAR(50) NOT NULL,
+    occurrence_prob      DECIMAL(5,4) NOT NULL DEFAULT 0.0000,
+    is_critical          TINYINT(1) NOT NULL DEFAULT 0,
+    created_at           TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    INDEX idx_test_type (test_type),
+    INDEX idx_endpoint (target_endpoint),
+    INDEX idx_critical (is_critical)
+);
+
+-- Table 5: test_executions
+CREATE TABLE IF NOT EXISTS test_executions (
+    execution_id         INT AUTO_INCREMENT PRIMARY KEY,
+    test_id              INT NOT NULL,
+    release_version      VARCHAR(20) NOT NULL,
+    executed_at          TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    actual_output        JSON NULL,
+    result               ENUM('pass', 'fail', 'pending') NOT NULL DEFAULT 'pending',
+    defect_found         TINYINT(1) NOT NULL DEFAULT 0,
+    defect_description   TEXT NULL,
+    execution_time_ms    INT NOT NULL DEFAULT 0,
+    FOREIGN KEY (test_id) REFERENCES test_cases(test_id) ON DELETE CASCADE,
+    INDEX idx_test_result (test_id, result),
+    INDEX idx_release_version (release_version),
+    INDEX idx_executed_at (executed_at)
+);
+
+-- Table 6: test_coverage
+CREATE TABLE IF NOT EXISTS test_coverage (
+    coverage_id          INT AUTO_INCREMENT PRIMARY KEY,
+    release_version      VARCHAR(20) NOT NULL,
+    target_file          VARCHAR(100) NOT NULL,
+    total_statements     INT NOT NULL DEFAULT 0,
+    tested_statements    INT NOT NULL DEFAULT 0,
+    statement_coverage    DECIMAL(5,2) NOT NULL DEFAULT 0.00,
+    total_branches       INT NOT NULL DEFAULT 0,
+    tested_branches       INT NOT NULL DEFAULT 0,
+    branch_coverage      DECIMAL(5,2) NOT NULL DEFAULT 0.00,
+    total_gui_elements   INT NOT NULL DEFAULT 0,
+    tested_gui_elements  INT NOT NULL DEFAULT 0,
+    gui_coverage         DECIMAL(5,2) NOT NULL DEFAULT 0.00,
+    created_at           TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    INDEX idx_release_file (release_version, target_file),
+    INDEX idx_file_type (target_file)
+);
+
+-- Table 7: defect_estimation
+CREATE TABLE IF NOT EXISTS defect_estimation (
+    estimation_id        INT AUTO_INCREMENT PRIMARY KEY,
+    release_version      VARCHAR(20) NOT NULL,
+    estimation_method    VARCHAR(50) NOT NULL,
+    team1_defects_d1     INT NOT NULL DEFAULT 0,
+    team2_defects_d2     INT NOT NULL DEFAULT 0,
+    common_defects_d12   INT NOT NULL DEFAULT 0,
+    nd_comparative       INT NOT NULL DEFAULT 0,
+    nr_comparative       INT NOT NULL DEFAULT 0,
+    release_threshold    INT NOT NULL DEFAULT 50,
+    release_approved     TINYINT(1) NOT NULL DEFAULT 0,
+    notes                TEXT,
+    created_at           TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    INDEX idx_release_version (release_version),
+    INDEX idx_estimation_method (estimation_method)
+);
+
+-- Table 8: phase_containment
+CREATE TABLE IF NOT EXISTS phase_containment (
+    pce_id               INT AUTO_INCREMENT PRIMARY KEY,
+    release_version      VARCHAR(20) NOT NULL,
+    phase                VARCHAR(50) NOT NULL,
+    defects_introduced   INT NOT NULL DEFAULT 0,
+    defects_found        INT NOT NULL DEFAULT 0,
+    defects_removed      INT NOT NULL DEFAULT 0,
+    defects_carried_forward INT NOT NULL DEFAULT 0,
+    pce_value            DECIMAL(5,2) NOT NULL DEFAULT 0.00,
+    created_at           TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    INDEX idx_release_phase (release_version, phase),
+    INDEX idx_phase (phase)
+);
+
+-- ============================================================
+-- SEED DATA FOR LECTURE 09: SOFTWARE RELIABILITY
+-- ============================================================
+
+-- reliability_metrics -- Q1-2026 baseline
+INSERT INTO reliability_metrics
+(model_type, observation_start, observation_end, total_failures, total_time,
+ failure_intensity, mttf, mttr, availability, reliability_r, t_for_r,
+ laplace_factor, trend_direction, failure_intensity_objective, objective_met, notes)
+VALUES
+('basic_execution_time', '2026-01-01', '2026-03-31',
+ 0, 1000000,
+ 0.00000000,  -- lambda = 0 (no production failures)
+ NULL,        -- MTTF = 1/lambda = undefined when lambda=0
+ 6.0,         -- MTTR = 6 minutes estimated
+ 0.99500000,  -- A = 1/(1+0.00002*250) = 0.9950
+ 0.99980000,  -- R(1M) = e^(-0*1M) = 1 approximately
+ 1000000,
+ -1.95,       -- Laplace: negative = reliability growth
+ 'growth',
+ 0.00100000,  -- FIO: target max 0.001 failures/million tx
+ 1,           -- objective met: yes
+ 'Baseline Q1-2026: zero critical failures across 1M transactions');
+
+-- interfailure_times -- development history
+INSERT INTO interfailure_times
+(failure_sequence, failure_time_cum, interfailure_time, time_unit, laplace_u_i, notes)
+VALUES
+(1, 50000, 50000, 'transactions', -0.80, 'Dev: invalid LMP disrupted session'),
+(2, 120000, 70000, 'transactions', -1.10, 'Dev: getmetrics.php 500 error fixed'),
+(3, 210000, 90000, 'transactions', -1.40, 'Dev: login redirect wrong page fixed'),
+(4, 320000, 110000, 'transactions', -1.55, 'Dev: survey INSERT missing field fixed'),
+(5, 450000, 130000, 'transactions', -1.70, 'Test: edge case week calculation fixed'),
+(6, 600000, 150000, 'transactions', -1.82, 'Test: UTF-8 display issue fixed'),
+(7, 800000, 200000, 'transactions', -1.91, 'Pre-release: config path error fixed'),
+(8, 1000000, 200000, 'transactions', -1.95, 'Production: zero failures recorded');
+
+-- ============================================================
+-- SEED DATA FOR LECTURE 10: SOFTWARE TEST METRICS
+-- ============================================================
+
+-- test_cases -- 13 real test cases
+INSERT INTO test_cases
+(test_name, test_type, target_endpoint, operation, input_values, expected_output,
+ statements_covered, branches_covered, creation_method, occurrence_prob, is_critical) VALUES
+('TC-001: Valid LMP date', 'feature', 'savetracker.php', 'POST',
+ '{"last_period_date":"2025-12-01"}', '{"success":true,"current_week":15}',
+ 72, 11, 'equivalence_class', 0.3500, 1),
+('TC-002: Future LMP date', 'feature', 'savetracker.php', 'POST',
+ '{"last_period_date":"2026-04-01"}', '{"success":false,"error":"Invalid date"}',
+ 8, 2, 'boundary', 0.0200, 0),
+('TC-003: LMP > 42 weeks', 'feature', 'savetracker.php', 'POST',
+ '{"last_period_date":"2021-01-01"}', '{"success":false,"error":"Date too old"}',
+ 5, 1, 'boundary', 0.0100, 0),
+('TC-004: Week 40 due date accuracy', 'feature', 'savetracker.php', 'POST',
+ '{"last_period_date":"2025-06-01"}', '{"success":true,"due_date":"2026-03-08","current_week":40}',
+ 15, 3, 'equivalence_class', 0.1500, 1),
+('TC-005: Valid admin credentials', 'feature', 'login.php', 'POST',
+ '{"email":"admin@maternalhealthuganda.org","password":"Admin@1234"}', '{"success":true,"role":"admin"}',
+ 42, 8, 'equivalence_class', 0.0800, 1),
+('TC-006: Wrong password', 'feature', 'login.php', 'POST',
+ '{"email":"admin@maternalhealthuganda.org","password":"wrong"}', '{"success":false,"error":"Invalid credentials"}',
+ 6, 1, 'equivalence_class', 0.0500, 0),
+('TC-007: Empty email field', 'feature', 'login.php', 'POST',
+ '{"email":"","password":"Admin@1234"}', '{"success":false,"error":"Email required"}',
+ 4, 1, 'boundary', 0.0200, 0),
+('TC-008: Successful registration', 'feature', 'signup.php', 'POST',
+ '{"fullname":"Test User","email":"test@example.com","password":"Test1234","gender":"F"}', '{"success":true}',
+ 38, 7, 'equivalence_class', 0.0500, 0),
+('TC-009: Duplicate email', 'feature', 'signup.php', 'POST',
+ '{"fullname":"Test User","email":"admin@maternalhealthuganda.org","password":"Test1234","gender":"F"}', '{"success":false,"error":"Email exists"}',
+ 12, 2, 'equivalence_class', 0.0300, 0),
+('TC-010: All 5 survey questions answered', 'feature', 'submitsurvey.php', 'POST',
+ '{"q1":5,"q2":4,"q3":5,"q4":4,"q5":5}', '{"success":true}',
+ 28, 5, 'equivalence_class', 0.0400, 0),
+('TC-011: 50 concurrent users', 'load', 'getmetrics.php', 'GET',
+ '{}', '{"success":true,"data":{}}', 19, 5, 'manual', 0.0100, 1),
+('TC-012: Regression after validation added', 'regression', 'savetracker.php', 'POST',
+ '{"last_period_date":"2025-12-01"}', '{"success":true,"current_week":15}',
+ 72, 11, 'equivalence_class', 0.1000, 1),
+('TC-013: Health tip completeness', 'certification', 'savetracker.php', 'POST',
+ '{"last_period_date":"2025-06-01"}', '{"success":true,"health_tip":"Week 40 tip content"}',
+ 8, 2, 'equivalence_class', 0.0100, 0);
+
+-- test_executions -- all pass in v3.0
+INSERT INTO test_executions
+(test_id, release_version, actual_output, result, defect_found, defect_description, execution_time_ms)
+SELECT test_id, 'v3.0', expected_output, 'pass', 0, NULL, 150 FROM test_cases;
+
+-- test_coverage -- key files
+INSERT INTO test_coverage
+(release_version, target_file, total_statements, tested_statements, statement_coverage,
+ total_branches, tested_branches, branch_coverage, total_gui_elements, tested_gui_elements, gui_coverage) VALUES
+('v3.0', 'savetracker.php', 80, 72, 90.00, 13, 11, 84.62, 0, 0, 0.00),
+('v3.0', 'login.php', 49, 42, 85.71, 10, 8, 80.00, 0, 0, 0.00),
+('v3.0', 'signup.php', 47, 38, 80.85, 9, 7, 77.78, 0, 0, 0.00),
+('v3.0', 'submitsurvey.php', 33, 28, 84.85, 7, 5, 71.43, 0, 0, 0.00),
+('v3.0', 'metrics_logger.php', 328, 245, 74.70, 49, 32, 65.31, 0, 0, 0.00),
+('v3.0', 'getmetrics.php', 19, 19, 100.00, 5, 5, 100.00, 0, 0, 0.00),
+('v3.0', 'index.html', 0, 0, 0.00, 0, 0, 0.00, 18, 15, 83.33),
+('v3.0', 'login.html', 0, 0, 0.00, 0, 0, 0.00, 8, 8, 100.00),
+('v3.0', 'survey.html', 0, 0, 0.00, 0, 0, 0.00, 12, 10, 83.33),
+('v3.0', 'metrics_dashboard.html', 0, 0, 0.00, 0, 0, 0.00, 25, 20, 80.00);
+
+-- defect_estimation -- v3.0 comparative method
+INSERT INTO defect_estimation
+(release_version, estimation_method,
+ team1_defects_d1, team2_defects_d2, common_defects_d12,
+ nd_comparative, nr_comparative, release_threshold, release_approved, notes)
+VALUES ('v3.0', 'comparative', 12, 10, 5, 24, 7, 50, 1,
+'Nd=12*10/5=24. Nr=24-(12+10-5)=7. Below threshold of 50. APPROVED.');
+
+-- phase_containment -- one per phase
+INSERT INTO phase_containment
+(release_version, phase, defects_introduced, defects_found, defects_removed, defects_carried_forward, pce_value) VALUES
+('v3.0', 'requirements', 5, 4, 4, 1, 80.00),
+('v3.0', 'design', 8, 6, 5, 3, 62.50),
+('v3.0', 'coding', 15, 12, 10, 5, 55.56),
+('v3.0', 'unit_test', 3, 14, 13, 2, 82.35),
+('v3.0', 'integration', 2, 4, 4, 0, 100.00),
+('v3.0', 'system_test', 0, 3, 3, 0, 100.00);

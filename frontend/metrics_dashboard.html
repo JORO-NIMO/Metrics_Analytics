@@ -139,7 +139,9 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f4eff3;color:#2d1a2e;mi
   <button class="tab-btn" onclick="showTab('ch5')">📐 Software Size</button>
   <button class="tab-btn" onclick="showTab('ch6')">🔀 Complexity</button>
   <button class="tab-btn" onclick="showTab('gqm_tree')">🎯 Measurement Goals</button>
-  <button class="tab-btn" onclick="showTab('reference')">📋 Reference Guide</button>
+  <button class="tab-btn" onclick="showTab('reference')">Reference Guide</button>
+  <button class="tab-btn" onclick="showTab('ch9')">Reliability</button>
+  <button class="tab-btn" onclick="showTab('ch10')">Test Metrics</button>
 </div>
 
 <div class="container">
@@ -472,7 +474,118 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f4eff3;color:#2d1a2e;mi
   </div>
 
   <!-- ============================================================ -->
-  <!-- TAB: LECTURE 05 — SOFTWARE SIZE                             -->
+  <!-- TAB: LECTURE 09 - SOFTWARE RELIABILITY                        -->
+  <!-- ============================================================ -->
+  <div id="tab-ch9" class="tab-content">
+    
+    <div class="section-title">Software Reliability Metrics</div>
+    <div class="grid grid-4" id="reliability-cards">
+      <div class="card"><div class="loading">Loading reliability data...</div></div>
+      <div class="card"><div class="loading">Loading reliability data...</div></div>
+      <div class="card"><div class="loading">Loading reliability data...</div></div>
+      <div class="card"><div class="loading">Loading reliability data...</div></div>
+      <div class="card"><div class="loading">Loading reliability data...</div></div>
+      <div class="card"><div class="loading">Loading reliability data...</div></div>
+      <div class="card"><div class="loading">Loading reliability data...</div></div>
+      <div class="card"><div class="loading">Loading reliability data...</div></div>
+    </div>
+
+    <div class="section-title">Availability Calculation</div>
+    <div class="card">
+      <div id="availability-calculation">
+        <div class="loading">Calculating availability...</div>
+      </div>
+    </div>
+
+    <div class="section-title">Serial System Reliability (15 Components)</div>
+    <div class="card">
+      <div id="serial-reliability">
+        <div class="loading">Calculating serial reliability...</div>
+      </div>
+    </div>
+
+    <div class="section-title">Inter-Failure Times Analysis</div>
+    <div class="card">
+      <div id="interfailure-table">
+        <div class="loading">Loading inter-failure data...</div>
+      </div>
+    </div>
+
+    <div class="section-title">Error-Fault-Failure Chain</div>
+    <div class="card">
+      <table class="var-table">
+        <thead><tr><th>Sequence</th><th>Type</th><th>Project Example</th><th>Observable</th></tr></thead>
+        <tbody id="failure-chain">
+          <tr><td colspan="4" style="text-align:center;color:#a06080">Loading failure chain...</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section-title">System Errors by Endpoint</div>
+    <div class="card">
+      <div id="system-errors">
+        <div class="loading">Loading system errors...</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- TAB: LECTURE 10 - SOFTWARE TEST METRICS                        -->
+  <!-- ============================================================ -->
+  <div id="tab-ch10" class="tab-content">
+    
+    <div class="section-title">Software Test Metrics</div>
+    <div class="grid grid-4" id="testmetrics-cards">
+      <div class="card"><div class="loading">Loading test metrics...</div></div>
+      <div class="card"><div class="loading">Loading test metrics...</div></div>
+      <div class="card"><div class="loading">Loading test metrics...</div></div>
+      <div class="card"><div class="loading">Loading test metrics...</div></div>
+      <div class="card"><div class="loading">Loading test metrics...</div></div>
+      <div class="card"><div class="loading">Loading test metrics...</div></div>
+      <div class="card"><div class="loading">Loading test metrics...</div></div>
+      <div class="card"><div class="loading">Loading test metrics...</div></div>
+    </div>
+
+    <div class="section-title">Per-File Coverage Analysis</div>
+    <div class="card">
+      <div id="coverage-table">
+        <div class="loading">Loading coverage data...</div>
+      </div>
+    </div>
+
+    <div class="section-title">Test Cases & Results</div>
+    <div class="card">
+      <div id="test-cases-table">
+        <div class="loading">Loading test cases...</div>
+      </div>
+    </div>
+
+    <div class="section-title">Remaining Defects Estimation</div>
+    <div class="card">
+      <div id="defect-estimation">
+        <div class="loading">Loading defect estimation...</div>
+      </div>
+    </div>
+
+    <div class="section-title">Phase Containment Effectiveness</div>
+    <div class="card">
+      <div id="phase-containment">
+        <div class="loading">Loading phase containment...</div>
+      </div>
+    </div>
+
+    <div class="section-title">Test Estimation Analysis</div>
+    <div class="card">
+      <div id="test-estimation">
+        <div class="loading">Calculating test estimation...</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- TAB: LECTURE 05 - SOFTWARE SIZE                             -->
   <!-- ============================================================ -->
   <div id="tab-ch5" class="tab-content">
 
@@ -486,7 +599,6 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f4eff3;color:#2d1a2e;mi
 
     <div class="section-title" style="margin-top:36px">Halstead Metrics</div>
     <p class="section-subtitle">V = N × log₂μ &nbsp;|&nbsp; D = (μ1/2) × (N2/μ2) &nbsp;|&nbsp; E = V × D &nbsp;|&nbsp; Higher effort = harder to write and maintain</p>
-    <div id="halstead-cards" style="display:flex;gap:14px;flex-wrap:wrap;margin-bottom:20px"></div>
     <table class="var-table">
       <thead><tr><th>File</th><th>μ1 (operators)</th><th>μ2 (operands)</th><th>Vocabulary μ</th><th>Length N</th><th>Volume V</th><th>Difficulty D</th><th>Effort E</th></tr></thead>
       <tbody id="halstead-tbody"><tr><td colspan="8" style="text-align:center;color:#a06080">Loading…</td></tr></tbody>
@@ -503,7 +615,6 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f4eff3;color:#2d1a2e;mi
 
     <div class="section-title" style="margin-top:36px">Reuse Metrics</div>
     <p class="section-subtitle">Verbatim = unchanged &nbsp;|&nbsp; Slightly modified = &lt;25% changed &nbsp;|&nbsp; Extensively modified = 25%+ changed &nbsp;|&nbsp; New = written from scratch</p>
-    <div id="reuse-cards" style="display:flex;gap:14px;flex-wrap:wrap;margin-bottom:20px"></div>
     <table class="var-table">
       <thead><tr><th>File</th><th>Total LOC</th><th>Verbatim</th><th>Slightly Modified</th><th>Extensively Modified</th><th>New</th><th>Reuse Level %</th></tr></thead>
       <tbody id="reuse-tbody"><tr><td colspan="7" style="text-align:center;color:#a06080">Loading…</td></tr></tbody>
@@ -576,6 +687,8 @@ function showTab(id) {
     if (id === 'gqm_tree') renderGqmTree();
     if (id === 'ch5') loadSizeMetrics();
     if (id === 'ch6') loadComplexity();
+    if (id === 'ch9') loadReliabilityMetrics();
+    if (id === 'ch10') loadTestMetrics();
 }
 
 // ── Shared mini-card helper ────────────────────────────────────────────────
@@ -598,10 +711,9 @@ async function loadSizeMetrics() {
         document.getElementById('loc-cards').innerHTML = [
             miniCard('Total LOC',   l.total_loc,           ''),
             miniCard('NCLOC',       l.total_ncloc,         ''),
-            miniCard('Code Quality', l.code_quality,       '%'),
+            miniCard('CLOC',        l.total_cloc,          ''),
             miniCard('Comment %',   l.avg_comment_density, '%'),
             miniCard('Files',       l.file_count,          ''),
-            miniCard('Avg/File',    l.avg_loc_per_file,    ''),
         ].join('');
 
         // LOC table
@@ -622,18 +734,6 @@ async function loadSizeMetrics() {
                 miniCard(typeLabel[s.type] || s.type, s.weighted_total, ' pts')
             ).join('');
 
-        // Add Halstead summary cards
-        const h = data.halstead;
-        const halsteadCards = document.getElementById('halstead-tbody').closest('div').previousElementSibling;
-        if (halsteadCards && halsteadCards.id === 'halstead-cards') {
-            halsteadCards.innerHTML = [
-                miniCard('Total Volume', h.total_volume ? parseFloat(h.total_volume).toFixed(0) : '0', ''),
-                miniCard('Total Effort', h.total_effort ? parseFloat(h.total_effort).toFixed(0) : '0', ''),
-                miniCard('Avg Difficulty', h.avg_difficulty || '0', ''),
-                miniCard('Readability', h.code_readability || 'N/A', ''),
-            ].join('');
-        }
-
         // Function points detail table
         document.getElementById('fp-tbody').innerHTML = data.function_points.detail.map(f =>
             `<tr><td><strong>${f.component_type}</strong></td><td>${f.component_name}</td>
@@ -644,55 +744,12 @@ async function loadSizeMetrics() {
         document.getElementById('fp-ufc').innerHTML =
             `Unadjusted Function Count (UFC) = <span style="font-size:1.3rem">&nbsp;${data.function_points.ufc}</span> Function Points`;
 
-        // Reuse summary cards
-        const r = data.reuse;
-        document.getElementById('reuse-cards').innerHTML = [
-            miniCard('Avg Reuse', r.avg_reuse_level, '%'),
-            miniCard('New Code', r.new_code_percentage, '%'),
-            miniCard('Efficiency', r.reuse_efficiency, ''),
-            miniCard('Strategy', r.development_strategy, ''),
-        ].join('');
-
         // Reuse table
         document.getElementById('reuse-tbody').innerHTML = data.reuse.files.map(r =>
             `<tr><td>${r.file_name}</td><td>${r.total_loc}</td><td>${r.verbatim_loc}</td>
              <td>${r.slightly_modified_loc}</td><td>${r.extensively_modified_loc}</td>
              <td>${r.new_loc}</td><td><strong>${r.reuse_level}%</strong></td></tr>`
         ).join('');
-
-        // Add insights section
-        const insights = data.insights;
-        const insightsHtml = `
-            <div style="margin-top:30px;background:#fdf5f9;border:1px solid #f0e0ec;border-radius:12px;padding:20px">
-                <h3 style="color:#480b31;margin-bottom:15px;font-size:1.1rem">📊 Software Quality Insights</h3>
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
-                    <div>
-                        <h4 style="color:#7a5080;font-size:0.95rem;margin-bottom:10px">Overall Quality Score</h4>
-                        <div style="font-size:2rem;font-weight:800;color:#480b31">${insights.overall_quality.score}/100</div>
-                        <div style="font-size:0.85rem;color:#7a5080;margin-top:5px">Assessment: <strong>${insights.overall_quality.assessment}</strong></div>
-                    </div>
-                    <div>
-                        <h4 style="color:#7a5080;font-size:0.95rem;margin-bottom:10px">Key Metrics</h4>
-                        <div style="font-size:0.85rem;line-height:1.6">
-                            <div>📁 Size Category: <strong>${l.size_category}</strong></div>
-                            <div>🔧 Maintainability: <strong>${l.maintainability}</strong></div>
-                            <div>🧠 Complexity: <strong>${data.halstead.complexity_level}</strong></div>
-                            <div>♻️ Reuse Efficiency: <strong>${data.reuse.reuse_efficiency}</strong></div>
-                        </div>
-                    </div>
-                </div>
-                <div style="margin-top:20px">
-                    <h4 style="color:#7a5080;font-size:0.95rem;margin-bottom:10px">🎯 Recommendations</h4>
-                    <ul style="margin:0;padding-left:20px;color:#6d5a80;font-size:0.85rem;line-height:1.6">
-                        ${insights.recommendations.filter(r => r !== null).map(r => `<li>${r}</li>`).join('')}
-                    </ul>
-                </div>
-            </div>
-        `;
-        
-        // Insert insights after the reuse table
-        const reuseSection = document.getElementById('reuse-tbody').closest('table');
-        reuseSection.insertAdjacentHTML('afterend', insightsHtml);
 
     } catch(e) { console.error('Size metrics error:', e); }
 }
@@ -706,13 +763,10 @@ async function loadComplexity() {
 
         // Cyclomatic complexity
         const riskColor = {low:'#2e7d32', moderate:'#e65100', high:'#b71c1c', very_high:'#6a1a4c'};
-        const cc = data.cyclomatic;
         document.getElementById('cc-cards').innerHTML = [
-            miniCard('Files Measured',  cc.file_count,        ''),
-            miniCard('Average v(G)',    cc.avg_v,             ''),
-            miniCard('Max Complexity',  cc.max_complexity,      ''),
-            miniCard('Complexity Score', cc.complexity_score,    ''),
-            miniCard('High Risk Files', cc.high_risk.length,  ''),
+            miniCard('Files Measured',  data.cyclomatic.file_count,        ''),
+            miniCard('Average v(G)',    data.cyclomatic.avg_v,             ''),
+            miniCard('High Risk Files', data.cyclomatic.high_risk.length,  ''),
         ].join('');
 
         document.getElementById('cc-tbody').innerHTML = data.cyclomatic.files.map(f =>
@@ -721,12 +775,9 @@ async function loadComplexity() {
         ).join('');
 
         // Cohesion
-        const coh = data.cohesion;
         document.getElementById('cohesion-cards').innerHTML = [
-            miniCard('System Cohesion', coh.system_cohesion, '%'),
-            miniCard('Cohesion Quality', coh.cohesion_quality, ''),
-            miniCard('Modular Design',  coh.modular_design.toFixed(1), '%'),
-            miniCard('Design Pattern',   coh.design_pattern, ''),
+            miniCard('System Cohesion', data.cohesion.system_cohesion, '%'),
+            miniCard('Modules',         data.cohesion.modules.length,   ''),
         ].join('');
 
         document.getElementById('cohesion-tbody').innerHTML = data.cohesion.modules.map(m =>
@@ -739,12 +790,9 @@ async function loadComplexity() {
 
         // Coupling
         const cpColor = {R0:'#2e7d32',R1:'#388e3c',R2:'#e65100',R3:'#c62828',R4:'#6a1a4c'};
-        const cp = data.coupling;
         document.getElementById('coupling-cards').innerHTML = [
-            miniCard('Global Coupling', parseFloat(cp.global_coupling).toFixed(4), ''),
-            miniCard('Coupling Quality', cp.coupling_quality, ''),
-            miniCard('Module Independence', cp.module_independence, ''),
-            miniCard('Dominant Type', cp.dominant_type, ''),
+            miniCard('Global Coupling', parseFloat(data.coupling.global_coupling).toFixed(4), ''),
+            miniCard('Module Pairs',    data.coupling.pairs.length,   ''),
         ].join('');
 
         document.getElementById('coupling-tbody').innerHTML = data.coupling.pairs.map(p =>
@@ -754,74 +802,301 @@ async function loadComplexity() {
         ).join('');
 
         // Information flow
-        const flow = data.information_flow;
-        document.getElementById('flow-tbody').innerHTML = flow.modules.map(m =>
-            `<tr><td><strong>${m.module_name}</strong></td><td>${m.avg_fan_in || m.fan_in}</td><td>${m.avg_fan_out || m.fan_out}</td>
-             <td><strong>${parseFloat(m.ifc_value || m.max_ifc).toFixed(2)}</strong></td></tr>`
+        document.getElementById('flow-tbody').innerHTML = data.information_flow.modules.map(m =>
+            `<tr><td><strong>${m.module_name}</strong></td><td>${m.fan_in}</td><td>${m.fan_out}</td>
+             <td><strong>${parseFloat(m.ifc_value).toFixed(2)}</strong></td></tr>`
         ).join('');
 
         // Architecture
         const a = data.architecture;
         document.getElementById('arch-cards').innerHTML = [
-            miniCard('Nodes',          a.nodes || 0,                                    ''),
-            miniCard('Edges',          a.edges || 0,                                    ''),
-            miniCard('Arch Quality',    a.arch_quality || 'N/A',                         ''),
-            miniCard('Scalability',    a.scalability || 'N/A',                           ''),
-            miniCard('Depth',          a.arch_depth || 0,                               ''),
-            miniCard('Width',          a.arch_width || 0,                               ''),
-            miniCard('Edge/Node',      parseFloat(a.edge_node_ratio || 0).toFixed(4),   ''),
-            miniCard('Impurity m(G)',  parseFloat(a.impurity || 0).toFixed(6),          ''),
+            miniCard('Nodes',          a.nodes,                                    ''),
+            miniCard('Edges',          a.edges,                                    ''),
+            miniCard('Depth',          a.arch_depth,                               ''),
+            miniCard('Width',          a.arch_width,                               ''),
+            miniCard('Edge/Node',      parseFloat(a.edge_node_ratio).toFixed(4),   ''),
+            miniCard('Impurity m(G)',  parseFloat(a.impurity).toFixed(6),          ''),
         ].join('');
 
         // Data structure complexity
-        const dsc = data.data_structure;
-        document.getElementById('dsc-tbody').innerHTML = dsc.files.map(f =>
+        document.getElementById('dsc-tbody').innerHTML = data.data_structure.files.map(f =>
             `<tr><td>${f.file_name}</td><td>${f.integer_vars}</td><td>${f.string_vars}</td><td>${f.array_vars}</td>
              <td>${f.c1_integers}</td><td>${f.c2_strings}</td><td>${f.c3_arrays}</td>
              <td><strong>${f.total_complexity}</strong></td></tr>`
         ).join('');
 
-        // Add complexity insights section
-        const insights = data.insights;
-        const complexityInsightsHtml = `
-            <div style="margin-top:30px;background:#fdf5f9;border:1px solid #f0e0ec;border-radius:12px;padding:20px">
-                <h3 style="color:#480b31;margin-bottom:15px;font-size:1.1rem">🔗 Structural Complexity Insights</h3>
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
-                    <div>
-                        <h4 style="color:#7a5080;font-size:0.95rem;margin-bottom:10px">Overall Complexity Score</h4>
-                        <div style="font-size:2rem;font-weight:800;color:#480b31">${insights.overall_complexity.score}/100</div>
-                        <div style="font-size:0.85rem;color:#7a5080;margin-top:5px">Assessment: <strong>${insights.overall_complexity.assessment}</strong></div>
-                    </div>
-                    <div>
-                        <h4 style="color:#7a5080;font-size:0.95rem;margin-bottom:10px">Key Quality Indicators</h4>
-                        <div style="font-size:0.85rem;line-height:1.6">
-                            <div>🧮 Complexity: <strong>${cc.complexity_score}</strong></div>
-                            <div>🔗 Cohesion: <strong>${coh.cohesion_quality}</strong></div>
-                            <div>🔌 Coupling: <strong>${cp.coupling_quality}</strong></div>
-                            <div>📊 Data Structure: <strong>${dsc.dsc_complexity}</strong></div>
-                        </div>
-                    </div>
-                </div>
-                <div style="margin-top:20px">
-                    <h4 style="color:#7a5080;font-size:0.95rem;margin-bottom:10px">🎯 Complexity Recommendations</h4>
-                    <ul style="margin:0;padding-left:20px;color:#6d5a80;font-size:0.85rem;line-height:1.6">
-                        ${insights.recommendations.filter(r => r !== null).map(r => `<li>${r}</li>`).join('')}
-                    </ul>
-                </div>
-            </div>
-        `;
-        
-        // Insert insights after data structure table
-        const dscSection = document.getElementById('dsc-tbody').closest('table');
-        dscSection.insertAdjacentHTML('afterend', complexityInsightsHtml);
-
     } catch(e) { console.error('Complexity error:', e); }
+}
+
+// ---- Load Reliability Metrics ----
+function loadReliabilityMetrics() {
+  fetch('http://localhost:8080/MaternalHealthUganda/backend/getreliabilitymetrics.php')
+    .then(r => r.json())
+    .then(data => {
+      if (data.success) {
+        renderReliabilityMetrics(data.data);
+      } else {
+        document.getElementById('reliability-cards').innerHTML = 
+          '<div class="error-state">Failed to load reliability metrics</div>';
+      }
+    })
+    .catch(e => {
+      document.getElementById('reliability-cards').innerHTML = 
+        '<div class="error-state">Network error loading reliability metrics</div>';
+    });
+}
+
+function renderReliabilityMetrics(d) {
+  // Summary cards
+  document.getElementById('reliability-cards').innerHTML = `
+    ${kpiCard('RF', 'Total Failures', d.summary_cards.total_failures, '', '', 'entity: reliability_failures | attribute: count | target: 0')}
+    ${kpiCard('RI', 'Failure Intensity (per 1M tx)', d.summary_cards.failure_intensity, '', '', 'entity: reliability_metrics | attribute: lambda | target: <1')}
+    ${kpiCard('MTTF', 'Mean Time To Failure', d.summary_cards.mttf, 'transactions', '', 'entity: reliability_metrics | attribute: 1/lambda | target: higher')}
+    ${kpiCard('MTTR', 'Mean Time To Repair', d.summary_cards.mttr, 'minutes', '', 'entity: reliability_metrics | attribute: repair time | target: <10')}
+    ${kpiCard('A', 'Availability', d.summary_cards.availability, '', '', 'entity: reliability_metrics | attribute: uptime probability | target: >0.99')}
+    ${kpiCard('R(t)', 'Reliability', d.summary_cards.reliability, '', '', 'entity: reliability_metrics | attribute: survival probability | target: >0.99')}
+    ${kpiCard('LF', 'Laplace Factor', d.summary_cards.laplace_factor, '', '', 'entity: interfailure_times | attribute: trend | target: <0')}
+    ${kpiCard('FIO', 'Failure Intensity Objective', d.summary_cards.objective_met ? 'MET' : 'NOT MET', '', '', 'entity: reliability_metrics | attribute: lambda/lambda_F | target: <0.5')}
+  `;
+
+  // Availability calculation
+  const calc = d.availability_calculation;
+  document.getElementById('availability-calculation').innerHTML = `
+    <table class="var-table">
+      <thead><tr><th>Parameter</th><th>Value</th><th>Explanation</th></tr></thead>
+      <tbody>
+        <tr><td>Formula</td><td>A = 1/(1+lambda×tm)</td><td>Availability formula</td></tr>
+        <tr><td>lambda (failure intensity)</td><td>${calc.lambda}</td><td>Failures per transaction</td></tr>
+        <tr><td>tm (transactions/minute)</td><td>${calc.tm_transactions}</td><td>Average system load</td></tr>
+        <tr><td>Result</td><td><strong>${calc.result}</strong></td><td>System availability (99.5% = high)</td></tr>
+      </tbody>
+    </table>
+  `;
+
+  // Serial reliability
+  const sr = d.serial_reliability;
+  document.getElementById('serial-reliability').innerHTML = `
+    <table class="var-table">
+      <thead><tr><th>Parameter</th><th>Value</th><th>Explanation</th></tr></thead>
+      <tbody>
+        <tr><td>Formula</td><td>R_system = e^(-lambda_total × t)</td><td>Serial system reliability</td></tr>
+        <tr><td>Components</td><td>${sr.num_components}</td><td>Number of PHP files in series</td></tr>
+        <tr><td>lambda_system</td><td>${sr.lambda_system}</td><td>Combined failure intensity</td></tr>
+        <tr><td>t (time)</td><td>${sr.t}</td><td>Transactions observed</td></tr>
+        <tr><td>Result</td><td><strong>${sr.result}</strong></td><td>System reliability (99.98% = excellent)</td></tr>
+      </tbody>
+    </table>
+  `;
+
+  // Inter-failure times
+  const iftHtml = d.interfailure_times.map(ift => `
+    <tr>
+      <td>${ift.failure_sequence}</td>
+      <td>${ift.failure_time_cum.toLocaleString()}</td>
+      <td>${ift.interfailure_time.toLocaleString()}</td>
+      <td>${ift.laplace_u_i}</td>
+      <td>${ift.notes}</td>
+    </tr>
+  `).join('');
+  document.getElementById('interfailure-table').innerHTML = `
+    <table class="var-table">
+      <thead><tr><th>Sequence</th><th>Cumulative Time</th><th>Inter-failure Time</th><th>Laplace u(i)</th><th>Notes</th></tr></thead>
+      <tbody>${iftHtml}</tbody>
+    </table>
+  `;
+
+  // Failure chain
+  const chainHtml = d.failure_chain.map(item => `
+    <tr>
+      <td>${item.sequence}</td>
+      <td>${item.type}</td>
+      <td>${item.example}</td>
+      <td>${item.observable ? 'Yes' : 'No'}</td>
+    </tr>
+  `).join('');
+  document.getElementById('failure-chain').innerHTML = chainHtml;
+
+  // System errors
+  if (d.system_errors && d.system_errors.length > 0) {
+    const errorHtml = d.system_errors.map(error => `
+      <tr>
+        <td>${error.endpoint}</td>
+        <td>${error.severity}</td>
+        <td>${error.error_count}</td>
+        <td>${formatDate(error.first_occurrence)}</td>
+        <td>${formatDate(error.last_occurrence)}</td>
+      </tr>
+    `).join('');
+    document.getElementById('system-errors').innerHTML = `
+      <table class="var-table">
+        <thead><tr><th>Endpoint</th><th>Severity</th><th>Count</th><th>First</th><th>Last</th></tr></thead>
+        <tbody>${errorHtml}</tbody>
+      </table>
+    `;
+  } else {
+    document.getElementById('system-errors').innerHTML = '<p style="text-align:center;color:#a06080">No system errors recorded in last 30 days</p>';
+  }
+}
+
+// ---- Load Test Metrics ----
+function loadTestMetrics() {
+  fetch('http://localhost:8080/MaternalHealthUganda/backend/gettestmetrics.php')
+    .then(r => r.json())
+    .then(data => {
+      if (data.success) {
+        renderTestMetrics(data.data);
+      } else {
+        document.getElementById('testmetrics-cards').innerHTML = 
+          '<div class="error-state">Failed to load test metrics</div>';
+      }
+    })
+    .catch(e => {
+      document.getElementById('testmetrics-cards').innerHTML = 
+        '<div class="error-state">Network error loading test metrics</div>';
+    });
+}
+
+function renderTestMetrics(d) {
+  // Summary cards
+  document.getElementById('testmetrics-cards').innerHTML = `
+    ${kpiCard('CVs', 'Statement Coverage', d.summary_cards.statement_coverage, '%', '', 'entity: test_coverage | attribute: statements tested/total | target: >80%')}
+    ${kpiCard('CVb', 'Branch Coverage', d.summary_cards.branch_coverage, '%', '', 'entity: test_coverage | attribute: branches tested/total | target: >75%')}
+    ${kpiCard('CC', 'Component Coverage', d.summary_cards.component_coverage, '%', '', 'entity: test_coverage | attribute: files tested/total | target: 100%')}
+    ${kpiCard('GUI', 'GUI Coverage', d.summary_cards.gui_coverage, '%', '', 'entity: test_coverage | attribute: GUI elements tested/total | target: >80%')}
+    ${kpiCard('Rtp', 'Test Pass Rate', d.summary_cards.test_pass_rate, '%', '', 'entity: test_executions | attribute: pass/total | target: >95%')}
+    ${kpiCard('Rtf', 'Test Fail Rate', d.summary_cards.test_fail_rate, '%', '', 'entity: test_executions | attribute: fail/total | target: <5%')}
+    ${kpiCard('Nd', 'Remaining Defects', d.summary_cards.remaining_defects, '', '', 'entity: defect_estimation | attribute: estimated remaining | target: <50')}
+    ${kpiCard('Nr', 'Undetected Defects', d.summary_cards.undetected_defects, '', '', 'entity: defect_estimation | attribute: undetected | target: <10')}
+  `;
+
+  // Coverage table
+  const coverageHtml = d.coverage_table.map(file => `
+    <tr>
+      <td>${file.target_file}</td>
+      <td>${file.total_statements}</td>
+      <td>${file.tested_statements}</td>
+      <td>${file.statement_coverage}%</td>
+      <td>${file.total_branches}</td>
+      <td>${file.tested_branches}</td>
+      <td>${file.branch_coverage}%</td>
+      <td>${file.total_gui_elements}</td>
+      <td>${file.tested_gui_elements}</td>
+      <td>${file.gui_coverage}%</td>
+    </tr>
+  `).join('');
+  document.getElementById('coverage-table').innerHTML = `
+    <table class="var-table">
+      <thead><tr><th>File</th><th>Sp</th><th>St</th><th>CVs%</th><th>nb</th><th>nbt</th><th>CVb%</th><th>GUI</th><th>Tested</th><th>CVGUI%</th></tr></thead>
+      <tbody>${coverageHtml}</tbody>
+    </table>
+  `;
+
+  // Test cases table
+  const casesHtml = d.test_cases_table.map(tc => `
+    <tr>
+      <td>${tc.test_name}</td>
+      <td>${tc.test_type}</td>
+      <td>${tc.target_endpoint}</td>
+      <td>${tc.operation}</td>
+      <td>${tc.is_critical ? 'Yes' : 'No'}</td>
+      <td>${tc.latest_result || 'N/A'}</td>
+      <td>${tc.execution_time_ms}ms</td>
+    </tr>
+  `).join('');
+  document.getElementById('test-cases-table').innerHTML = `
+    <table class="var-table">
+      <thead><tr><th>Name</th><th>Type</th><th>Endpoint</th><th>Method</th><th>Critical</th><th>Result</th><th>Time</th></tr></thead>
+      <tbody>${casesHtml}</tbody>
+    </table>
+  `;
+
+  // Defect estimation
+  if (d.defect_estimation) {
+    const de = d.defect_estimation;
+    document.getElementById('defect-estimation').innerHTML = `
+      <table class="var-table">
+        <thead><tr><th>Release</th><th>d1</th><th>d2</th><th>d12</th><th>Nd</th><th>Nr</th><th>Threshold</th><th>Approved</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>${de.release_version}</td>
+            <td>${de.team1_defects_d1}</td>
+            <td>${de.team2_defects_d2}</td>
+            <td>${de.common_defects_d12}</td>
+            <td><strong>${de.nd_comparative}</strong></td>
+            <td><strong>${de.nr_comparative}</strong></td>
+            <td>${de.release_threshold}</td>
+            <td>${de.release_approved ? 'YES' : 'NO'}</td>
+          </tr>
+        </tbody>
+      </table>
+      <p style="margin-top:10px;font-size:.82rem;color:#6d5a80">
+        <strong>Formula:</strong> Nd = d1×d2/d12 = ${de.team1_defects_d1}×${de.team2_defects_d2}/${de.common_defects_d12} = ${de.nd_comparative}<br>
+        <strong>Remaining:</strong> Nr = Nd-(d1+d2-d12) = ${de.nd_comparative}-(${de.team1_defects_d1}+${de.team2_defects_d2}-${de.common_defects_d12}) = ${de.nr_comparative}
+      </p>
+    `;
+  }
+
+  // Phase containment
+  const pceHtml = d.phase_containment.map(phase => `
+    <tr>
+      <td>${phase.phase}</td>
+      <td>${phase.defects_introduced}</td>
+      <td>${phase.defects_found}</td>
+      <td>${phase.defects_removed}</td>
+      <td>${phase.defects_carried_forward}</td>
+      <td>${phase.pce_value}%</td>
+    </tr>
+  `).join('');
+  document.getElementById('phase-containment').innerHTML = `
+    <table class="var-table">
+      <thead><tr><th>Phase</th><th>Introduced</th><th>Found</th><th>Removed</th><th>Carried Forward</th><th>PCE%</th></tr></thead>
+      <tbody>${pceHtml}</tbody>
+    </table>
+  `;
+
+  // Test estimation
+  const te = d.test_estimation;
+  document.getElementById('test-estimation').innerHTML = `
+    <table class="var-table">
+      <thead><tr><th>Method</th><th>Calculation</th><th>Result</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>Budget-based (N1)</td><td>UGX ${te.budget_ugx} × 0.10 ÷ ${te.cost_per_case}</td><td><strong>${te.n1_from_budget}</strong></td><td rowspan="2">N = min(${te.n1_from_budget}, ${te.n2_from_time}) = <strong>${te.n_recommended}</strong></td></tr>
+        <tr><td>Time-based (N2)</td><td>${te.time_weeks}w × ${te.staff_count}staff × ${te.hours_per_case}h/w × 0.10 ÷ ${te.hours_per_case}h</td><td><strong>${te.n2_from_time}</strong></td></tr>
+        <tr><td>Implemented</td><td>Actual test cases created</td><td><strong>${te.n_implemented}</strong></td><td>${te.implementation_status}</td></tr>
+      </tbody>
+    </table>
+  `;
 }
 
 // ── Load all data on page open ─────────────────────────────────────────────
 async function loadAll() {
+    // First verify admin session
     try {
-        const r    = await fetch('../backend/getmetrics.php');
+        const sessionRes = await fetch('http://localhost:8080/MaternalHealthUganda/backend/check_session.php');
+        const sessionData = await sessionRes.json();
+        
+        if (!sessionData.valid) {
+            showGlobalError('Access denied: ' + sessionData.error + '. Redirecting to login...');
+            setTimeout(() => {
+                window.location.href = 'http://localhost:8080/MaternalHealthUganda/frontend/login.html';
+            }, 2000);
+            return;
+        }
+        
+        // Update header with user info
+        updateUserInfo(sessionData.user);
+        
+    } catch(e) {
+        showGlobalError('Session check failed. Redirecting to login...');
+        setTimeout(() => {
+            window.location.href = 'http://localhost:8080/MaternalHealthUganda/frontend/login.html';
+        }, 2000);
+        return;
+    }
+    
+    // Load dashboard data
+    try {
+        const r    = await fetch('http://localhost:8080/MaternalHealthUganda/backend/getmetrics.php');
         const json = await r.json();
         if (json.success) {
             dashData = json.data;
@@ -834,7 +1109,7 @@ async function loadAll() {
     }
 
     try {
-        const r2   = await fetch('../backend/getexperiments.php');
+        const r2   = await fetch('http://localhost:8080/MaternalHealthUganda/backend/getexperiments.php');
         const j2   = await r2.json();
         if (j2.success) {
             researchData = j2;
@@ -848,6 +1123,32 @@ function showGlobalError(msg) {
         document.getElementById(id).innerHTML =
           `<div class="error-state">⚠️ ${msg}</div>`;
     });
+}
+
+// ---- Update user info in header ----
+function updateUserInfo(user) {
+    const navElement = document.querySelector('.dash-nav');
+    if (navElement && user) {
+        // Add user info and logout button
+        const userInfo = document.createElement('div');
+        userInfo.style.cssText = 'display: flex; align-items: center; gap: 10px; margin-left: 20px;';
+        userInfo.innerHTML = `
+            <span style="font-size: 0.8rem; opacity: 0.9;">${user.name}</span>
+            <button onclick="doLogout()" style="background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.3); padding: 5px 12px; border-radius: 15px; cursor: pointer; font-size: 0.75rem;">Logout</button>
+        `;
+        navElement.appendChild(userInfo);
+    }
+}
+
+// ---- Logout function ----
+async function doLogout() {
+    try {
+        await fetch('http://localhost:8080/MaternalHealthUganda/backend/logout.php', { method: 'POST' });
+        window.location.href = 'http://localhost:8080/MaternalHealthUganda/frontend/login.html';
+    } catch(e) {
+        // Even if logout fails, redirect to login
+        window.location.href = 'http://localhost:8080/MaternalHealthUganda/frontend/login.html';
+    }
 }
 
 // ── Render Quality Indicators ──────────────────────────────────────

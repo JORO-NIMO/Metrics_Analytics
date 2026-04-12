@@ -1,5 +1,5 @@
 <?php
-session_start();
+require_once 'session_config.php';
 require_once 'config.php';
 require_once 'metrics_logger.php';
 
@@ -42,6 +42,7 @@ if ($stmt->rowCount() === 1) {
 
         $logger->logAuthEvent('login_success', $user['user_id']);
 
+        // Role-based redirect
         $redirectPage = ($user['role'] === 'admin') ? 'metrics_dashboard.html' : 'index.html';
         
         echo json_encode([
