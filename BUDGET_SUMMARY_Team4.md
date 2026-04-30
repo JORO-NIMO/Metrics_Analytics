@@ -1,13 +1,11 @@
-# 📊 Team 4 - Project Budget Summary
-## Maternal Health Uganda - Quick Reference
+#  Team 4 - Project Budget Summary
+## Maternal Health Uganda 
 
----
 
-## 💰 **Total Project Budget: 25,608,000 UGX ($6,402)**
+## **Total Project Budget: 25,608,000 UGX ($6,402)**
 
----
 
-## 📋 **Major Cost Categories**
+##  **Major Cost Categories**
 
 | Category | Amount (UGX) | Amount (USD) | Percentage |
 |----------|--------------|--------------|------------|
@@ -19,9 +17,8 @@
 | **Quality Metrics** | 500,000 | $125 | 2.0% |
 | **Contingency** | 2,328,000 | $582 | 9.1% |
 
----
 
-## 👥 **Team Breakdown (4 Members × 16 Weeks)**
+##  **Team Breakdown (4 Members × 16 Weeks)**
 
 | Role | Hours/Week | Rate (UGX/hr) | Total Cost |
 |------|------------|---------------|------------|
@@ -31,9 +28,8 @@
 | **QA/Testing Engineer** | 20 | 10,000 | 3,200,000 |
 | **Database Specialist** | 15 | 10,000 | 2,400,000 |
 
----
 
-## 🛠️ **Key Software & Tools**
+##  **Key Software & Tools**
 
 | Tool | Cost (UGX) | Purpose |
 |------|------------|---------|
@@ -43,9 +39,8 @@
 | **Domain + Hosting** | 400,000 | Production |
 | **Other Tools** | 680,000 | Development |
 
----
 
-## 📈 **Project Timeline & Costs**
+##  **Project Timeline & Costs**
 
 | Phase | Weeks | Cost (UGX) | Key Activities |
 |-------|-------|------------|----------------|
@@ -54,9 +49,9 @@
 | **Phase 3** | 13-14 | 3,460,000 | Testing & QA |
 | **Phase 4** | 15-16 | 2,960,000 | Deployment & Docs |
 
----
 
-## 🎯 **Value Proposition**
+
+## **Value Proposition**
 
 | Benefit | Value |
 |---------|-------|
@@ -65,9 +60,8 @@
 | **Portfolio Enhancement** | 3,000,000 UGX |
 | **Community Contribution** | 2,000,000 UGX |
 
----
 
-## ✅ **Budget Highlights**
+## **Budget Highlights**
 
 - **Total Duration**: 16 weeks (4 months)
 - **Team Size**: 4 members
@@ -76,24 +70,20 @@
 - **Contingency**: 10% for risk management
 - **ROI**: 300%+ in skills and experience
 
----
-
-## 🏆 **Quality Metrics Included**
+##  **Quality Metrics Included**
 
 - **Lecture 09**: Reliability metrics implementation
 - **Lecture 10**: Test metrics and coverage analysis
 - **Dashboard**: Real-time quality monitoring
 - **Documentation**: Comprehensive project docs
 
----
 
-## 📞 **Contact & Approval**
+##  **Contact & Approval**
 
 **Team**: Team 4 - Software Engineering  
 **Project**: Maternal Health Uganda Platform  
 **Budget Prepared**: April 30, 2026  
 **Status**: Ready for Approval ✅
 
----
 
 *This budget follows industry standards for software development projects and includes all necessary resources for successful project delivery.*
