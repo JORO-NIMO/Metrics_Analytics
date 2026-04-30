@@ -1,9 +1,8 @@
-# 💰 Maternal Health Uganda - Project Budget
+#  Maternal Health Uganda - Project Budget
 ## Team 4 - Software Engineering Project (2026)
 
----
 
-## 📊 **Executive Summary**
+##  **Executive Summary**
 
 | Item | Total Cost (UGX) | Total Cost (USD) |
 |------|------------------|------------------|
@@ -15,9 +14,7 @@
 | **Contingency (10%)** | 2,328,000 | $582 |
 | **GRAND TOTAL** | **25,608,000** | **$6,402** |
 
----
-
-## 👥 **Personnel Costs**
+##  **Personnel Costs**
 
 ### **Development Team (4 Members × 16 Weeks)**
 
@@ -36,9 +33,8 @@
 - **Final Integration & Deployment**: 400,000 UGX
 - **Total Adjusted Personnel**: **17,280,000 UGX**
 
----
 
-## 💻 **Software & Tools**
+##  **Software & Tools**
 
 ### **Development Tools**
 | Tool | Purpose | Cost (UGX) | Duration |
@@ -65,9 +61,8 @@
 
 **Total Software & Tools: 2,020,000 UGX**
 
----
 
-## 🏗️ **Infrastructure Costs**
+##  **Infrastructure Costs**
 
 ### **Development Environment**
 | Item | Purpose | Cost (UGX) | Notes |
@@ -86,9 +81,7 @@
 
 **Total Infrastructure: 1,600,000 UGX**
 
----
-
-## 🧪 **Testing & Quality Assurance**
+##  **Testing & Quality Assurance**
 
 ### **Testing Tools & Frameworks**
 | Tool/Activity | Purpose | Cost (UGX) |
@@ -104,9 +97,8 @@
 
 **Total Testing & QA: 1,300,000 UGX**
 
----
 
-## 📚 **Documentation & Training**
+##  **Documentation & Training**
 
 ### **Documentation**
 | Item | Purpose | Cost (UGX) |
@@ -119,9 +111,8 @@
 
 **Total Documentation: 750,000 UGX**
 
----
 
-## 🔍 **Quality Metrics Implementation**
+##  **Quality Metrics Implementation**
 
 ### **Lectures 09 & 10 Implementation**
 | Component | Cost (UGX) | Description |
@@ -134,9 +125,7 @@
 
 **Total Quality Metrics: 500,000 UGX**
 
----
-
-## ⚠️ **Risk Management & Contingency**
+##  **Risk Management & Contingency**
 
 ### **Contingency Budget (10%)**
 - **Scope Changes**: 800,000 UGX
@@ -147,9 +136,7 @@
 
 **Total Contingency: 2,328,000 UGX**
 
----
-
-## 📈 **Budget Breakdown by Category**
+##  **Budget Breakdown by Category**
 
 ```mermaid
 pie title Budget Distribution
@@ -162,9 +149,7 @@ pie title Budget Distribution
     "Contingency" : 2328000
 ```
 
----
-
-## 🎯 **Value Proposition & ROI**
+##  **Value Proposition & ROI**
 
 ### **Project Benefits**
 | Benefit | Value (UGX) | Description |
@@ -181,9 +166,7 @@ pie title Budget Distribution
 - **Per Team Member**: ~4,320,000 UGX total investment
 - **Return on Investment**: 300%+ (skills + portfolio + impact)
 
----
-
-## 📅 **Budget Timeline**
+##  **Budget Timeline**
 
 ### **Phase 1: Planning & Design (Weeks 1-4)**
 - **Personnel**: 4,320,000 UGX
@@ -208,9 +191,7 @@ pie title Budget Distribution
 - **Deployment**: 300,000 UGX
 - **Total Phase 4**: 2,960,000 UGX
 
----
-
-## 💡 **Cost Optimization Strategies**
+##  **Cost Optimization Strategies**
 
 ### **Free/Open Source Alternatives**
 - **Development Tools**: VS Code, XAMPP, Git (Free)
@@ -228,9 +209,7 @@ pie title Budget Distribution
 - **Iterative Development**: Add features based on feedback
 - **Cloud Services**: Pay-as-you-go hosting options
 
----
-
-## 🏆 **Success Metrics & KPIs**
+##  **Success Metrics & KPIs**
 
 ### **Technical Metrics**
 - **Code Quality**: >80% test coverage
@@ -250,9 +229,7 @@ pie title Budget Distribution
 - **Domain Knowledge**: Healthcare technology understanding
 - **Portfolio**: Production-ready project showcase
 
----
-
-## 📋 **Budget Approval & Tracking**
+##  **Budget Approval & Tracking**
 
 ### **Approval Required**
 - [ ] **Team Lead Approval**
@@ -268,22 +245,13 @@ pie title Budget Distribution
 | 12 | 3,460,000 | TBD | TBD | Phase 3 Testing |
 | 16 | 2,960,000 | TBD | TBD | Final Delivery |
 
----
-
-## 🎯 **Conclusion**
-
-The Maternal Health Uganda project represents a **strategic investment** in:
-- **Healthcare technology** with real social impact
-- **Professional development** for team members
-- **Technical excellence** in software engineering
-- **Community contribution** through open-source solution
+##  **Conclusion**
 
 **Total Investment: 25,608,000 UGX ($6,402)**
 **Expected ROI: 300%+** in skills, experience, and social impact
 
 This budget ensures **high-quality delivery** while maintaining **cost efficiency** and **maximum value** for all stakeholders.
 
----
 
 **Prepared by:** Team 4 - Software Engineering  
 **Date:** April 30, 2026  
