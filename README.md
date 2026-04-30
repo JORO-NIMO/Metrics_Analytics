@@ -58,34 +58,6 @@ A web-based maternal healthcare platform designed to support expectant mothers a
 
 ---
 
-## Quality Metrics
-
-The platform continuously measures the following indicators to ensure a reliable experience for users.
-
-| Indicator | What It Measures | Target |
-|---|---|---|
-| Tracker Accuracy | Calculation error rate per 100 uses | < 0.5% |
-| Tip Coverage | Percentage of health tips reviewed | 100% |
-| Registration Funnel | Signups as a percentage of signup page visits | > 60% |
-| Return Visits | Weekly active users as a percentage of total users | > 40% |
-| Password Security | Percentage of passwords using secure bcrypt hashing | 100% |
-| System Reliability | Critical errors per endpoint per day | 0 |
-| Moderation Speed | Average hours from review submission to approval | < 24h |
-| Content Accuracy | Inaccuracy reports submitted per month | < 3 |
-
-All metrics are collected automatically in the background and visible on the admin dashboard.
-
----
-
-## How Data Is Collected
-
-The platform uses three methods to gather quality data:
-
-- **Direct** — mothers complete a satisfaction survey at `frontend/survey.html`
-- **Automated monitoring** — every login, tracker use, and page view is silently logged in real time
-- **Historical analysis** — the admin dashboard queries accumulated records to identify trends and issues
-
----
 
 ## Project Structure
 
