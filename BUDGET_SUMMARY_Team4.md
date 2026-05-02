@@ -72,8 +72,8 @@
 
 ##  **Quality Metrics Included**
 
-- **Lecture 09**: Reliability metrics implementation
-- **Lecture 10**: Test metrics and coverage analysis
+- Reliability metrics implementation
+-  Test metrics and coverage analysis
 - **Dashboard**: Real-time quality monitoring
 - **Documentation**: Comprehensive project docs
 
